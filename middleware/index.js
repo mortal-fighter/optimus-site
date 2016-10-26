@@ -6,3 +6,7 @@ exports.schedule = require("./schedule");
 exports.prices = require("./prices");
 exports.contacts = require("./contacts");
 exports.pageNotFound = require("./page_not_found");
+
+exports.login = require("./login");
+exports.restricted = require("./restricted");
+

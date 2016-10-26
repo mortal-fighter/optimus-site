@@ -1,0 +1,29 @@
+doctype
+html(lang="ru")
+	head
+		title Академия робототехники ОПТИМУС | О нас
+		meta(charset="UTF-8")
+		meta(name="description", content="Академия робототехники Оптимус")
+		meta(http-equiv="content-language", content="ru")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+		<!-- jquery -->
+		script(src="/lib/jquery/jquery-2.2.3.min.js")
+			
+		<!-- bootstrap -->
+		script(src="/lib/bootstrap/bootstrap.min.js")
+		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap.min.css")
+		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap-theme.css")
+
+		link(rel="stylesheet", type="text/css", href="/css/main.css")
+		script(src="/js/login.js")
+		
+	body
+		- for (var i = 0; i < locals.users.length; i++)
+			p= locals.users[i].id + ' ' + locals.users[i].name
+		div.container
+			form(method="POST", action="")
+				input(type="text", placeholder="Login", value="") 
+				br
+				input(type="text", placeholder="Password", value="")
+				input(type="submit", value="Send") 

@@ -16,6 +16,10 @@ app.get("/schedule", middleware.schedule);
 app.get("/prices", middleware.prices);
 app.get("/contacts", middleware.contacts);
 
+// test
+app.get("/login", middleware.login);
+app.get("/restricted", middleware.restricted);
+
 app.use(express.static("public"));
 app.set('views', "./view/");
 app.set('view engine', 'pug');
