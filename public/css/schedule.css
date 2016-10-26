@@ -1,0 +1,4 @@
+.table>tbody>tr:first-child>td {
+    color: #fff729;
+    font-weight: bold;
+}

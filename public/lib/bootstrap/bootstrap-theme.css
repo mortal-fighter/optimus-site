@@ -1,0 +1,59 @@
+/* N A V B A R */
+
+.navbar-default {
+  background: rgba(0,0,0,0.95);
+  border: none;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #f00;
+    background-color: transparent;
+}
+.navbar-default .navbar-brand {
+	padding: 12px 20px;
+	font: bold 26px Helvetica, Arial, sans-serif;
+	letter-spacing: 2px;
+    color: #f00;
+    text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 
+}
+
+.navbar-default .navbar-nav>li>a {
+    font: 15px Arial, Helvetica, sans-serif;
+    color: #fff;
+    
+}
+.navbar-default .navbar-nav>li>a.current {
+    color: #fff729;
+    font-weight: bold;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #fff729;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+    background-color: transparent;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+}
+.navbar-default .navbar-toggle:hover {
+	border-color: #fff729;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle:hover .icon-bar {
+    background-color: #fff729;
+}
+
+/* C O N T E N T */
+.container {
+    padding-top: 100px;
+}
+
+/* C O L S */
+.col-sm-4, .col-sm-3, .col-xs-6 {
+	padding: 0;
+}

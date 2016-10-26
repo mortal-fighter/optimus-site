@@ -1,0 +1,27 @@
+@media(max-width: 768px) {
+	.home {
+		width: 100%;
+		position: absolute;
+	}
+	.title {
+		margin-bottom: 25px;
+    	display: inline-block;
+		font: 24px Helvetica, Arial, sans-serif;
+		color: #f00;
+  		text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 
+	}
+	.title * {
+		margin-bottom: 5px;
+	}
+	.title .part2 {
+	    margin-left: 50px;
+	}
+	.title .part3 {
+	    margin-left: 125px;
+	}
+}
+
+.navbar-default {
+  background: rgba(0,0,0,0.95);
+  border: none;
+}

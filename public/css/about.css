@@ -1,0 +1,21 @@
+.about {
+	text-align: justify;
+}
+
+.about img[align=left] {
+	margin-right: 20px;
+}
+
+.about img[align=right] {
+	margin-left: 20px;
+}
+
+.about .photo {
+	width: 372px;
+	float: left;
+	margin-right: 10px;
+}
+
+.about .photo:last-child {
+	margin-right: 0;
+}

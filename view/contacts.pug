@@ -1,0 +1,52 @@
+doctype
+html(lang="ru")
+	head
+		title Академия робототехники ОПТИМУС | Контакты
+		meta(charset="UTF-8")
+		meta(name="description", content="Академия робототехники Оптимус")
+		meta(http-equiv="content-language", content="ru")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+		<!-- jquery -->
+		script(src="/lib/jquery/jquery-2.2.3.min.js")
+		
+		<!-- bootstrap -->
+		script(src="/lib/bootstrap/bootstrap.min.js")
+		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap.min.css")
+		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap-theme.css")
+
+		link(rel="stylesheet", type="text/css", href="/css/main.css")
+		link(rel="stylesheet", type="text/css", href="/css/contacts.css")
+		
+	body
+		div.container
+			nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
+				div.navbar-header
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-main")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					span.navbar-brand  
+						span.part1 Академия робототехники 
+						span.part2 "ОПТИМУС" 
+				div#navbar-collapse-main.collapse.navbar-collapse
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href="/") ГЛАВНАЯ
+						li
+							a(href="/about") О НАС
+						li
+							a(href="schedule") РАСПИСАНИЕ
+						li
+							a(href="prices") ЦЕНЫ	
+						li
+							a.current КОНТАКТЫ
+			div.contacts
+				h2 Контактная информация
+				p 
+					| пр. Стачки, 231/2,
+					| научно-образовательный комплекс "Вертикаль"
+					| (ориентир СОШ №60),
+					| тел.: 8 988 534 91 89
+				script(type="text/javascript", charset="utf-8", async="async", src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=LYtMlUX24z0YMQpVDsV-zOe_PhV-8tAS&amp;width=100%&amp;height=450&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true")

@@ -1,0 +1,38 @@
+/* G E N E R A L  S T Y L E S */
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  color: #fff;
+}
+body {
+  background: url('../img/space.jpg') repeat;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: #fff729;
+  font-weight: bold;
+}
+h2 {
+  margin-bottom: 20px;
+}
+span.highlight {
+  color: #fff729;
+  text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 
+}
+span.highlight2 {
+  color: #fff729; 
+}
+span.highlight3 {
+  font-style: italic;
+  font-weight: bold; 
+}
+
+@media(max-width: 768px) {
+  .navbar-brand span.part1 {
+      display: none;
+  }
+}
+
