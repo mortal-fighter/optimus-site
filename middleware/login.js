@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 });
 
 function login(req, res, next) {
-	connection.query('SELECT id, NAME, role FROM `user`', function(err, rows) {
+	connection.query('SELECT id, name, role FROM `user`', function(err, rows) {
 		if (err) {
 			res.render('login');
 			throw err;
