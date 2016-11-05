@@ -15,10 +15,12 @@ app.get("/about", middleware.about);
 app.get("/schedule", middleware.schedule);
 app.get("/prices", middleware.prices);
 app.get("/contacts", middleware.contacts);
+app.get("/infounits", middleware.infounits);
 
 // test
 app.get("/login", middleware.login);
 app.get("/restricted", middleware.restricted);
+app.get("/bbtest", middleware.bbtest);
 
 app.use(express.static("public"));
 app.set('views', "./view/");

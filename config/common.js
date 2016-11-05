@@ -9,5 +9,10 @@ module.exports = {
 		user: 'root',
 		pass: 'root',
 		database: 'optimus'
+	},
+	wysibb: {
+		options: {
+			buttons: "bold,italic,underline,|,img,link"
+		}
 	}
 };
