@@ -10,6 +10,8 @@ if (config.app.mode === "development") {
 	app.locals.pretty = true;
 }
 
+// SITE
+//todo: rewrite middlewares as routers
 app.get("/", middleware.homePage);
 app.get("/about", middleware.about);
 app.get("/schedule", middleware.schedule);
@@ -17,10 +19,15 @@ app.get("/prices", middleware.prices);
 app.get("/contacts", middleware.contacts);
 app.get("/infounits", middleware.infounits);
 
+// ADMIN
+app.use("/admin", require('./routes/admin'));
+
 // test
 app.get("/login", middleware.login);
 app.get("/restricted", middleware.restricted);
 app.get("/bbtest", middleware.bbtest);
+
+
 
 app.use(express.static("public"));
 app.set('views', "./view/");
