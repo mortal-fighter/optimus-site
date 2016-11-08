@@ -1,21 +1,45 @@
 'use strict';
 
-var router = require('express').Router();
+const router = require('express').Router();
+const Promise = require('bluebird');
+const config = require('../../config/common.js');
+const mysql = require('mysql');
+
+//todo: what will be if error happends?
+const connection = Promise.promisifyAll(mysql.createConnection({
+	host: config.database.host,
+	user: config.database.user,
+	password: config.database.password,
+	database: config.database.database
+}));
 
 router.get('/', function(req, res, next) {
-	res.render('admin_news_startup');
-});
-
-router.get('startup', function(req, res, next) {
-	next();
-});
-
-router.get('create', function(req, res, next) {
-	
+	Promise.resolve().then(function() {
+		return connection.queryAsync(`	SELECT id, title, text_short, text_full
+										FROM info_units WHERE info_types_id = 1`);
+	}).then(function(rows) {
+		res.render('admin_news_all', {data: rows});
+	});
 });
 
 router.post('/', function(req, res, next) {
+	res.send('CREATE');
+});
 
+router.put('/:id(\\d+)', function(req, res, next) {
+	res.send('UPDATE');
+});
+
+router.delete('/:id(\\d+)', function(req, res, next) {
+	res.send('DELETE');
 });
 
 module.exports = router;
+
+//optimus.ru/admin/news/all
+//optimus.ru/admin/news/edit 
+// POST - создание новости
+// PUT(id) - редактирование
+// DELETE(id) - удаление
+
+//arr.forEach(callback[, thisArg])
