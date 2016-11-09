@@ -9,7 +9,7 @@
   "author": "kirill.vladykin",
   "license": "ISC",
   "dependencies": {
-  	"pug": "0",
+  	"pug": "2.0.0-beta6",
   	"express": "4",
     "mysql": "2.11.1",
     "bluebird": "3.4.6"

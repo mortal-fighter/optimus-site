@@ -3,7 +3,9 @@
 const router = require('express').Router();
 const Promise = require('bluebird');
 const config = require('../../config/common.js');
+const menuConfig = require('../../config/menu.js');
 const mysql = require('mysql');
+const myUtil = require('../../components/myUtil.js');
 
 //todo: what will be if error happends?
 const connection = Promise.promisifyAll(mysql.createConnection({
@@ -18,7 +20,12 @@ router.get('/', function(req, res, next) {
 		return connection.queryAsync(`	SELECT id, title, text_short, text_full
 										FROM info_units WHERE info_types_id = 1`);
 	}).then(function(rows) {
-		res.render('admin_news_all', {data: rows});
+		
+		res.render('admin_news_all', {
+			news: rows,
+			menu: 
+		});
+
 	});
 });
 

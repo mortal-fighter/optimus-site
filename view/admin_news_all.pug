@@ -19,7 +19,7 @@ html(lang="ru")
 		link(rel="stylesheet", type="text/css", href="/css/admin/news.css")
 		
 	body
-		div.container
+		div.container-fluid
 			nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
 				div.navbar-header
 					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-main")
@@ -29,8 +29,19 @@ html(lang="ru")
 						span.icon-bar
 					span.navbar-brand  
 						span.part Панель администрирования
-				div#navbar-collapse-main.collapse.navbar-collapse
-					ul.nav.navbar-nav.navbar-right
-						li
-							a.current Новости
+			div.left-col.menu-col
+				ul.main-menu
+					- var i = 0
+					each item in locals.menu.items
+						if locals.menu.indexCurrent === i
+							li.current= item.title
+						else
+							li= item.title
+						- i++
 			div.content
+				each val in locals.news
+					section.news 
+						h2= val.title
+						div.news-short-desc= val.text_short
+						div.news-content= val.text_full
+				
