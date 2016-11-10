@@ -1,0 +1,15 @@
+.icon {
+	float: left;
+	margin-right: 3px;
+	width: 36px;
+	height: 36px;
+	background: url(../img/icons_36x36.png);
+}
+
+.icon:last-child {
+	margin-right: 0;
+}
+
+.i-add {
+	background-position: -152px 0;
+}

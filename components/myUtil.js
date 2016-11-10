@@ -5,15 +5,15 @@ module.exports = {
 	// `req` current request object
 	menuGenerate: function(source, req) {
 		var ind = -1;
-		for (var i = 0; i < menuConfig.menuAdmin.length; i++) {
-			if (req.baseUrl === menuConfig.menuAdmin[i].href) {
+		for (var i = 0; i < source.length; i++) {
+			if (req.baseUrl === source[i].href) {
 				ind = i;
 				break;
 			}
-		};
+		}
 		return {
-				items: menuConfig.menuAdmin,
-				indexCurrent: ind
-			}
+			items: source,
+			indexCurrent: ind
+		};
 	}
 };

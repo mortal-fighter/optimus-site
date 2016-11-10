@@ -1,47 +1,31 @@
 doctype
 html(lang="ru")
-	head
-		title Панель администрирования | Новости
-		meta(charset="UTF-8")
-		meta(name="description", content="Академия робототехники Оптимус")
-		meta(http-equiv="content-language", content="ru")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
-
-		<!-- jquery -->
-		script(src="/lib/jquery/jquery-2.2.3.min.js")
-			
-		<!-- bootstrap -->
-		script(src="/lib/bootstrap/bootstrap.min.js")
-		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap.min.css")
-		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap-theme.css")
-
-		link(rel="stylesheet", type="text/css", href="/css/admin/main.css")
-		link(rel="stylesheet", type="text/css", href="/css/admin/news.css")
-		
+	include includes/admin_head.pug	
 	body
 		div.container-fluid
-			nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
-				div.navbar-header
-					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-main")
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					span.navbar-brand  
-						span.part Панель администрирования
-			div.left-col.menu-col
-				ul.main-menu
-					- var i = 0
-					each item in locals.menu.items
-						if locals.menu.indexCurrent === i
-							li.current= item.title
-						else
-							li= item.title
-						- i++
-			div.content
+			include includes/admin_navbar.pug
+			include includes/admin_menu_col.pug
+			div.breadcrubms
+				//- var i = 0
+				//- var len = locals.breadcrumbs.length
+				//each val in locals.breadcrumbs
+					a(href=""+val.href)= val.title
+					if i < len - 1 
+						span /
+					- i++
+			div.right-col.content
+				p
+					a(href='/admin/news/create')
+						img.icon.i-add
+						span Добавить новость
 				each val in locals.news
-					section.news 
-						h2= val.title
-						div.news-short-desc= val.text_short
-						div.news-content= val.text_full
+					section.news-item
+						table.news-table
+							tr
+								td.news-img
+									img(src="/img/no-photo.png")
+								td.news-content
+									h2= val.title
+									div.news-short-desc= val.text_short
+									div.news-content= val.text_full
 				

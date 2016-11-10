@@ -7,6 +7,8 @@ const menuConfig = require('../../config/menu.js');
 const mysql = require('mysql');
 const myUtil = require('../../components/myUtil.js');
 
+var menuGenerated;
+
 //todo: what will be if error happends?
 const connection = Promise.promisifyAll(mysql.createConnection({
 	host: config.database.host,
@@ -15,17 +17,32 @@ const connection = Promise.promisifyAll(mysql.createConnection({
 	database: config.database.database
 }));
 
+router.all('*', function(req, res, next) {
+	menuGenerated = myUtil.menuGenerate(menuConfig.menuAdmin, req);
+	
+	next();
+});
+
 router.get('/', function(req, res, next) {
 	Promise.resolve().then(function() {
 		return connection.queryAsync(`	SELECT id, title, text_short, text_full
-										FROM info_units WHERE info_types_id = 1`);
-	}).then(function(rows) {
-		
+										FROM info_units WHERE info_types_id = ?`, ['1']);
+	}).then(function(rows) {	
 		res.render('admin_news_all', {
 			news: rows,
-			menu: 
+			menu: menuGenerated
 		});
+	}).catch(function(err) {
+		console.log(err);
+	});
+});
 
+router.get('/create', function(req, res, next) {
+	
+	res.render('admin_news_create', {
+		message: '',
+		messageType: 'success', 
+		menu: menuGenerated
 	});
 });
 

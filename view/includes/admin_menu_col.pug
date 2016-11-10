@@ -1,0 +1,9 @@
+div.left-col.menu-col
+	ul.main-menu
+		- var i = 0
+		each item in locals.menu.items
+			if locals.menu.indexCurrent === i
+				li.current= item.title
+			else
+				li= item.title
+			- i++	

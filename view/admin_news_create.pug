@@ -1,0 +1,34 @@
+doctype
+html(lang="ru")
+	head
+		include includes/admin_head_common.pug	
+		script(src="/lib/wysibb/jquery.wysibb.min.js")
+		script(src="/lib/wysibb/lang/ru.js")
+		link(rel="stylesheet", type="text/css", href="/lib/wysibb/wbbtheme.css")
+		script(src="/js/admin/news_create.js")
+	body
+		div.container-fluid
+			include includes/admin_navbar.pug
+			include includes/admin_menu_col.pug
+			div.breadcrubms
+				//- var i = 0
+				//- var len = locals.breadcrumbs.length
+				//each val in locals.breadcrumbs
+					a(href=""+val.href)= val.title
+					if i < len - 1 
+						span /
+					- i++
+			div.right-col.content
+				form
+					div.message(class="msg-"+locals.messageType)= locals.message
+					div.form-group
+						label(for="title") * Заголовок новости (макс. 120 символов)
+						input(type="text", class="form-control", id="title", placeholder="")
+					div.form-group
+						label(for="text-short") Краткий текст новости (макс. 300 символов)
+						input(type="text", class="form-control", id="text-short", placeholder="")
+					div.form-group
+						label(for="text-short") * Полный текст новости			
+						textarea(class="form-control", id="text-full", rows="5")
+					p Поля, помеченные * обязательны для заполнения
+					button(type="submit", class="btn btn-default") Готово
