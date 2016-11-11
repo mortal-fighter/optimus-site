@@ -47,7 +47,11 @@ router.get('/create', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	res.send('CREATE');
+	// 201 
+	// location /customers/{id}
+	Promise.resolve().then(function() {
+		// req.body
+	})
 });
 
 router.put('/:id(\\d+)', function(req, res, next) {
