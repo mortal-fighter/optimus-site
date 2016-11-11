@@ -1,0 +1,26 @@
+table.news-table {
+    width: 100%;
+    margin-top: 15px;
+    vertical-align: top;
+}
+
+td.news-img {
+    width: 240px;
+    text-align: center;
+}
+
+td.news-content {
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+td.news-img img {
+    display: inline-block;
+    max-width: 240px;
+    max-height: 240px;
+}
+
+.news-content h2 {
+    margin: 15px 0;
+}

@@ -19,16 +19,25 @@ html(lang="ru")
 						span /
 					- i++
 			div.right-col.content
-				form
+				form(class="form-horizontal")
 					div.message(class="msg-"+locals.messageType)= locals.message
+					h2 Создать новость
 					div.form-group
-						label(for="title") * Заголовок новости (макс. 120 символов)
-						input(type="text", class="form-control", id="title", placeholder="")
+						label(for="title", class="col-sm-3 control-label") * Заголовок новости
+						div.col-sm-9
+							input(type="text", class="form-control", id="title", placeholder="макс. 120 символов")
 					div.form-group
-						label(for="text-short") Краткий текст новости (макс. 300 символов)
-						input(type="text", class="form-control", id="text-short", placeholder="")
+						label(for="picture", class="col-sm-3 control-label") Картинка к новости
+						div.col-sm-9
+							input(type="file", id="picture", placeholder="", disabled)
 					div.form-group
-						label(for="text-short") * Полный текст новости			
-						textarea(class="form-control", id="text-full", rows="5")
+						label(for="text-short", class="col-sm-3 control-label") Краткий текст новости
+						div.col-sm-9
+							input(type="text", class="form-control", id="text-short", placeholder="макс. 300 символов")
+					div.form-group
+						label(for="text-full", class="col-sm-3 control-label") * Полный текст новости			
+						div.col-sm-9
+							textarea(class="form-control", id="text-full", rows="5")
 					p Поля, помеченные * обязательны для заполнения
-					button(type="submit", class="btn btn-default") Готово
+					button(type="button", class="btn btn-default", id="news-create") Готово
+					button(type="button", class="btn btn-cancel", id="news-cancel") Отмена
