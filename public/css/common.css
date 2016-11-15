@@ -11,5 +11,13 @@
 }
 
 .i-add {
-	background-position: -152px 0;
+    background-position: -150px 0;
+}
+
+.i-edit {
+    background-position: -38px 0px;
+}
+
+.i-delete {
+    background-position: -188px 0px;
 }

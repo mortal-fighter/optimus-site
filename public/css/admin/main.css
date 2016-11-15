@@ -75,3 +75,18 @@ form {
     margin-top: 15px;
 }
 
+.message {
+    margin-bottom: 10px;
+    padding: 12px;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+}
+
+.msg-success {
+    background: lightgreen;
+}
+
+.msg-error {
+    background: lightcoral;
+}

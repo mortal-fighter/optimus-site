@@ -20,8 +20,8 @@ html(lang="ru")
 					- i++
 			div.right-col.content
 				form(class="form-horizontal")
-					div.message(class="msg-"+locals.messageType)= locals.message
 					h2 Создать новость
+					div.message(class="msg-"+locals.messageType)= locals.message
 					div.form-group
 						label(for="title", class="col-sm-3 control-label") * Заголовок новости
 						div.col-sm-9
@@ -38,6 +38,10 @@ html(lang="ru")
 						label(for="text-full", class="col-sm-3 control-label") * Полный текст новости			
 						div.col-sm-9
 							textarea(class="form-control", id="text-full", rows="5")
+					div.form-group
+						label(for="text-full", class="col-sm-3 control-label") Опубликовать новость ?			
+						div.col-sm-9
+							input(type="checkbox", id="is-published")
 					p Поля, помеченные * обязательны для заполнения
 					button(type="button", class="btn btn-default", id="news-create") Готово
 					button(type="button", class="btn btn-cancel", id="news-cancel") Отмена

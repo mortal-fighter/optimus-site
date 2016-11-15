@@ -2,6 +2,7 @@ doctype
 html(lang="ru")
 	head
 		include includes/admin_head_common.pug	
+		script(src="/js/admin/news_all.js")
 	body
 		div.container-fluid
 			include includes/admin_navbar.pug
@@ -15,18 +16,28 @@ html(lang="ru")
 						span /
 					- i++
 			div.right-col.content
-				p
-					a(href='/admin/news/create')
-						img.icon.i-add
-						span Добавить новость
+				div.control-row
+					div.icon.i-add
+					a#news-add(href="/admin/news/create") Добавить новость
 				each val in locals.news
-					section.news-item
+					section.news-item(news-id='' + val.id)
 						table.news-table
 							tr
 								td.news-img
-									img(src="/img/no-photo.png")
+									img(src="/img/no-photo-999.png")
 								td.news-content
 									h2= val.title
+									if val.is_published
+										span.published &nbsp;(опубликована)
+									else 
+										span.not-published &nbsp;(не опубликована)	
+									ul.news-actions
+										li
+											div.news-edit.icon.i-edit
+										li
+											div.news-delete.icon.i-delete
 									div.news-short-desc= val.text_short
-									div.news-content= val.text_full
+					div.news-restore(news-restore-id='' + val.id) Новость удалена
+						a Восстановить
+
 				
