@@ -1,4 +1,4 @@
-(function() {
+(function(window) {
 	'use strict';
 
 	function newsItemRemove(id) {
@@ -13,7 +13,9 @@
 
 	function attachHandlers() {
 		$('.news-edit').on('click', function() {
-
+			var section = $(this).parents('section.news-item');
+			var id = section.attr('news-id');
+			window.location.href='/admin/news/edit/' + id;
 		});
 
 		$('.news-delete').on('click', function() {
@@ -24,10 +26,8 @@
 			if (confirm('Вы действительно хотите удалить "' + title + '"?')) {
 				$.ajax({
 					method: 'DELETE',
-					url: '/admin/news',
-					data: { 
-						id: id
-					},
+					url: '/admin/news/' + id,
+					context: window,
 					success: function(data) {
 						switch (data.code) {
 							case 200: 
@@ -48,10 +48,10 @@
 
 		$('.news-restore a').on('click', function() {
 			var id = $(this).parents('.news-restore').attr('news-restore-id');
-			console.log('Восстановить по иду ', id);
-			/*$.ajax({
-				method: 'DELETE',
-				url: '/admin/news',
+			
+			$.ajax({
+				method: 'POST',
+				url: '/admin/news/restore',
 				data: { 
 					id: id
 				},
@@ -59,7 +59,7 @@
 					switch (data.code) {
 						case 200: 
 							showMessage('success', data.message);
-							newsItemRemove(id);
+							newsItemRestore(id);
 							break;
 						case 404:
 							showMessage('error', data.message);
@@ -69,7 +69,7 @@
 				error: function() {
 					showMessage('error', 'Ошибка интернет-соединения');
 				}
-			});*/
+			});
 		});
 	}
 
@@ -77,4 +77,4 @@
 		attachHandlers();
 	});
 
-})();
+})(window);

@@ -1,0 +1,50 @@
+doctype
+html(lang="ru")
+	head
+		include includes/admin_head_common.pug	
+		script(src="/lib/wysibb/jquery.wysibb.min.js")
+		script(src="/lib/wysibb/lang/ru.js")
+		link(rel="stylesheet", type="text/css", href="/lib/wysibb/wbbtheme.css")
+		script(src="/js/admin/news_edit.js")
+	body
+		div.container-fluid
+			include includes/admin_navbar.pug
+			include includes/admin_menu_col.pug
+			div.breadcrubms
+				//- var i = 0
+				//- var len = locals.breadcrumbs.length
+				//each val in locals.breadcrumbs
+					a(href=""+val.href)= val.title
+					if i < len - 1 
+						span /
+					- i++
+			div.right-col.content
+				form(class="form-horizontal news-form", news-id= locals.newsOnce.id)
+					h2 Редактировать новость
+					div.message(class="msg-"+locals.messageType)= locals.message
+					div.form-group
+						label(for="title", class="col-sm-3 control-label") * Заголовок новости
+						div.col-sm-9
+							input(type="text", class="form-control", id="title", placeholder="макс. 120 символов", value= locals.newsOnce.title)
+					div.form-group
+						label(for="picture", class="col-sm-3 control-label") Картинка к новости
+						div.col-sm-9
+							input(type="file", id="picture", placeholder="", disabled)
+					div.form-group
+						label(for="text-short", class="col-sm-3 control-label") Краткий текст новости
+						div.col-sm-9
+							input(type="text", class="form-control", id="text-short", placeholder="макс. 300 символов", value= locals.newsOnce.text_short)
+					div.form-group
+						label(for="text-full", class="col-sm-3 control-label") * Полный текст новости			
+						div.col-sm-9
+							textarea(class="form-control", id="text-full", rows="5")= locals.newsOnce.text_full
+					div.form-group
+						label(for="text-full", class="col-sm-3 control-label") Опубликовать новость ?			
+						div.col-sm-9
+							if locals.newsOnce.is_published
+								input(type="checkbox", id="is-published" checked)
+							else
+								input(type="checkbox", id="is-published")
+					p Поля, помеченные * обязательны для заполнения
+					button(type="button", class="btn btn-default", id="news-edit") Готово
+					button(type="button", class="btn btn-cancel", id="news-cancel") Отмена

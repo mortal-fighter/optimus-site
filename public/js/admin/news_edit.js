@@ -1,6 +1,6 @@
-(function() {
+(function(window) {
 	'use strict';
-	
+
 	function initBBEditor() {
 		var wbbOpt = {
 			lang: 'ru',
@@ -10,11 +10,15 @@
 	}
 
 	function attachHandlers() {
-		$('#news-create').on('click', function() {
+		
+		$('#news-edit').on('click', function() {
+			var id = $('form.news-form').attr('news-id');
+
 			if (validateForm()) {
 				$.ajax({
-					method: 'POST',
-					url: '/admin/news',
+					method: 'PUT',
+					url: '/admin/news/' + id,
+					context: window,
 					data: { 
 						title: $('#title').val().trim(), 
 						textShort: $('#text-short').val().trim(), 
@@ -38,7 +42,7 @@
 			}
 		});
 		$('#news-cancel').on('click', function() {
-			//todo: is it always corrent return address
+			//todo: is it always corrent return address ?
 			window.location.href='/admin/news';
 		});
 	}
@@ -78,4 +82,8 @@
 		attachHandlers();
 		showMessageExists();
 	});	
-})()
+
+})(window);
+
+
+

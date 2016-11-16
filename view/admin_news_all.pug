@@ -16,6 +16,7 @@ html(lang="ru")
 						span /
 					- i++
 			div.right-col.content
+				div.message(class="msg-"+locals.messageType)= locals.message
 				div.control-row
 					div.icon.i-add
 					a#news-add(href="/admin/news/create") Добавить новость
@@ -24,20 +25,20 @@ html(lang="ru")
 						table.news-table
 							tr
 								td.news-img
-									img(src="/img/no-photo-999.png")
+									img(src="/img/no-photo.png")
 								td.news-content
 									h2= val.title
-									if val.is_published
-										span.published &nbsp;(опубликована)
-									else 
-										span.not-published &nbsp;(не опубликована)	
+										if val.is_published
+											span.published &nbsp;(опубликована)
+										else 
+											span.not-published &nbsp;(не опубликована)	
+									div.news-short-desc= val.text_short
 									ul.news-actions
 										li
 											div.news-edit.icon.i-edit
 										li
 											div.news-delete.icon.i-delete
-									div.news-short-desc= val.text_short
-					div.news-restore(news-restore-id='' + val.id) Новость удалена
+					div.news-restore(news-restore-id='' + val.id) Новость удалена.
 						a Восстановить
 
 				

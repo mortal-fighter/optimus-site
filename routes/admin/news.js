@@ -14,26 +14,24 @@ function validateNews(news) {
 		throw new Error(`Parameters validation error: ${news.title}.`);
 	}
 	
-	if (news.title.length > 120) {
+	if (news.title.length > 180) {
 		throw new Error(`Parameters validation error: textTitle.Length = ${news.textTitle.length}.`);
 	} 
 
-	if (news.textShort.length > 120) {
+	if (news.textShort.length > 450) {
 		throw new Error(`Parameters validation error: textShort.Length = ${news.textShort.length}.`);
 	}		
 
 	if (!news.textFull) {
 		throw new Error(`Parameters validation error: textFull = ${news.textFull}.`);
 	}
-	
-	if (news.textFull.length > 300) {
-		throw new Error(`Parameters validation error: textFull.Length = ${news.textFull.length}.`);
-	}	
 
 	if (!news.isPublished) {
 		throw new Error(`Parameters validation error: isPublished = ${news.isPublished}.`);
 	}
 }
+
+
 
 //todo: what will be if error happends?
 const connection = Promise.promisifyAll(mysql.createConnection({
@@ -80,11 +78,13 @@ router.all('*', function(req, res, next) {
 router.get('/', function(req, res, next) {
 	Promise.resolve().then(function() {
 		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published
-										FROM info_units WHERE info_types_id = ?`, ['1']);
+										FROM info_units WHERE info_types_id = ? && date_deleted is null`, ['1']);
 	}).then(function(rows) {	
 		res.render('admin_news_all', {
 			news: rows,
-			menu: menuGenerated
+			menu: menuGenerated,
+			message: '',
+			messageType: ''
 		});
 	}).catch(function(err) {
 		console.log(err);
@@ -95,8 +95,37 @@ router.get('/create', function(req, res, next) {
 	
 	res.render('admin_news_create', {
 		message: '',
-		messageType: 'success', 
+		messageType: '', 
 		menu: menuGenerated
+	});
+});
+
+router.get('/edit/:id(\\d+)', function(req, res, next) {
+	Promise.resolve().then(function() {
+		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published
+										FROM info_units WHERE id = ${req.params.id}`);
+	}).then(function(rows) {
+		console.log(JSON.stringify(rows));
+
+		if (rows.length < 1) {
+			throw new Error('No news were found.')
+		} else if (rows.length > 1) {
+			throw new Error('Duplicate news were found');
+		}
+
+
+		res.render('admin_news_edit', {
+			message: '',
+			messageType: '', 
+			menu: menuGenerated,
+			newsOnce: rows[0]
+		});
+	}).catch(function(err) {
+		console.log(err.message, err.stack);
+		res.json({
+			code: 404,
+			message: 'Ошибка при загрузке'
+		})
 	});
 });
 
@@ -110,11 +139,8 @@ router.post('/', function(req, res, next) {
 			throw new Error('Parameters validation error. Length = ' + req.body.textShort.length);
 		}
 		
-		//todo: fix a bug
-		var textShort = (req.body.title) ? '\'' + req.body.title + '\'' : 'NULL';
-		isPublished = req.body.isPublished;
-		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, isPublished) 
-					VALUES ('${req.body.title}', ${textShort}, '${req.body.textFull}', 1, ${req.body.isPublished})`;
+		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published) 
+					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 1, ${req.body.isPublished})`;
 		console.log(sql);
 		return connection.queryAsync(sql);
 	}).then(function() {
@@ -126,18 +152,14 @@ router.post('/', function(req, res, next) {
 		}
 		res.json({
 			code: 200,
-			data: {
-				message: message
-			}
+			message: message
 		});
 	}).catch(function(err) {
 		// todo: logging
 		console.log(err.message, err.stack);
 		res.json({
 			code: 404,
-			data: {
-				message: 'Новость не создана'
-			}
+			message: 'Новость не создана'
 		});
 	})
 });
@@ -147,8 +169,8 @@ router.put('/:id(\\d+)', function(req, res, next) {
 		
 		validateNews(req.body); // it'll throw an exception if validation fails
 
-		var sql = `	UPDATE info_units 
-					SET title = ${req.body.title},
+		var sql = `UPDATE info_units
+						SET title = ${req.body.title},
 						text_short = ${req.body.textShort},
 						text_full = ${req.body.textFull},
 						is_published = ${req.body.isPublished},
@@ -160,18 +182,14 @@ router.put('/:id(\\d+)', function(req, res, next) {
 	}).then(function() {
 		res.json({
 			code: 200,
-			data: {
-				message: 'Новость успешно обновлена'
-			}
+			message: 'Новость успешно обновлена'
 		});
 	}).catch(function(err) {
 		// todo: logging
 		console.log(err.message, err.stack);
 		res.json({
 			code: 404,
-			data: {
-				message: 'Новость не обновлена'
-			}
+			message: 'Новость не обновлена'
 		});
 	})
 });
@@ -197,18 +215,49 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 	}).then(function() {
 		res.json({
 			code: 200,
-			data: {
-				message: 'Новость была удалена'
-			}
+			message: 'Новость была удалена'
 		});
 	}).catch(function(err) {
 		// todo: logging
 		console.log(err.message, err.stack);
 		res.json({
 			code: 404,
-			data: {
-				message: 'Новость не удалена'
+			message: 'Новость не удалена'
+		});
+	})
+});
+
+router.post('/restore', function(req, res, next) {
+	Promise.resolve().then(function() {	
+		var sql = `SELECT COUNT(*) AS 'is_deleted' FROM info_units WHERE id = ${req.body.id} AND date_deleted IS NOT NULL;`;
+		console.log(sql);
+		
+		return connection.queryAsync(sql).then(function(rows) {
+			
+			// if this news is not deleted, then throwing error
+			if (rows[0].is_deleted === 0) {
+				throw new Error('Cannot restore news which is not deleted yet');
 			}
+		
+			var sql = `	UPDATE info_units 
+						SET date_deleted = NULL
+						WHERE id = ${req.body.id}`;
+			console.log(sql);
+		
+			return connection.queryAsync(sql);	
+		});
+	}).then(function() {
+		res.json({
+			code: 200,
+			message: 'Новость восстановлена'
+
+		});
+	}).catch(function(err) {
+		// todo: logging
+		console.log(err.message, err.stack);
+		res.json({
+			code: 404,
+			message: 'Новость не восстановлена'
 		});
 	})
 });
