@@ -10,6 +10,7 @@ const myUtil = require('../../components/myUtil.js');
 var menuGenerated;
 
 function validateNews(news) {
+
 	if (!news.title) {
 		throw new Error(`Parameters validation error: ${news.title}.`);
 	}
@@ -29,9 +30,11 @@ function validateNews(news) {
 	if (!news.isPublished) {
 		throw new Error(`Parameters validation error: isPublished = ${news.isPublished}.`);
 	}
+
+	if (!news.infoTypesId) {
+		throw new Error(`Parameters validation error: infoTypesId = ${news.infoTypesId}.`);	
+	}
 }
-
-
 
 //todo: what will be if error happends?
 const connection = Promise.promisifyAll(mysql.createConnection({
@@ -72,13 +75,15 @@ router.all('*', function(req, res, next) {
 		}
 	}
 
+	req['user'] = {};
+
 	next();
 });
 
 router.get('/', function(req, res, next) {
 	Promise.resolve().then(function() {
-		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published
-										FROM info_units WHERE info_types_id = ? && date_deleted is null`, ['1']);
+		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
+										FROM info_units WHERE date_deleted is null`);
 	}).then(function(rows) {	
 		res.render('admin_news_all', {
 			news: rows,
@@ -92,20 +97,30 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/create', function(req, res, next) {
-	
-	res.render('admin_news_create', {
-		message: '',
-		messageType: '', 
-		menu: menuGenerated
-	});
+	Promise.resolve().then(function() {
+		var sql = `SELECT id, name FROM info_types`;
+		console.log(sql);
+		return connection.queryAsync(sql);
+	}).then(function(infoTypes) {
+		res.render('admin_news_create', {
+			message: '',
+			messageType: '', 
+			menu: menuGenerated,
+			infoTypes: infoTypes
+		});	
+	})
 });
 
 router.get('/edit/:id(\\d+)', function(req, res, next) {
 	Promise.resolve().then(function() {
+		var sql = `SELECT id, name FROM info_types`;
+		console.log(sql);
+		return connection.queryAsync(sql);
+	}).then(function(infoTypes) {
+		req.user.infoTypes = infoTypes;
 		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published
 										FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
-		console.log(JSON.stringify(rows));
 
 		if (rows.length < 1) {
 			throw new Error('No news were found.')
@@ -113,12 +128,14 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 			throw new Error('Duplicate news were found');
 		}
 
+		console.log(JSON.stringify(rows[0]), JSON.stringify(req.user.infoTypes));
 
 		res.render('admin_news_edit', {
 			message: '',
 			messageType: '', 
 			menu: menuGenerated,
-			newsOnce: rows[0]
+			newsOnce: rows[0],
+			infoTypes: req.user.infoTypes
 		});
 	}).catch(function(err) {
 		console.log(err.message, err.stack);
@@ -132,15 +149,11 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var isPublished;
 	Promise.resolve().then(function() {
-		if (req.body.title.length > 120) {
-			throw new Error('Parameters validation error. Length = ' + req.body.title.length);
-		} 
-		if (req.body.textShort.length > 300) {
-			throw new Error('Parameters validation error. Length = ' + req.body.textShort.length);
-		}
+		validateNews(req.body);	
 		
 		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published) 
-					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 1, ${req.body.isPublished})`;
+					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 
+							${req.body.infoTypesId}, ${req.body.isPublished})`;
 		console.log(sql);
 		return connection.queryAsync(sql);
 	}).then(function() {
@@ -174,7 +187,8 @@ router.put('/:id(\\d+)', function(req, res, next) {
 						text_short = ${req.body.textShort},
 						text_full = ${req.body.textFull},
 						is_published = ${req.body.isPublished},
-						date_updated = NOW()
+						date_updated = NOW(),
+						info_types_id = ${req.body.infoTypesId}
 					WHERE id = ${req.params.id}`;
 		console.log(sql);
 		

@@ -2,9 +2,9 @@
 
 function showMessage(type, text) {
 	var msgDIV = $('.message');
+	msgDIV.removeClass('msg-success').removeClass('msg-error');
 	msgDIV.addClass('msg-' + type).html(text)
 	_showMessage(msgDIV);
-	msgDIV.removeClass('msg-' + type);
 }
 
 function showMessageExists() {
@@ -19,7 +19,7 @@ function _showMessage(div) {
 }
 
 //todo: взял с потолка, нужно точно вычислить
-const gap = 35;
+const gap = 60;
 
 function resizeColumns() {
 	$('.right-col').outerWidth($('.container-fluid').outerWidth() - $('.left-col').outerWidth() - gap);

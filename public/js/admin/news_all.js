@@ -21,8 +21,8 @@
 		$('.news-delete').on('click', function() {
 			var section = $(this).parents('section.news-item');
 			var id = section.attr('news-id');
-			var title = section.find('h2').html();
-
+			var rawTitle = section.find('h2').html();
+			var title = rawTitle.substring(0, rawTitle.lastIndexOf('<span '));
 			if (confirm('Вы действительно хотите удалить "' + title + '"?')) {
 				$.ajax({
 					method: 'DELETE',

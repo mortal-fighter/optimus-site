@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	
+
 	function initBBEditor() {
 		var wbbOpt = {
 			lang: 'ru',
@@ -19,12 +19,14 @@
 						title: $('#title').val().trim(), 
 						textShort: $('#text-short').val().trim(), 
 						textFull: $('#text-full').bbcode(),
-						isPublished: $('#is-published').prop('checked')
+						isPublished: $('#is-published').prop('checked'),
+						infoTypesId: $('#info-types-id').val()
 					},
 					success: function(data) {
 						switch (data.code) {
 							case 200: 
 								showMessage('success', data.message);
+								clearForm();
 								break;
 							case 404:
 								showMessage('error', data.message);
@@ -71,6 +73,13 @@
 		}
 
 		return true;
+	}
+
+	function clearForm() {
+		$('#title, #text-short').val('');
+		$('#text-full').htmlcode('');
+		$('#is-published').prop('checked', false);
+		$('#info-types-id option').prop('selected', false).eq(0).prop('selected', true);
 	}
 
 	$(document).ready(function() {

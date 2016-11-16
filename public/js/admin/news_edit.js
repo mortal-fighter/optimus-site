@@ -23,7 +23,8 @@
 						title: $('#title').val().trim(), 
 						textShort: $('#text-short').val().trim(), 
 						textFull: $('#text-full').bbcode(),
-						isPublished: $('#is-published').prop('checked')
+						isPublished: $('#is-published').prop('checked'),
+						infoTypesId: $('#info-types-id').val()
 					},
 					success: function(data) {
 						switch (data.code) {

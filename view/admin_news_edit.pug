@@ -39,6 +39,15 @@ html(lang="ru")
 						div.col-sm-9
 							textarea(class="form-control", id="text-full", rows="5")= locals.newsOnce.text_full
 					div.form-group
+						label(for="info-type-id", class="col-sm-3 control-label") Категория
+						div.col-sm-9
+							select(class="form-control", id="info-types-id")
+								each type in locals.infoTypes
+									if type.id === locals.newsOnce.info_types_id
+										option(value=""+type.id, checked="true")= type.name
+									else
+										option(value=""+type.id)= type.name
+					div.form-group
 						label(for="text-full", class="col-sm-3 control-label") Опубликовать новость ?			
 						div.col-sm-9
 							if locals.newsOnce.is_published
@@ -47,4 +56,4 @@ html(lang="ru")
 								input(type="checkbox", id="is-published")
 					p Поля, помеченные * обязательны для заполнения
 					button(type="button", class="btn btn-default", id="news-edit") Готово
-					button(type="button", class="btn btn-cancel", id="news-cancel") Отмена
+					button(type="button", class="btn btn-cancel", id="news-cancel") Назад

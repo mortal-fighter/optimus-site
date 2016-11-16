@@ -89,3 +89,8 @@ ul.news-actions {
     margin-left: 5px;
     cursor: pointer;
 }
+
+#is-published {
+    width: 20px;
+    background-color: #fff;
+}

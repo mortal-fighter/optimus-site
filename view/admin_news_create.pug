@@ -39,9 +39,15 @@ html(lang="ru")
 						div.col-sm-9
 							textarea(class="form-control", id="text-full", rows="5")
 					div.form-group
+						label(for="info-type-id", class="col-sm-3 control-label") Категория			
+						div.col-sm-9
+							select(class="form-control", id="info-types-id")
+								each type in locals.infoTypes
+									option(value=""+type.id)= type.name
+					div.form-group
 						label(for="text-full", class="col-sm-3 control-label") Опубликовать новость ?			
 						div.col-sm-9
-							input(type="checkbox", id="is-published")
+							input(class="form-control" type="checkbox", id="is-published")
 					p Поля, помеченные * обязательны для заполнения
-					button(type="button", class="btn btn-default", id="news-create") Готово
-					button(type="button", class="btn btn-cancel", id="news-cancel") Отмена
+					button(type="button", class="btn btn-default", id="news-create") Создать
+					button(type="button", class="btn btn-cancel", id="news-cancel") Назад
