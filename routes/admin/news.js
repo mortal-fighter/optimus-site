@@ -7,6 +7,23 @@ const menuConfig = require('../../config/menu.js');
 const mysql = require('mysql');
 const myUtil = require('../../components/myUtil.js');
 
+// File uploading with Multer
+const multer = require('multer');
+const multerStorage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/img/uploads')
+	},
+	filename: function (req, file, cb) {
+		var ext = file.originalname.substring(file.originalname.lastIndexOf('.'));
+		cb(null, Date.now() + ext)
+	}
+})
+const multerLimits = {
+	fileSize: 1024 * 1024 * 20
+}
+const upload = multer({ storage: multerStorage, limits:  multerLimits })
+
+
 var menuGenerated;
 
 function validateNews(news) {
@@ -45,6 +62,10 @@ const connection = Promise.promisifyAll(mysql.createConnection({
 }));
 
 router.all('*', function(req, res, next) {
+	if (!req.isAuth) {
+		res.send('У Вас не достаточно прав для доступа к данному ресурсу.');
+	}
+
 	menuGenerated = myUtil.menuGenerate(menuConfig.menuAdmin, req);
 	
 
@@ -93,6 +114,25 @@ router.get('/', function(req, res, next) {
 		});
 	}).catch(function(err) {
 		console.log(err);
+	});
+});
+
+router.get('/type/:type(\\d+)', function(req, res, next) {
+	Promise.resolve().then(function() {
+		return connection.queryAsync(`	
+SELECT id, title, text_short, text_full, is_published, info_types_id
+FROM info_units 
+WHERE date_deleted IS NULL 
+	AND is_published = 1
+	AND info_types_id = ${req.params.type}
+ORDER BY date_published DESC`);
+	}).then(function(rows) {	
+		res.render('_news_by_cat.pug', {
+			news: rows
+		});
+	}).catch(function(err) {
+		console.log(err.message, err.stack);
+		// todo: страница может зависнуть
 	});
 });
 
@@ -275,6 +315,10 @@ router.post('/restore', function(req, res, next) {
 		});
 	})
 });
+
+router.post('/upload_picture', upload.single('picture'), function (req, res, next) {
+	
+})
 
 module.exports = router;
 

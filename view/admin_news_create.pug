@@ -19,17 +19,23 @@ html(lang="ru")
 						span /
 					- i++
 			div.right-col.content
+				h2 Создать новость
+				form(id="form-upload", method="POST", action="/admin/news/upload_picture", enctype="multipart/form-data", target="iframe-upload", class="form-horizontal")
+					div.form-group
+						label(for="picture", class="col-sm-3 control-label") Фотография к новости
+						div.col-sm-9
+							input(type="file", name="picture", placeholder="")
+							input(type="submit", value="Загрузить")
+				
+				iframe(style="display: block", name="iframe-upload")
+				
 				form(class="form-horizontal")
-					h2 Создать новость
+					
 					div.message(class="msg-"+locals.messageType)= locals.message
 					div.form-group
 						label(for="title", class="col-sm-3 control-label") * Заголовок новости
 						div.col-sm-9
 							input(type="text", class="form-control", id="title", placeholder="макс. 120 символов")
-					div.form-group
-						label(for="picture", class="col-sm-3 control-label") Картинка к новости
-						div.col-sm-9
-							input(type="file", id="picture", placeholder="", disabled)
 					div.form-group
 						label(for="text-short", class="col-sm-3 control-label") Краткий текст новости
 						div.col-sm-9
@@ -51,3 +57,4 @@ html(lang="ru")
 					p Поля, помеченные * обязательны для заполнения
 					button(type="button", class="btn btn-default", id="news-create") Создать
 					button(type="button", class="btn btn-cancel", id="news-cancel") Назад
+					

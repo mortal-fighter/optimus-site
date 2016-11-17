@@ -1,17 +1,19 @@
 'use strict';
 
-exports.homePage = require("./homepage");
-exports.about = require("./about");
-exports.schedule = require("./schedule");
-exports.prices = require("./prices");
-exports.contacts = require("./contacts");
-exports.infounits = require("./infounits");
-exports.pageNotFound = require("./page_not_found");
+exports.homePage = require('./homepage');
+exports.about = require('./about');
+exports.schedule = require('./schedule');
+exports.prices = require('./prices');
+exports.contacts = require('./contacts');
+exports.infounits = require('./infounits');
+exports.news = require('./news.js');
 
-exports.login = require("./login");
-exports.restricted = require("./restricted");
+exports.pageNotFound = require('./page_not_found');
 
-exports.bbtest = require("./bbtest");
+exports.login = require('./login');
+exports.restricted = require('./restricted');
+
+exports.bbtest = require('./bbtest');
 
 
 

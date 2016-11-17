@@ -14,5 +14,9 @@ module.exports = {
 		options: {
 			buttons: "bold,italic,underline,|,img,link"
 		}
+	},
+	auth: {
+		username: 'optimus',
+		password: 'optimus'
 	}
 };

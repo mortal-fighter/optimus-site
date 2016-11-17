@@ -94,3 +94,8 @@ ul.news-actions {
     width: 20px;
     background-color: #fff;
 }
+
+.iframe {
+    display: none;
+}
+
