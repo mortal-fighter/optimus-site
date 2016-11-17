@@ -49,16 +49,19 @@ html(lang="ru")
 							a(href="prices") ЦЕНЫ	
 						li
 							a(href="contacts") КОНТАКТЫ
-			div.schedule
-				h2 Расписание занятий
+			div.news
 				div#tabs
 					ul
 						li
-							a(href="/admin/news/type/1") Новости
+							a(href="/api/news/type/1") Новости
 						li
-							a(href="/admin/news/type/4") Интересное
+							a(href="/api/news/type/4") Интересное
 						li
-							a(href="/admin/news/type/2") СМИ о нас
+							a(href="/api/news/type/2") СМИ о нас
 						li
-							a(href="/admin/news/type/3") Для родителей
+							a(href="/api/news/type/3") Для родителей
+		div#popup-window
+			div.popup-header
+				div.popup-close
+			div.popup-content
 		include includes/analytics.pug

@@ -29,6 +29,8 @@ app.get('/contacts', middleware.contacts);
 //app.get('/infounits', middleware.infounits); //todo: remove it and it's files
 app.get('/news', middleware.news);
 
+// API
+app.use('/api', require('./routes/api'));
 
 // ADMIN
 app.use('/admin', require('./routes/admin'));

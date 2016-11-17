@@ -14,10 +14,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   color: #fff729;
   font-weight: bold;
+  line-height: 1.3em;
 }
 h2 {
   margin-bottom: 20px;
 }
+
+h3 {
+    margin-bottom: 8px;
+}
+
+
 span.highlight {
   color: #fff729;
   text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 

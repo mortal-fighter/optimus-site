@@ -117,25 +117,6 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-router.get('/type/:type(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
-		return connection.queryAsync(`	
-SELECT id, title, text_short, text_full, is_published, info_types_id
-FROM info_units 
-WHERE date_deleted IS NULL 
-	AND is_published = 1
-	AND info_types_id = ${req.params.type}
-ORDER BY date_published DESC`);
-	}).then(function(rows) {	
-		res.render('_news_by_cat.pug', {
-			news: rows
-		});
-	}).catch(function(err) {
-		console.log(err.message, err.stack);
-		// todo: страница может зависнуть
-	});
-});
-
 router.get('/create', function(req, res, next) {
 	Promise.resolve().then(function() {
 		var sql = `SELECT id, name FROM info_types`;
@@ -158,7 +139,7 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 		return connection.queryAsync(sql);
 	}).then(function(infoTypes) {
 		req.user.infoTypes = infoTypes;
-		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published
+		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
 										FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
 
@@ -167,8 +148,6 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 		} else if (rows.length > 1) {
 			throw new Error('Duplicate news were found');
 		}
-
-		console.log(JSON.stringify(rows[0]), JSON.stringify(req.user.infoTypes));
 
 		res.render('admin_news_edit', {
 			message: '',
@@ -191,9 +170,9 @@ router.post('/', function(req, res, next) {
 	Promise.resolve().then(function() {
 		validateNews(req.body);	
 		
-		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published) 
+		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published, date_created) 
 					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 
-							${req.body.infoTypesId}, ${req.body.isPublished})`;
+							${req.body.infoTypesId}, ${req.body.isPublished}, NOW())`;
 		console.log(sql);
 		return connection.queryAsync(sql);
 	}).then(function() {

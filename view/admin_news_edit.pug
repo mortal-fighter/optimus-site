@@ -27,10 +27,6 @@ html(lang="ru")
 						div.col-sm-9
 							input(type="text", class="form-control", id="title", placeholder="макс. 120 символов", value= locals.newsOnce.title)
 					div.form-group
-						label(for="picture", class="col-sm-3 control-label") Картинка к новости
-						div.col-sm-9
-							input(type="file", id="picture", placeholder="", disabled)
-					div.form-group
 						label(for="text-short", class="col-sm-3 control-label") Краткий текст новости
 						div.col-sm-9
 							input(type="text", class="form-control", id="text-short", placeholder="макс. 300 символов", value= locals.newsOnce.text_short)
@@ -43,8 +39,9 @@ html(lang="ru")
 						div.col-sm-9
 							select(class="form-control", id="info-types-id")
 								each type in locals.infoTypes
+									span= type.id
 									if type.id === locals.newsOnce.info_types_id
-										option(value=""+type.id, checked="true")= type.name
+										option(value=""+type.id, selected)= type.name
 									else
 										option(value=""+type.id)= type.name
 					div.form-group

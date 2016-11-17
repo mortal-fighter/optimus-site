@@ -1,4 +1,8 @@
+if locals.news.length === 0 
+	p(style="text-align:center; font-size: 18px; color: #fff") Здесь пока пусто
 each val in locals.news
 	section
-		h2= val.title
+		div.news-date= val.date_published
+		h3.news-link(news-id= val.id)= val.title
 		p= val.text_short
+			span.news-link(news-id= val.id) Читать дальше
