@@ -9,9 +9,8 @@ const cookieParser = require('cookie-parser');
 
 
 // Prettyfing html output with indentation
-if (config.app.mode === 'development') {
-	app.locals.pretty = true;
-}
+app.locals.pretty = true;
+
 
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));

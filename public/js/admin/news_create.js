@@ -18,7 +18,7 @@
 					data: { 
 						title: $('#title').val().trim(), 
 						textShort: $('#text-short').val().trim(), 
-						textFull: $('#text-full').bbcode(),
+						textFull: $('#text-full').htmlcode(),
 						isPublished: $('#is-published').prop('checked'),
 						infoTypesId: $('#info-types-id').val()
 					},
