@@ -18,34 +18,17 @@ app.use(bodyParser.text());
 
 app.use(cookieParser());
 
-// SITE
-//todo: rewrite middlewares as routers
-app.get('/', middleware.homePage);
-app.get('/about', middleware.about);
-app.get('/schedule', middleware.schedule);
-app.get('/prices', middleware.prices);
-app.get('/contacts', middleware.contacts);
-//app.get('/infounits', middleware.infounits); //todo: remove it and it's files
-app.get('/news', middleware.news);
-
-// API
-app.use('/api', require('./routes/api'));
-
-// ADMIN
-app.use('/admin', require('./routes/admin'));
-
-// test
-app.get('/login', middleware.login);
-app.get('/restricted', middleware.restricted);
-app.get('/bbtest', middleware.bbtest);
-
-
-
 app.use(express.static('public'));
 app.set('views', './view/');
 app.set('view engine', 'pug');
 
-app.all('*', middleware.pageNotFound);
+app.use('/api', require('./routes/api'));
+app.use('/admin', require('./routes/admin'));
+app.use('/', require('./routes/site'));
+
+app.all('*', function(req, res, next) {
+	res.render('site/page_not_found');
+});
 
 app.listen(config.app.port, (err) => {
     if (err) {

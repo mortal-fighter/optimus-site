@@ -22,7 +22,7 @@ router.use('/news', require('./news'));
 router.use('/', require('./login'));
 
 router.use(function(req, res) {
-	res.render('page_not_found');
+	res.render('site/page_not_found');
 });
 
 module.exports = router;

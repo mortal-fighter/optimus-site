@@ -5,13 +5,9 @@ const Promise = require('bluebird');
 const config = require('../../config/common.js');
 const mysql = require('mysql');
 
-router.get('/', function(req, res, next) {
-	res.redirect('/admin/login');
-});
-
-router.get('/login', function(req, res, next) {
+function loginMiddleware(req, res, next) {
 	Promise.resolve().then(function() {
-		res.render('login.pug', {
+		res.render('admin/login', {
 			messageType: '',
 			message: ''
 		});
@@ -19,7 +15,11 @@ router.get('/login', function(req, res, next) {
 		console.log(err.message, err.stack);
 		next();
 	});
-});
+};
+
+router.get('/', loginMiddleware);
+
+router.get('/login', loginMiddleware);
 
 router.post('/login', function(req, res, next) {
 	Promise.resolve().then(function() {

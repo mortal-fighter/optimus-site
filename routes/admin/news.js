@@ -106,7 +106,7 @@ router.get('/', function(req, res, next) {
 		return connection.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
 										FROM info_units WHERE date_deleted is null`);
 	}).then(function(rows) {	
-		res.render('admin_news_all', {
+		res.render('admin/admin_news_all', {
 			news: rows,
 			menu: menuGenerated,
 			message: '',
@@ -123,7 +123,7 @@ router.get('/create', function(req, res, next) {
 		console.log(sql);
 		return connection.queryAsync(sql);
 	}).then(function(infoTypes) {
-		res.render('admin_news_create', {
+		res.render('admin/admin_news_create', {
 			message: '',
 			messageType: '', 
 			menu: menuGenerated,
@@ -149,7 +149,7 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 			throw new Error('Duplicate news were found');
 		}
 
-		res.render('admin_news_edit', {
+		res.render('admin/admin_news_edit', {
 			message: '',
 			messageType: '', 
 			menu: menuGenerated,
