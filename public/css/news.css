@@ -98,8 +98,22 @@ div#popup-window {
     padding: 0 20px 20px 20px;
 }
 
+.popup-close {
+    color: #333;
+    background: #777;
+    font-size: 14px;
+    padding: 5px 15px;
+    float: right;
+}
+
+.popup-close:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
 .popup-content h3 {
     color: #555;
+    text-align: left;
 }
 
 .popup-content p {

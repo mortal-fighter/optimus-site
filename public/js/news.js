@@ -12,6 +12,9 @@
 			});
 		});
 		
+		$('.popup-header, .popup-content').on('click', function(evt) {
+			evt.stopPropagation();
+		});
 		$('#popup-window, .popup-close').on('click', function() {
 			_closePopup();	
 		});
@@ -25,6 +28,7 @@
 	function _showPopup() {
 		currentScroll = $(document).scrollTop();
 		$(document).scrollTop(0);
+		$('#popup-window').height($(document).height());
 		$('#popup-window').fadeIn(400);
 	}
 
