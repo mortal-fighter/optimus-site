@@ -13,6 +13,8 @@ const connection = Promise.promisifyAll(mysql.createConnection({
 	database: config.database.database
 }));
 
+
+
 router.get('/', function(req, res, next) { 
 	res.redirect('/news/category/1');
 });
@@ -28,7 +30,8 @@ WHERE date_deleted IS NULL
 ORDER BY date_published DESC`);
 	}).then(function(rows) {	
 		res.render('site/news.pug', {
-			news: rows
+			news: rows,
+			menu: menuGenerated
 		});
 	}).catch(function(err) {
 		console.log(err.message, err.stack);

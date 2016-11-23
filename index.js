@@ -2,7 +2,6 @@
 
 const express = require('express');
 const app = express();
-const middleware = require('./middleware');
 const config = require('./config/common');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');

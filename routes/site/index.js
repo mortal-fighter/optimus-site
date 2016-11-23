@@ -1,6 +1,13 @@
 'use strict';
 
 const router = require('express').Router();
+const menu = require('../../config/menu.js');
+const myutil = require('../../components/myUtil.js');
+
+router.use(function(req, res, next) {
+	req.menu = myutil(menu.menuSite, req);
+	next();
+});
 
 router.get('/', function(req, res, next) {
 	res.render('site/homepage');
@@ -26,7 +33,7 @@ router.get('/contacts', function(req, res, next) {
 	res.render('site/contacts');
 });
 
-router.get('/news', reqiure('./news'));
+router.get('/news', require('./news'));
 
 router.use(function(req, res) {
 	res.render('admin/page_not_found');

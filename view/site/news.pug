@@ -1,7 +1,8 @@
+- var title = locals.menu.items[locals.menu.indexCurrent].titleFull
 doctype
 html(lang="ru")
 	head
-		title Академия робототехники ОПТИМУС | Новости
+		title= 'Академия робототехники ОПТИМУС | ' + title
 		meta(charset="UTF-8")
 		meta(name="description", content="Академия робототехники Оптимус")
 		meta(http-equiv="content-language", content="ru")
@@ -15,14 +16,9 @@ html(lang="ru")
 		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap.min.css")
 		link(rel="stylesheet", type="text/css", href="/lib/bootstrap/bootstrap-theme.css")
 
-		<!-- jquery ui -->
-		script(src="/lib/jquery_ui/tabs/jquery-ui.min.js")
-		link(rel="stylesheet", type="text/css", href="/lib/jquery_ui/tabs/jquery-ui.min.css")
-
 		link(rel="stylesheet", type="text/css", href="/css/main.css")
 		link(rel="stylesheet", type="text/css", href="/css/news.css")
 		script(src="/js/news.js")
-		
 	body
 		div.container
 			nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
@@ -36,30 +32,17 @@ html(lang="ru")
 						span.part1 Академия робототехники 
 						span.part2 "ОПТИМУС" 
 				div#navbar-collapse-main.collapse.navbar-collapse
-					ul.nav.navbar-nav.navbar-right
-						li
-							a(href="/") ГЛАВНАЯ
-						li
-							a(href="about") О НАС
-						li
-							a.current НОВОСТИ
-						li
-							a(href="schedule") РАСПИСАНИЕ
-						li
-							a(href="prices") ЦЕНЫ	
-						li
-							a(href="contacts") КОНТАКТЫ
+					include includes/top_menu.pug
 			div.news
-				div#tabs
-					ul
-						li
-							a(href="/api/news/type/1") Новости
-						li
-							a(href="/api/news/type/4") Интересное
-						li
-							a(href="/api/news/type/2") СМИ о нас
-						li
-							a(href="/api/news/type/3") Для родителей
+				h2= title
+				if locals.news.length === 0 
+					p(style="text-align:center; font-size: 18px; color: #fff") Скоро здесь что-то появится!
+				each val in locals.news
+					section
+						div.news-date= val.date_published
+						h3.news-link(news-id= val.id)= val.title
+						p= val.text_short
+							span.news-link(news-id= val.id) Читать дальше
 		div#popup-window
 			div.popup-header
 				div.popup-close закрыть
