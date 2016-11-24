@@ -4,13 +4,16 @@ module.exports = {
 	// for `source` type look at  config/menu.js
 	// `req` current request object
 	menuGenerate: function(source, req) {
+		var i = 0;
 		var ind = -1;
-		for (var i = 0; i < source.length; i++) {
-			if (req.originalUrl === source[i].href) {
+		source.forEach(function(menuItem) {
+			if (menuItem.hrefSecondary && req.originalUrl === menuItem.hrefSecondary) {
 				ind = i;
-				break;
+			} else if (req.originalUrl === menuItem.href) {
+				ind = i;
 			}
-		}
+			i++;
+		});
 		return {
 			items: source,
 			indexCurrent: ind

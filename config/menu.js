@@ -17,7 +17,8 @@ module.exports = {
 		{
 			titleShort: 'Главная',
 			titleFull: 'Главная страница',
-			href: '/home' 
+			href: '/home',
+			hrefSecondary: '/' 
 		}, 
 		{
 			titleShort: 'О нас',
