@@ -3,26 +3,32 @@ doctype
 html(lang="ru")
 	head
 		include includes/head_common.pug
+		
+		<!-- aslider -->
+		link(rel="stylesheet", type="text/css", href="/lib/aslider/aslider.css")
+		script(src="/lib/aslider/aslider.js")
+
 		link(rel="stylesheet", type="text/css", href="/css/homepage.css")
 		script(src="/js/homepage.js")
 	body
 		include includes/navbar.pug
-		div#home.home 
+		div#home.home.content 
 			div.title
 				div.part1 Академия
 				div.part2 робототехники
 				div.part3 "ОПТИМУС"
-			div.aslider(data-hide-mute, data-hide-pause)
-				div.aslide(data-duration="8")
-					img(src="/img/slides/01.jpg")
-				div.aslide(data-duration="8")
-					img(src="/img/slides/03.jpg")
-				div.aslide(data-duration="8")
-					img(src="/img/slides/06.jpg")
-				div.aslide(data-duration="8")
-					img(src="/img/slides/07.jpg")
-				div.aslide(data-duration="8")
-					img(src="/img/slides/13.jpg")
-				div.aslide(data-duration="8")
-					img(src="/img/slides/12.jpg")
+			div.slideshow
+				div.aslider(data-hide-mute, data-hide-pause)
+					div.aslide(data-duration="4")
+						img(src="/img/slides/01.jpg")
+					div.aslide(data-duration="4")
+						img(src="/img/slides/03.jpg")
+					div.aslide(data-duration="4")
+						img(src="/img/slides/06.jpg")
+					div.aslide(data-duration="4")
+						img(src="/img/slides/07.jpg")
+					div.aslide(data-duration="4")
+						img(src="/img/slides/13.jpg")
+					div.aslide(data-duration="4")
+						img(src="/img/slides/12.jpg")
 		include includes/analytics.pug

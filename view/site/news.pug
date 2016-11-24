@@ -3,19 +3,22 @@ doctype
 html(lang="ru")
 	head
 		include includes/head_common.pug
+		link(type="text/css", rel="stylesheet", href="/css/news.css")
 		script(src="/js/news.js")
 	body
 		div.container
 			include includes/navbar.pug
-			div.news
+			div.news.content
 				h2= title
 				if locals.news.length === 0 
-					p(style="text-align:center; font-size: 18px; color: #fff") Нет новостей
+					p(style="text-align:left; font-size: 18px; color: #fff") Нет новостей
 				each val in locals.news
 					section
 						div.news-date= val.date_published
 						h3.news-link(news-id= val.id)= val.title
-						p= val.text_short
+						-
+							var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';
+						p!= textShort
 							span.news-link(news-id= val.id) Читать дальше
 		div#popup-window
 			div.popup-header

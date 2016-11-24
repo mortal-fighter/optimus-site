@@ -38,17 +38,6 @@ span.highlight3 {
 }
 
 /* WARN GOVNOSTYLE*/
-.about {
-    margin: 20px 0;
-    text-align: justify;
-    border: 1px solid #ccc;
-    background: #eee;
-    padding: 15px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    border-radius: 5px;
-    font-size: 14px;
-}
-
 .about.content img {
     border-radius: 10px;
 }

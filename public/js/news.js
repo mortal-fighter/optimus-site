@@ -5,11 +5,8 @@
 
 	function attachHandlers() {
 
-		$('#tabs').on('tabsload', function( event, ui ) {
-			// attach handlers to all link inside a tab
-			$('.news-link').on('click', function() {
-				showPopupNews($(this).attr('news-id'));
-			});
+		$('.news-link').on('click', function() {
+			showPopupNews($(this).attr('news-id'));
 		});
 		
 		$('.popup-header, .popup-content').on('click', function(evt) {
@@ -48,7 +45,6 @@
 	}
 
 	$(document).ready(function() {
-		$('#tabs').tabs();
 		attachHandlers();
 	});
 })(window);
