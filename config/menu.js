@@ -52,7 +52,7 @@ module.exports = {
 		{
 			titleShort: 'Цены',
 			titleFull: 'Наши цены',
-			href: 'prices'
+			href: '/prices'
 		},
 		{
 			titleShort: 'Контакты',

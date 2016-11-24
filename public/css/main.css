@@ -37,9 +37,70 @@ span.highlight3 {
   font-weight: bold; 
 }
 
-@media(max-width: 768px) {
-  .navbar-brand span.part1 {
-      display: none;
+/* WARN GOVNOSTYLE*/
+.about {
+    margin: 20px 0;
+    text-align: justify;
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: 15px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.about.content img {
+    border-radius: 10px;
+}
+
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    background: lightseagreen;
+    border-radius: 5px;
+    position: absolute;
+    right: 30px;
+    top: 45px;
+}
+
+.navbar-default .navbar-brand {
+    padding: 12px 20px;
+    font: bold 26px Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    color: #19dbd0;
+    text-shadow: 1px -1px 1px black, 1px 1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
+}
+
+
+.navbar-default {
+    background: linear-gradient(to bottom, gray 0%, #fff 95%, #000 100%);
+    border: none;
+    height: 90px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    font: 15px Arial, Helvetica, sans-serif;
+    color: #555;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #19dbd0;
+    background-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav>li>a {
+      padding-top: 9px;
+      padding-bottom: 9px;
   }
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.about img {
+    border-radius: 5px;
 }
 

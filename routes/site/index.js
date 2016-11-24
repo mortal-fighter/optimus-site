@@ -10,27 +10,39 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-	res.render('site/homepage');
+	res.render('site/homepage', {
+		menu: req.menuGenerated
+	});
 });
 
 router.get('/home', function(req, res, next) {
-	res.render('site/homepage');
+	res.render('site/homepage', {
+		menu: req.menuGenerated
+	});
 });
 
 router.get('/about', function(req, res, next) {
-	res.render('site/about');
+	res.render('site/about', {
+		menu: req.menuGenerated
+	});
 });
 
 router.get('/schedule', function(req, res, next) {
-	res.render('site/schedule');
+	res.render('site/schedule', {
+		menu: req.menuGenerated
+	});
 });
 
 router.get('/prices', function(req, res, next) {
-	res.render('site/prices');
+	res.render('site/prices', {
+		menu: req.menuGenerated
+	});
 });
 
 router.get('/contacts', function(req, res, next) {
-	res.render('site/contacts');
+	res.render('site/contacts', {
+		menu: req.menuGenerated
+	});
 });
 
 router.use('/news', require('./news'));
