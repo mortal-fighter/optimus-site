@@ -5,7 +5,7 @@ const menu = require('../../config/menu.js');
 const myutil = require('../../components/myUtil.js');
 
 router.use(function(req, res, next) {
-	req.menu = myutil(menu.menuSite, req);
+	req.menuGenerated = myutil.menuGenerate(menu.menuSite, req);
 	next();
 });
 
@@ -33,7 +33,7 @@ router.get('/contacts', function(req, res, next) {
 	res.render('site/contacts');
 });
 
-router.get('/news', require('./news'));
+router.use('/news', require('./news'));
 
 router.use(function(req, res) {
 	res.render('admin/page_not_found');

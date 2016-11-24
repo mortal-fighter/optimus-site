@@ -36,7 +36,7 @@ html(lang="ru")
 			div.news
 				h2= title
 				if locals.news.length === 0 
-					p(style="text-align:center; font-size: 18px; color: #fff") Скоро здесь что-то появится!
+					p(style="text-align:center; font-size: 18px; color: #fff") Нет новостей
 				each val in locals.news
 					section
 						div.news-date= val.date_published

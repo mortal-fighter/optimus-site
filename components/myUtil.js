@@ -6,7 +6,7 @@ module.exports = {
 	menuGenerate: function(source, req) {
 		var ind = -1;
 		for (var i = 0; i < source.length; i++) {
-			if (req.baseUrl === source[i].href) {
+			if (req.originalUrl === source[i].href) {
 				ind = i;
 				break;
 			}
