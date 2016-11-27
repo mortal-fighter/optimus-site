@@ -17,6 +17,6 @@ module.exports = {
 	},
 	auth: {
 		username: 'optimus',
-		password: 'optimus'
+		password: 'JM}FGZ'
 	}
 };
