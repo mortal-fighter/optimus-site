@@ -59,6 +59,11 @@ module.exports = {
 			titleShort: 'Контакты',
 			titleFull: 'Контактная информация',
 			href: '/contacts'
+		},
+		{
+			titleShort: 'Фото',
+			titleFull: 'Фотогалерея',
+			href: '/photos'
 		}
 	]
 };

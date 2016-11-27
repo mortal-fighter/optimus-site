@@ -47,6 +47,8 @@ router.get('/contacts', function(req, res, next) {
 
 router.use('/news', require('./news'));
 
+router.use('/photos', require('./photos'));
+
 router.use(function(req, res) {
 	res.render('admin/page_not_found');
 });

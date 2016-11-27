@@ -18,5 +18,8 @@ module.exports = {
 	auth: {
 		username: 'optimus',
 		password: 'JM}FGZ'
+	},
+	vk: {
+		ownerID: 16718732
 	}
 };
