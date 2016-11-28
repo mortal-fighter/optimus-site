@@ -87,7 +87,7 @@ div#popup-window {
     width: 800px;
     height: 30px;
     margin: 100px auto 0 auto;
-    background: gray;
+    background: lightseagreen;
 }   
 
 #popup-window .popup-content {
@@ -99,8 +99,8 @@ div#popup-window {
 }
 
 .popup-close {
-    color: #333;
-    background: #777;
+    color: #fff;
+    background: #137e78;
     font-size: 14px;
     padding: 5px 15px;
     float: right;
@@ -108,11 +108,11 @@ div#popup-window {
 
 .popup-close:hover {
     cursor: pointer;
-    color: #fff;
+    color: #fff729;
 }
 
 .popup-content h3 {
-    color: #555;
+    color: blue;
     text-align: left;
 }
 
