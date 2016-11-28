@@ -5,14 +5,16 @@ html, body {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 20px;
-  color: #fff;
+  /*color: #fff;*/
+  color: #555;
 }
 body {
-  background: url('../img/space.jpg') repeat;
+  /*background: url('../img/space.jpg') repeat;*/
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  color: #fff729;
+  /*color: #fff729;*/
+  color: blue;
   font-weight: bold;
   line-height: 1.3em;
 }
@@ -30,7 +32,8 @@ span.highlight {
   text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 
 }
 span.highlight2 {
-  color: #fff729; 
+ /* color: #fff729; */
+ color: blue;
 }
 span.highlight3 {
   font-style: italic;
