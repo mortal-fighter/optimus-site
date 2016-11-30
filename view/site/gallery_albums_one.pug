@@ -1,0 +1,27 @@
+include includes/init.pug
+doctype
+html(lang="ru")
+	head
+		include includes/head_common.pug
+		link(type="text/css", rel="stylesheet", href="/css/gallery_albums_all.css")
+	body
+		div.container
+			include includes/navbar.pug
+			div.gallery.content
+				h2= title
+				div.breadcrumbs
+					- for (var i=0, len=locals.breadcrumbs.length; i<len; i++)
+						a(href= locals.breadcrumbs[i].href)= locals.breadcrumbs[i].title
+						if i < len-1
+							span= ' > '
+				if locals.photos.length === 0 
+					p(style="text-align:left; font-size: 18px;") Нет фотографий
+				ul.image-container
+					each photo in locals.photos
+						li
+							- const photoLink = `/photos/${album.aid}/${encodeURIComponent(album.title)}/${photo.id}`;
+							div.cover
+								a(href= photoLink)
+									img.cover(src= photo.src_big, alt= photo.text)
+						- i++;
+		include includes/analytics.pug

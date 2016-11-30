@@ -14,19 +14,27 @@ router.get('/', function(req, res, next) {
 		path: '/method/photos.getAlbums?owner_id=' + config.vk.ownerID
 	}).then(function(result) {
 		const albums = JSON.parse(result.body).response;
-
-		console.log(JSON.stringify(albums));
 		var photos = '';
 		albums.forEach(function(album){
 			photos += album.owner_id + '_' + album.thumb_id + ',';
 		});
 		photos = photos.substr(0, photos.length-1);
-		console.log('photos: ' + photos);
-		res.end();
+		
+		return myrequest.httpsRequestAsync({
+			host: 'api.vk.com',
+			port: 443,
+			method: 'GET',
+			path: '/method/photos.getById?photos=' + photos
+		}).then(function(result) {
+			const covers = JSON.parse(result.body).response;
 
-		res.render('site/gallery_albums_all.pug', {
-			albums: result.body.response,
-			menu: req.menuGenerated
+			res.render('site/gallery_albums_all.pug', {
+				albums: albums,
+				covers: covers,
+				menu: req.menuGenerated
+			});	
+		}).catch(function(err) {
+			throw err;
 		}); 
 	}).catch(function(err) {
 		console.log(err.message, err.stack);
@@ -34,5 +42,32 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/:albumId(\\d+)/:albumTitle', function(req, res, next) {
+	myrequest.httpsRequestAsync({
+		host: 'api.vk.com',
+		port: 443,
+		method: 'GET',
+		path: `/method/photos.get?owner_id=${config.vk.ownerID}&album_id=${req.params.albumId}&rev=1`
+	}).then(function(result) {
+		const photos = JSON.parse(result.body).response;
+
+		res.render('site/gallery_albums_one.pug', {
+			photos: photos,
+			menu: req.menuGenerated,
+			breadcrumbs: [
+			{
+				title: 'Все альбомы',
+				href: '/photos'
+			},
+			{
+				title: decodeURIComponent(req.params.albumTitle),
+				href: ''
+			}]
+		});	
+	}).catch(function(err) {
+		console.log(err.message, err.stack);
+		res.send('Сервис недоступен');
+	});
+});
 
 module.exports = router;

@@ -1,0 +1,24 @@
+include includes/init.pug
+doctype
+html(lang="ru")
+	head
+		include includes/head_common.pug
+		link(type="text/css", rel="stylesheet", href="/css/gallery_albums_all.css")
+	body
+		div.container
+			include includes/navbar.pug
+			div.gallery.content
+				h2= title
+				if locals.albums.length === 0 
+					p(style="text-align:left; font-size: 18px;") Нет фотоальбомов
+				ul.image-container
+					- var i = 0;
+					each album in locals.albums
+						li
+							div.cover
+								a(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))
+									img.cover(src= covers[i].src_big, alt= album.title)
+							div.title
+								a.title(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))= album.title
+						- i++;
+		include includes/analytics.pug
