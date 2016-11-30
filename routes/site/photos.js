@@ -50,7 +50,6 @@ router.get('/:albumId(\\d+)/:albumTitle', function(req, res, next) {
 		path: `/method/photos.get?owner_id=${config.vk.ownerID}&album_id=${req.params.albumId}&rev=1`
 	}).then(function(result) {
 		const photos = JSON.parse(result.body).response;
-
 		res.render('site/gallery_albums_one.pug', {
 			photos: photos,
 			menu: req.menuGenerated,
@@ -62,7 +61,8 @@ router.get('/:albumId(\\d+)/:albumTitle', function(req, res, next) {
 			{
 				title: decodeURIComponent(req.params.albumTitle),
 				href: ''
-			}]
+			}],
+			albumTitle: decodeURIComponent(req.params.albumTitle)
 		});	
 	}).catch(function(err) {
 		console.log(err.message, err.stack);

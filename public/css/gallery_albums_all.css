@@ -43,3 +43,19 @@
 	color: blue;
 }
 
+.breadcrumbs {
+	margin-bottom: 10px;
+}
+
+.breadcrumbs a,
+.breadcrumbs a:link,
+.breadcrumbs a:hover,
+.breadcrumbs a:active,
+.breadcrumbs a:visited {
+	color: blue;
+}
+
+.breadcrumbs a:hover {
+	color: blue;
+}
+

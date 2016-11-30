@@ -4,6 +4,12 @@ html(lang="ru")
 	head
 		include includes/head_common.pug
 		link(type="text/css", rel="stylesheet", href="/css/gallery_albums_all.css")
+
+		<!-- lightbox (Magnific popup) -->	
+		link(type="text/css", rel="stylesheet", href="/lib/magnific_popup/magnific_popup.css")
+		script(src="/lib/magnific_popup/magnific_popup.js")
+
+		script(src="/js/gallery_albums_one.js")
 	body
 		div.container
 			include includes/navbar.pug
@@ -17,11 +23,11 @@ html(lang="ru")
 				if locals.photos.length === 0 
 					p(style="text-align:left; font-size: 18px;") Нет фотографий
 				ul.image-container
+					- var photoLink;
 					each photo in locals.photos
 						li
-							- const photoLink = `/photos/${album.aid}/${encodeURIComponent(album.title)}/${photo.id}`;
 							div.cover
-								a(href= photoLink)
+								a.photo-link(href= photo.src_xxbig)
 									img.cover(src= photo.src_big, alt= photo.text)
 						- i++;
 		include includes/analytics.pug

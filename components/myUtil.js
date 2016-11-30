@@ -7,9 +7,10 @@ module.exports = {
 		var i = 0;
 		var ind = -1;
 		source.forEach(function(menuItem) {
-			if (menuItem.hrefSecondary && req.originalUrl === menuItem.hrefSecondary) {
+			
+			if (menuItem.hrefSecondary && req.originalUrl.includes(menuItem.hrefSecondary)) {
 				ind = i;
-			} else if (req.originalUrl === menuItem.href) {
+			} else if (req.originalUrl.includes(menuItem.href)) {
 				ind = i;
 			}
 			i++;
