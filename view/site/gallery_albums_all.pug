@@ -12,12 +12,46 @@ html(lang="ru")
 				if locals.albums.length === 0 
 					p(style="text-align:left; font-size: 18px;") Нет фотоальбомов
 				ul.image-container
-					- var i = 0;
+					-
+						var i = 0;
+						const maxw = 240;
+						const maxh = 180;
+									
 					each album in locals.albums
 						li
-							div.cover
+							div.cover.album
 								a(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))
-									img.cover(src= covers[i].src_big, alt= album.title)
+									-
+										
+										var neww = 0;
+										var newh = 0;					
+										var k = 1;
+
+										// fit photos with proportions saved (note: shrink only)
+
+										if (covers[i].width > covers[i].height) {
+											k = covers[i].width / maxw;
+											neww = maxw;
+											newh = Math.trunc(covers[i].height / k);
+										} else {
+											k = covers[i].height / maxh;
+											neww = Math.trunc(covers[i].width / k);
+											newh = maxh;
+										}
+
+										
+										var marginLeft = '0';
+										var marginTop = '0';
+
+										// center photos
+
+										if (covers[i].width > covers[i].height) {
+											marginTop = (maxh - newh) / 2 + 'px';
+										} else {
+											marginLeft = (maxw - neww) / 2 + 'px';
+										}																				
+
+									img(src= covers[i].src_big, alt= album.title, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
 							div.title
 								a.title(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))= album.title
 						- i++;

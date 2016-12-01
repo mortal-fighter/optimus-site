@@ -20,6 +20,6 @@ module.exports = {
 		password: 'JM}FGZ'
 	},
 	vk: {
-		ownerID: 16718732
+		ownerID: -129910076
 	}
 };
