@@ -45,9 +45,19 @@ router.get('/contacts', function(req, res, next) {
 	});
 });
 
+router.get('/partners', function(req, res, next) {
+	res.render('site/partners', {
+		menu: req.menuGenerated
+	});
+});
+
 router.use('/news', require('./news'));
 
 router.use('/photos', require('./photos'));
+
+router.get('/test1', function(req, res, next) {
+	
+});
 
 router.use(function(req, res) {
 	res.render('admin/page_not_found');

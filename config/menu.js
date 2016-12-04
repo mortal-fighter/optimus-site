@@ -24,6 +24,11 @@ module.exports = {
 			titleShort: 'О нас',
 			titleFull: 'О нас',
 			href: '/about'
+		},
+		{
+			titleShort: 'Партнеры',
+			titleFull: 'Наши партнеры',
+			href: '/partners'
 		}, 
 		{
 			titleShort: 'СМИ о нас',
