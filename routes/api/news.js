@@ -2,20 +2,11 @@
 
 const router = require('express').Router();
 const Promise = require('bluebird');
-const mysql = require('mysql');
-const config = require('../../config/common.js');
-
-//todo: what will be if error happends?
-const connection = Promise.promisifyAll(mysql.createConnection({
-	host: config.database.host,
-	user: config.database.user,
-	password: config.database.password,
-	database: config.database.database
-}));
+const db = require('../../components/db.js')
 
 router.get('/type/:type(\\d+)', function(req, res, next) {
 	Promise.resolve().then(function() {
-		return connection.queryAsync(`	
+		return db.queryAsync(`	
 SELECT id, title, text_short, text_full, is_published, info_types_id
 FROM info_units 
 WHERE date_deleted IS NULL 
@@ -34,7 +25,7 @@ ORDER BY date_published DESC`);
 
 router.get('/:id(\\d+)', function(req, res, next) {
 	Promise.resolve().then(function() {
-		return connection.queryAsync(`
+		return db.queryAsync(`
 			SELECT title, date_published, text_short, text_full 
 			FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {	

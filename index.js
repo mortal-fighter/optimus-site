@@ -6,7 +6,6 @@ const config = require('./config/common');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-
 // Prettyfing html output with indentation
 app.locals.pretty = true;
 

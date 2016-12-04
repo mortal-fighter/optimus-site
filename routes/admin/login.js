@@ -3,7 +3,6 @@
 const router = require('express').Router();
 const Promise = require('bluebird');
 const config = require('../../config/common.js');
-const mysql = require('mysql');
 
 function loginMiddleware(req, res, next) {
 	Promise.resolve().then(function() {
