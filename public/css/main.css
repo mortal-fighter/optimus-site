@@ -96,3 +96,37 @@ span.highlight3 {
     border-radius: 5px;
 }
 
+.social-web {
+    height: 32px;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+
+.sw-title {
+    float: left;
+    margin-right: 10px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.sw-icon {
+  float: left;
+  margin-right: 3px;
+  width: 32px;
+  height: 32px;
+  background: url(../img/social.png);
+}
+
+.i-vk {
+  background-position: -34px 0; 
+}
+
+.i-ok {
+  background-position: -68px 0; 
+}
+
+.i-facebook {
+  background-position: 0 0; 
+}
