@@ -3,25 +3,8 @@
 const router = require('express').Router();
 const Promise = require('bluebird');
 const menuConfig = require('../../config/menu.js');
-const db = require('../../components/db.js');
+const connectionPromise = require('../../components/connectionPromise.js');
 const myUtil = require('../../components/myUtil.js');
-
-// File uploading with Multer
-const multer = require('multer');
-const multerStorage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, 'public/img/uploads')
-	},
-	filename: function (req, file, cb) {
-		var ext = file.originalname.substring(file.originalname.lastIndexOf('.'));
-		cb(null, Date.now() + ext)
-	}
-})
-const multerLimits = {
-	fileSize: 1024 * 1024 * 20
-}
-const upload = multer({ storage: multerStorage, limits:  multerLimits })
-
 
 var menuGenerated;
 
@@ -93,7 +76,9 @@ router.all('*', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
 										FROM info_units WHERE date_deleted is null`);
 	}).then(function(rows) {	
@@ -109,7 +94,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/create', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		var sql = `SELECT id, name FROM info_types`;
 		console.log(sql);
 		return db.queryAsync(sql);
@@ -124,7 +111,9 @@ router.get('/create', function(req, res, next) {
 });
 
 router.get('/edit/:id(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		var sql = `SELECT id, name FROM info_types`;
 		console.log(sql);
 		return db.queryAsync(sql);
@@ -158,7 +147,9 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 	var isPublished;
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		validateNews(req.body);	
 		
 		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published, date_created) 
@@ -188,8 +179,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/:id(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {	
-		
+	var db = null;
+	connectionPromise().then(function(connection) {	
+		db = connection;
 		validateNews(req.body); // it'll throw an exception if validation fails
 
 		var sql = `UPDATE info_units
@@ -219,8 +211,9 @@ router.put('/:id(\\d+)', function(req, res, next) {
 });
 
 router.delete('/:id(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
-		
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		var sql = `SELECT COUNT(*) AS 'is_deleted' FROM info_units WHERE id = ${req.params.id} AND date_deleted IS NOT NULL;`;
 		console.log(sql);
 		
@@ -252,7 +245,9 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 });
 
 router.post('/restore', function(req, res, next) {
-	Promise.resolve().then(function() {	
+	var db = null;
+	connectionPromise().then(function(connection) {	
+		db = connection;
 		var sql = `SELECT COUNT(*) AS 'is_deleted' FROM info_units WHERE id = ${req.body.id} AND date_deleted IS NOT NULL;`;
 		console.log(sql);
 		
@@ -286,16 +281,4 @@ router.post('/restore', function(req, res, next) {
 	})
 });
 
-router.post('/upload_picture', upload.single('picture'), function (req, res, next) {
-	
-})
-
 module.exports = router;
-
-//optimus.ru/admin/news/all
-//optimus.ru/admin/news/edit 
-// POST - создание новости
-// PUT(id) - редактирование
-// DELETE(id) - удаление
-
-//arr.forEach(callback[, thisArg])

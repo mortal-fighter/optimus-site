@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 const Promise = require('bluebird');
-const db = require('../../components/db.js');
+const connectionPromise = require('../../components/connectionPromise.js');
 const menu = require('../../config/menu.js');
 const myutil = require('../../components/myUtil.js');
 
@@ -11,7 +11,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/category/:category(\\d+)', function(req, res, next) {
-	Promise.resolve().then(() => {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		return db.queryAsync(`
 							SELECT count(*) as count FROM info_types 
 							WHERE id = ${req.params.category};`
@@ -26,17 +28,15 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 									AND is_published = 1
 									AND info_types_id = ${req.params.category}
 								ORDER BY date_published DESC;`);
+		}).then((rows) => {	
+			JSON.stringify(rows);
+			res.render('site/news.pug', {
+				news: rows,
+				menu: req.menuGenerated
+			});
 		}).catch(function(err) {
 			next(); // -> 404 page
 		});
-
-		
-	}).then((rows) => {	
-		res.render('site/news.pug', {
-			news: rows,
-			menu: req.menuGenerated
-		});
-
 	}).catch(function(err) {
 		console.log(err.message, err.stack);
 		res.send('Сервис недоступен');
@@ -44,7 +44,9 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 });
 
 router.get('/:id(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection
 		return db.queryAsync(`
 			SELECT title, date_published, text_short, text_full 
 			FROM info_units WHERE id = ${req.params.id}`);

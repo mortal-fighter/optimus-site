@@ -2,10 +2,12 @@
 
 const router = require('express').Router();
 const Promise = require('bluebird');
-const db = require('../../components/db.js')
+const connectionPromise = require('../../components/connectionPromise.js')
 
 router.get('/type/:type(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		return db.queryAsync(`	
 SELECT id, title, text_short, text_full, is_published, info_types_id
 FROM info_units 
@@ -24,7 +26,9 @@ ORDER BY date_published DESC`);
 });
 
 router.get('/:id(\\d+)', function(req, res, next) {
-	Promise.resolve().then(function() {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
 		return db.queryAsync(`
 			SELECT title, date_published, text_short, text_full 
 			FROM info_units WHERE id = ${req.params.id}`);
