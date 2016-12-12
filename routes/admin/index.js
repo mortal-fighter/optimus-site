@@ -19,6 +19,10 @@ router.use(function(req, res, next) {
 
 router.use('/news', require('./news'));
 
+router.use('/schedule', require('./schedule'));
+
+router.use('/prices', require('./prices'));
+
 router.use('/', require('./login'));
 
 router.use(function(req, res) {

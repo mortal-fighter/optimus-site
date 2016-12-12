@@ -16,6 +16,7 @@
     background-color: transparent;
 }
 
+
 .left-col, .right-col {
     margin-top: 55px;
     float: left;
@@ -63,6 +64,10 @@ ul.main-menu li {
     font-size: 16px;
 }
 
+ul.main-menu li a {
+    color: #333;
+}
+
 ul.main-menu li:hover {
     font-style: italic;
     text-decoration: underline;
@@ -83,6 +88,7 @@ form {
     margin-top: 15px;
 }
 
+
 .message {
     margin: 10px 0;
     padding: 12px;
@@ -99,4 +105,30 @@ form {
 
 .msg-error {
     background: lightcoral;
+}
+
+
+.icon {
+    float: left;
+    margin-right: 3px;
+    width: 36px;
+    height: 36px;
+    background: url(../../img/icons_36x36.png);
+    cursor: pointer;
+}
+
+.icon:last-child {
+    margin-right: 0;
+}
+
+.i-add {
+    background-position: -150px 0;
+}
+
+.i-edit {
+    background-position: -38px 0px;
+}
+
+.i-delete {
+    background-position: -188px 0px;
 }

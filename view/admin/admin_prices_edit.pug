@@ -1,0 +1,20 @@
+doctype
+html(lang="ru")
+	head
+		include includes/admin_head_common.pug	
+
+		<!-- tinymce -->
+		script(src="/lib/tinymce/tinymce.min.js")
+
+		script(src="/js/admin/prices_edit.js")
+	body
+		div.container-fluid
+			include includes/admin_navbar.pug
+			include includes/admin_menu_col.pug
+			div.right-col.content
+				form
+					h2 Редактировать цены
+					div.message(class="msg-"+locals.messageType)= locals.message
+					div.form-group
+						textarea(class="form-control", id="prices-html", rows="20")= locals.pricesOnce.html
+					button(type="button", class="btn btn-default", id="prices-edit") Готово

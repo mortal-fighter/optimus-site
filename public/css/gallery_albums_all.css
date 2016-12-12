@@ -18,7 +18,7 @@
 .image-container .cover {
 	width: 240px;
 	height: 180px;
-	outline: 1px solid #ccc;
+	outline: 1px solid #aaa;
 	background: lightgoldenrodyellow;
 	box-shadow: 1px 1px 1px 1px;
 }
@@ -35,7 +35,7 @@
     top: 4px;
     width: 240px;
     height: 180px;
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
     background: lightgoldenrodyellow;
     z-index: -101;
 }
@@ -47,7 +47,7 @@
     top: 7px;
     width: 240px;
     height: 180px;
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
     background: lightgoldenrodyellow;
     z-index: -102;
 }

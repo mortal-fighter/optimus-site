@@ -3,7 +3,9 @@ div.left-col.menu-col
 		- var i = 0
 		each item in locals.menu.items
 			if locals.menu.indexCurrent === i
-				li.current= item.title
+				li.current
+					a(href= item.href)= item.title
 			else
-				li= item.title
+				li
+					a(href= item.href)= item.title
 			- i++	

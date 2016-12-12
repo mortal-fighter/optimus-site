@@ -5,12 +5,12 @@ module.exports = {
 			href: '/admin/news' 
 		}, 
 		{
-			title: '<Пока пусто>',
-			href: '#'
+			title: 'Расписание',
+			href: '/admin/schedule/edit'
 		}, 
 		{
-			title: '<Пока пусто>',
-			href: '#'
+			title: 'Цены',
+			href: '/admin/prices/edit'
 		}
 	],
 	menuSite: [

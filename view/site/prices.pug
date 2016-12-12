@@ -10,20 +10,5 @@ html(lang="ru")
 			include includes/navbar.pug
 			div.prices.content
 				h2 Стоимость обучения
-				table.table.table-bordered
-					tr 
-						td Количество занятий
-						td Стоимость (руб.)
-					tr 
-						td 16 занятий
-						td 5000
-					tr 
-						td 8 занятий
-						td 2800	
-					tr 
-						td 4 занятия
-						td 1600
-					tr 
-						td Разовое занятие
-						td 450
+				div!= locals.pricesOnce.html
 		include includes/analytics.pug

@@ -37,7 +37,7 @@ function validateNews(news) {
 
 router.all('*', function(req, res, next) {
 	if (!req.isAuth) {
-		res.send('У Вас не достаточно прав для доступа к данному ресурсу.');
+		res.status(403).send('У Вас не достаточно прав для доступа к данному ресурсу.');
 	}
 
 	menuGenerated = myUtil.menuGenerate(menuConfig.menuAdmin, req);

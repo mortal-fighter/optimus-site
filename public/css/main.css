@@ -9,7 +9,7 @@ html, body {
   color: #555;
 }
 body {
-  /*background: url('../img/space.jpg') repeat;*/
+  background: lightgoldenrodyellow;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -103,6 +103,7 @@ span.highlight3 {
     top: 5px;
 }
 
+
 .sw-icon {
   float: left;
   margin-right: 3px;
@@ -121,4 +122,19 @@ span.highlight3 {
 
 .i-facebook {
   background-position: 0 0; 
+}
+
+table {
+  border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 5px;
+    border: 1px solid #333;
+}
+
+th {
+  color: blue;
+  font-weight: bold;
 }
