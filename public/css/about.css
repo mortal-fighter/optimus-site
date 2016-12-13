@@ -19,3 +19,12 @@
 .about .photo:last-child {
 	margin-right: 0;
 }
+
+table.text {
+	border: none;
+}
+
+table.text>tbody>tr>td {
+	border: none;
+	padding: 0;
+}

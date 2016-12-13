@@ -88,6 +88,38 @@ span.highlight3 {
   }
 }
 
+.logo, .logo-title {
+  position: absolute;
+}
+
+.logo {
+    height: 65px;
+    top: 7px;
+    left: 10px;
+}
+
+.logo-title.part1 {
+    top: 53px;
+    left: 120px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.logo-title.part2 {
+    top: 53px;
+    left: 202px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.logo-title.part3 {
+    left: 115px;
+    top: 17px;
+    font-size: 32px;
+    letter-spacing: 8px;
+    color: orange;
+}
+
 .content {
   margin-top: 20px;
 }
