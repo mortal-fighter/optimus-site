@@ -6,8 +6,8 @@ html(lang="ru")
 		link(rel="stylesheet", type="text/css", href="/css/schedule.css")
 		
 	body
+		include includes/header.pug
 		div.container
-			include includes/navbar.pug
 			div.schedule.content
 				h2 Расписание занятий
 				div!= locals.scheduleOnce.html

@@ -2,6 +2,10 @@
 	text-align: justify;
 }
 
+.about img {
+    border-radius: 5px;
+}
+
 .about img[align=left] {
 	margin-right: 20px;
 }

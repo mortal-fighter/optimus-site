@@ -1,9 +1,0 @@
-ul.nav.navbar-nav.navbar-right
-	- var i = 0
-	each item in locals.menu.items
-		li
-			if locals.menu.indexCurrent === i
-				a.current(href=item.href)= item.titleShort
-			else
-				a(href=item.href)= item.titleShort
-		- i++

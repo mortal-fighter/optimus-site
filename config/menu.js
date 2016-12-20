@@ -17,58 +17,27 @@ module.exports = {
 		{
 			titleShort: 'Главная',
 			titleFull: 'Главная страница',
+			titleCaption: 'Познакомимся',
 			href: '/',
 			hrefSecondary: '/' 
 		}, 
 		{
-			titleShort: 'О нас',
-			titleFull: 'О нас',
-			href: '/about'
-		},
-		{
-			titleShort: 'Партнеры',
-			titleFull: 'Наши партнеры',
-			href: '/partners'
-		}, 
-		{
-			titleShort: 'СМИ о нас',
-			titleFull: 'СМИ об Академии ОПТИМУС',
-			href: '/news/category/2'
-		},
-		{
-			titleShort: 'Интересное',
-			titleFull: 'Интересное',
-			href: '/news/category/4'
-		},
-		{
 			titleShort: 'Новости',
-			titleFull: 'Наши новости',
-			href: '/news/category/1'
-		},
-		{
-			titleShort: 'Родителям',
-			titleFull: 'Родителям',
-			href: '/news/category/3'
+			titleFull: 'Новости',
+			titleCaption: 'Наши изменения',
+			href: '/news'
 		},
 		{
 			titleShort: 'Расписание',
-			titleFull: 'Расписание занятий',
+			titleFull: 'Расписание',
+			titleCaption: 'Приходи к нам',
 			href: '/schedule'
-		},
-		{
-			titleShort: 'Цены',
-			titleFull: 'Наши цены',
-			href: '/prices'
-		},
+		}, 
 		{
 			titleShort: 'Контакты',
-			titleFull: 'Контактная информация',
+			titleFull: 'Контакты',
+			titleCaption: 'Наши лидеры',
 			href: '/contacts'
-		},
-		{
-			titleShort: 'Фото',
-			titleFull: 'Фотогалерея',
-			href: '/photos'
 		}
 	]
 };

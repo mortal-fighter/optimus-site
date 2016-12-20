@@ -6,8 +6,8 @@ html(lang="ru")
 		link(type="text/css", rel="stylesheet", href="/css/news.css")
 		script(src="/js/news.js")
 	body
+		include includes/header.pug
 		div.container
-			include includes/navbar.pug
 			div.news.content
 				h2= title
 				if locals.news.length === 0 

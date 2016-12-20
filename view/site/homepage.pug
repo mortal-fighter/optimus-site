@@ -11,26 +11,76 @@ html(lang="ru")
 		link(rel="stylesheet", type="text/css", href="/css/homepage.css")
 		script(src="/js/homepage.js")
 	body
-		include includes/navbar.pug
-		div#home.home.content 
-			div.title
-				div.part1 Академия
-				div.part2 робототехники
-				div.part3 "ОПТИМУС"
-			div.slideshow
-				div.aslider(data-hide-mute, data-hide-pause)
-					each item in locals.slideshow
-						-
-							var largePhotoLink = '';
-								if (item.src_xxxbig) {
-									largePhotoLink = item.src_xxxbig;
-								} else if (item.src_xxbig) {
-									largePhotoLink = item.src_xxbig;
-								} else if (item.src_xbig) {
-									largePhotoLink = item.src_xbig;
-								} else {
-									largePhotoLink = item.src_big;
-								}
-						div.aslide(data-duration="4")
-							img(src= largePhotoLink)
+		include includes/header.pug
+		section.slideshow
+			div.content
+				div.slideshow
+			//- div.aslider(data-hide-mute, data-hide-pause)
+			//- 	each item in locals.slideshow
+			//- 		-
+			//- 			var largePhotoLink = '';
+			//- 				if (item.src_xxxbig) {
+			//- 					largePhotoLink = item.src_xxxbig;
+			//- 				} else if (item.src_xxbig) {
+			//- 					largePhotoLink = item.src_xxbig;
+			//- 				} else if (item.src_xbig) {
+			//- 					largePhotoLink = item.src_xbig;
+			//- 				} else {
+			//- 					largePhotoLink = item.src_big;
+			//- 				}
+			//- 		div.aslide(data-duration="4")
+			//- 			img(src= largePhotoLink)
+		section.gap-1
+		section.feature-row.frow-1
+			div.content
+				div.feature-col
+					h3 Новости
+					div.caption Актуальные
+					img(src="#")
+					div.feature-text ТЕСТ Общество Робототехники из Волгодонска стали победителями фестиваля "Робофинист"
+					button.picture-button.pb-more
+				div.feature-col
+					h3 О Нас
+					div.caption Наши цели
+					img(src="#")
+					div.feature-text ТЕСТ Робототехника является одним из наиболее популярных направлений технического творчества, как профессиональной инженерной среды, так и образовательной
+					button.picture-button.pb-more
+				div.feature-col
+					h3 Расписание
+					div.caption Успей записаться
+					img(src="#")
+					div.feature-text ТЕСТ Расписание занятий и актуальные цены
+					button.picture-button.pb-more
+		section.feature-row.frow-2
+			div.content
+				div.feature-col
+					h3 Мы в социальных сетях
+					div.caption Подписывайтесь
+					include includes/social_networks.pug
+					h3
+					div.caption Поиск по нашему сайту
+					input(type="text")
+					button.picture-button.pb-search
+				div.feature-col
+					h3 Контакты
+					input(type="text", placeholder="Ваше имя")
+					input(type="text", placeholder="Ваш e-mail")
+					input(type="text", placeholder="Текст сообщения")
+					button.picture-button.pb-sendmessage
+				div.feature-col
+					h3 Основы робототехники
+					ul.tutorial
+						li
+							img(src="#")
+							div.text
+						li
+							img(src="#")
+							div.text
+						li
+							img(src="#")
+							div.text
+					button.picture-button.pb-tutorial 	
+		footer
+			div.copyright Copyright 2016. Studio Kalashnickov All Rights Reserved.
+			div.design-info Дизайн разработан специально для "Оптимус"" академии робототехники Kalashnickov design studio 2016
 		include includes/analytics.pug
