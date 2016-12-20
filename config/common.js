@@ -20,6 +20,13 @@ module.exports = {
 		password: 'JM}FGZ'
 	},
 	vk: {
-		ownerID: -129910076
+		//ownerID: -129910076,
+		ownerID: -134709374,
+		albums: {
+			slideshow: {
+				id: 238474797,
+				count: 10
+			}
+		}
 	}
 };

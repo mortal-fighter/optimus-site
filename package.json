@@ -1,21 +1,20 @@
 {
-  "name": "optimus",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "kirill.vladykin",
-  "license": "ISC",
-  "dependencies": {
-  	"express": "4",
-  	"pug": "2.0.0-beta6",
-  	"express": "4",
-    "mysql": "2.11.1",
-    "bluebird": "3.4.6",
-    "body-parser": "1.15.2",
-    "multer": "1.2.0",
-    "cookie-parser": "1.4.3"
-  }
+	"name": "optimus",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "kirill.vladykin",
+	"license": "ISC",
+	"dependencies": {
+		"express": "4",
+		"pug": "2.0.0-beta6",
+		"mysql": "2.11.1",
+		"bluebird": "3.4.6",
+		"body-parser": "1.15.2",
+		"cookie-parser": "1.4.3",
+		"log4js": "1.0.1"
+	}
 }

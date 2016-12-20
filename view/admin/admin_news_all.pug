@@ -32,6 +32,10 @@ html(lang="ru")
 											span.published &nbsp;(опубликована)
 										else 
 											span.not-published &nbsp;(не опубликована)	
+									div.news-date
+										div.news-date-created=  'Дата создания: ' + val.date_created
+										-  var datePublished = (val.date_published) ? 'Дата публикации: ' + val.date_published : '';
+										div.news-date-published= datePublished
 									div.news-short-desc= val.text_short
 									ul.news-actions
 										li

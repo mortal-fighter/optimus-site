@@ -79,8 +79,10 @@ router.get('/', function(req, res, next) {
 	var db = null;
 	connectionPromise().then(function(connection) {
 		db = connection;
-		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
-										FROM info_units WHERE date_deleted is null`);
+		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, 
+								info_types_id, DATE_FORMAT(date_created, '%d.%m.%Y'), DATE_FORMAT(date_published, '%d.%m.%Y')
+								FROM info_units WHERE date_deleted is null
+								ORDER BY date_created DESC`);
 	}).then(function(rows) {	
 		res.render('admin/admin_news_all', {
 			news: rows,
@@ -120,7 +122,7 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 	}).then(function(infoTypes) {
 		req.user.infoTypes = infoTypes;
 		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
-										FROM info_units WHERE id = ${req.params.id}`);
+								FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
 
 		if (rows.length < 1) {

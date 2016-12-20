@@ -19,16 +19,18 @@ html(lang="ru")
 				div.part3 "ОПТИМУС"
 			div.slideshow
 				div.aslider(data-hide-mute, data-hide-pause)
-					div.aslide(data-duration="4")
-						img(src="/img/slides/01.jpg")
-					div.aslide(data-duration="4")
-						img(src="/img/slides/03.jpg")
-					div.aslide(data-duration="4")
-						img(src="/img/slides/06.jpg")
-					div.aslide(data-duration="4")
-						img(src="/img/slides/07.jpg")
-					div.aslide(data-duration="4")
-						img(src="/img/slides/13.jpg")
-					div.aslide(data-duration="4")
-						img(src="/img/slides/12.jpg")
+					each item in locals.slideshow
+						-
+							var largePhotoLink = '';
+								if (item.src_xxxbig) {
+									largePhotoLink = item.src_xxxbig;
+								} else if (item.src_xxbig) {
+									largePhotoLink = item.src_xxbig;
+								} else if (item.src_xbig) {
+									largePhotoLink = item.src_xbig;
+								} else {
+									largePhotoLink = item.src_big;
+								}
+						div.aslide(data-duration="4")
+							img(src= largePhotoLink)
 		include includes/analytics.pug

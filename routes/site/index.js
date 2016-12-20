@@ -10,17 +10,7 @@ router.use(function(req, res, next) {
 	next();
 });
 
-router.get('/', function(req, res, next) {
-	res.render('site/homepage', {
-		menu: req.menuGenerated
-	});
-});
-
-router.get('/home', function(req, res, next) {
-	res.render('site/homepage', {
-		menu: req.menuGenerated
-	});
-});
+router.get('/', require('./homepage'));
 
 router.get('/about', function(req, res, next) {
 	res.render('site/about', {
