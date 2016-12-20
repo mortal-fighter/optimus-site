@@ -1,7 +1,10 @@
 .aslider {
 	width: 100%;
+	height: 340px;
+	overflow: hidden;
 }
 
 .aslider .aslide img {
 	width: 100%;
 }
+

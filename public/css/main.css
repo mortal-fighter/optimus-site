@@ -153,13 +153,12 @@ section.slideshow {
 }
 
 div.slideshow {
-  height: 340px;
+  height: 354px;
   width: 940px;
   position: absolute;
   top: 20px;
   left: 0;
-  outline: 1px solid blue;
-  background: lightgray;
+  background: url('../img/shadow-2.png') no-repeat center bottom;
 }
 
 div.slideshow::after {

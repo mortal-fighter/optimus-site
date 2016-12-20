@@ -98,7 +98,6 @@ var aslider = {
 
     advanceSlide: function (currentSlide, sliderIndex) {
         'use strict';
-        console.log('Advance', sliderIndex)
         var nextSlide = currentSlide.nextElementSibling;
         var slider = aslider.sliders[sliderIndex].sliderContainer;
 
