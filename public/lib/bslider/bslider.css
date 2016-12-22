@@ -1,0 +1,41 @@
+.bslider {
+	width: 100%;
+	height: 340px;
+	overflow: hidden;
+}
+
+.bslider .bslide img {
+	width: 100%;
+}
+
+ul.bslider-bullets {
+    position: absolute;
+    left: 25px;
+    bottom: 15px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    z-index: 1;
+}
+
+ul.bslider-bullets li {
+    float: left;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+}
+
+ul.bslider-bullets li:last-child {
+    margin-right: 0;
+}
+
+ul.bslider-bullets li.current {
+    background: radial-gradient(circle, #7c3a00 0%, brown 50%, rgba(0,0,0,0) 60%);
+    cursor: default;
+}
+

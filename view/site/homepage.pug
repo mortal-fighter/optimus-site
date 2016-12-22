@@ -4,9 +4,9 @@ html(lang="ru")
 	head
 		include includes/head_common.pug
 		
-		<!-- aslider -->
-		link(rel="stylesheet", type="text/css", href="/lib/aslider/aslider.css")
-		script(src="/lib/aslider/aslider.js")
+		<!-- bslider -->
+		link(rel="stylesheet", type="text/css", href="/lib/bslider/bslider.css")
+		script(src="/lib/bslider/bslider.js")
 
 		link(rel="stylesheet", type="text/css", href="/css/homepage.css")
 		script(src="/js/homepage.js")
@@ -15,7 +15,7 @@ html(lang="ru")
 		section.slideshow
 			div.content
 				div.slideshow
-					div.aslider(data-hide-mute, data-hide-pause)
+					div.bslider(data-hide-mute, data-hide-pause)
 						each item in locals.slideshow
 							-
 								var largePhotoLink = '';
@@ -26,29 +26,35 @@ html(lang="ru")
 									} else {
 										largePhotoLink = item.src_big;
 									}
-							div.aslide(data-duration="4")
+							div.bslide(data-duration="4")
 								img(src= largePhotoLink)
 		section.gap-1
 		section.feature-row.frow-1
 			div.content
 				div.feature-col
-					h3 Новости
+					h3 
+						a(href="/news/category/1") Новости
 					div.caption Актуальные
-					img(src="#")
+					div.picture
+						img(src="/img/features/news.jpg")
 					div.feature-text ТЕСТ Общество Робототехники из Волгодонска стали победителями фестиваля "Робофинист"
-					button.picture-button.pb-more
+					button#btn-news.picture-button.pb-more
 				div.feature-col
-					h3 О Нас
+					h3 
+						a(href="/about") О Нас
 					div.caption Наши цели
-					img(src="#")
+					div.picture
+						img(src="/img/features/about_us.jpg")
 					div.feature-text ТЕСТ Робототехника является одним из наиболее популярных направлений технического творчества, как профессиональной инженерной среды, так и образовательной
-					button.picture-button.pb-more
+					button#btn-about.picture-button.pb-more
 				div.feature-col
-					h3 Расписание
+					h3 
+						a(href="/schedule") Расписание
 					div.caption Успей записаться
-					img(src="#")
+					div.picture
+						img(src="/img/features/schedule.jpg")
 					div.feature-text ТЕСТ Расписание занятий и актуальные цены
-					button.picture-button.pb-more
+					button#btn-schedule.picture-button.pb-more
 		section.feature-row.frow-2
 			div.content
 				div.feature-col
@@ -57,28 +63,32 @@ html(lang="ru")
 					include includes/social_networks.pug
 					h3
 					div.caption Поиск по нашему сайту
-					input(type="text")
-					button.picture-button.pb-search
+					input#search(type="text", placeholder="Что ищем?")
+					button#btn-search.picture-button.pb-search
 				div.feature-col
 					h3 Контакты
-					input(type="text", placeholder="Ваше имя")
-					input(type="text", placeholder="Ваш e-mail")
-					input(type="text", placeholder="Текст сообщения")
-					button.picture-button.pb-sendmessage
+					input#sm-name(type="text", placeholder="Ваше имя")
+					input#sm-email(type="text", placeholder="Ваш e-mail")
+					textarea#sm-text(placeholder="Текст сообщения", style="height: 75px")
+					button#btn-sendmessage.picture-button.pb-sendmessage
 				div.feature-col
 					h3 Основы робототехники
 					ul.tutorial
 						li
-							img(src="#")
-							div.text
+							div.picture-small
+								img(src="/img/features/robot.jpg")
+							div.text Учимся вместе собирать робота
 						li
-							img(src="#")
-							div.text
+							div.picture-small
+								img(src="/img/features/notebook.jpg")
+							div.text Программируем робота
 						li
-							img(src="#")
-							div.text
-					button.picture-button.pb-tutorial 	
+							div.picture-small
+								img(src="/img/features/joystick.jpg")
+							div.text Управляем роботом
+					button#btn-tutorial.picture-button.pb-tutorial 	
 		footer
-			div.copyright Copyright 2016. Studio Kalashnickov All Rights Reserved.
-			div.design-info Дизайн разработан специально для "Оптимус"" академии робототехники Kalashnickov design studio 2016
+			div.content
+				div.copyright Copyright 2016. Studio Kalashnickov All Rights Reserved.
+				div.design-info Дизайн разработан специально для "Оптимус" академии робототехники Kalashnickov design studio 2016
 		include includes/analytics.pug

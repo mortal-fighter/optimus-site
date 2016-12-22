@@ -1,22 +1,176 @@
-@media(max-width: 768px) {
-	.home {
-		width: 100%;
-		position: absolute;
-	}
-	.title {
-		margin-bottom: 25px;
-    	display: inline-block;
-		font: 24px Helvetica, Arial, sans-serif;
-		color: #f00;
-  		text-shadow: 1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, -1px -1px 1px #fff; 
-	}
-	.title * {
-		margin-bottom: 5px;
-	}
-	.title .part2 {
-	    margin-left: 50px;
-	}
-	.title .part3 {
-	    margin-left: 125px;
-	}
+/* SLIDESHOW */
+section.slideshow {
+  height: 335px;
+  background-color: #343434;
+  border-top: 1px solid #353535;
+  border-bottom: 1px solid #353535;
+}
+
+div.slideshow {
+  height: 354px;
+  width: 940px;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  background: url('../img/shadow-2.png') no-repeat center bottom;
+}
+
+div.slideshow::after {
+    content: 'Сделай свой первый шаг в конструировании вместе с нами!';
+    height: 50px;
+    width: 940px;
+    position: absolute;
+    bottom: -65px;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
+/* GAP */
+section.gap-1 {
+    height: 100px;
+}
+
+/* FEATURES */
+section.feature-row {
+  background: url(../img/shadow-1.png) no-repeat center top;
+}
+
+section.feature-row .content {
+    border-top: 1px solid #e5e5e5;
+}
+
+section.frow-1 {
+    height: 440px;
+}
+
+section.frow-2 {
+    height: 350px;
+}
+
+section.frow-1 .content {
+    height: 439px;
+}
+
+section.frow-2 .content {
+    height: 379px;
+}
+
+.feature-col {
+    float: left;
+    width: 33%;
+    position: relative;
+}
+
+.frow-1 .feature-col {
+  height: 440px;
+}
+
+.frow-2 .feature-col {
+    height: 350px;
+}
+
+.feature-col h3 {
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.feature-col .caption {
+    font-size: 11px;
+    color: #b7b7b7;
+    margin-left: 1px;
+}
+
+.feature-col .picture {
+  width: 298px;
+  height: 202px;
+  background: url('../img/picture_layout.png');
+  margin: 10px 0 10px 0;
+}
+
+.feature-col .picture img {
+    width: 284px;
+    height: 178px;
+    margin: 12px 0 0 7px;
+}
+
+.feature-col .feature-text {
+    width: 292px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.feature-col a,
+.feature-col a:link,
+.feature-col a:active,
+.feature-col a:hover,
+.feature-col a:visited {
+  color: #11719e;
+}
+
+.frow-2 .feature-col h3 {
+    color: #444444;
+    font-size: 18px;
+    border-bottom: 1px dashed #d3d3d3;
+    margin: 30px 18px 10px 0px;
+    padding-bottom: 5px;
+}
+
+.frow-2 .feature-col .caption {
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+.social-web {
+    height: 32px;
+    margin: 10px 0 42px 0;
+}
+
+.feature-col .picture-button {
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+}
+
+#sm-name, #sm-email {
+    margin-bottom: 20px;
+}
+
+.picture-small {
+  float: left;
+  height: 64px;
+  width: 64px;
+  background: url('../img/picture-layout-small.png') no-repeat;
+}
+
+.picture-small img {
+  height: 60px;
+  width: 60px;
+  margin: 2px 0 0 2px;
+}
+
+.tutorial .text {
+  float: left;
+  margin-left: 5px;
+  font-size: 12px;
+  color: #444;
+}
+
+ul.tutorial li {
+    display: block;
+    width: 293px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    margin-right: 19px;
+    border-bottom: 1px dashed #d3d3d3;
+}
+
+ul.tutorial li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }

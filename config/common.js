@@ -1,7 +1,7 @@
 module.exports = {
 	app: {
-		mode: 'production',
-		port: 80
+		mode: 'development',
+		port: 1234
 	},
 	database: {
 		host: '127.0.0.1',

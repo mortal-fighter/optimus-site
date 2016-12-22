@@ -71,6 +71,57 @@ a:hover {
   background-position: 0 0; 
 }
 
+.picture-button {
+  float: left;
+  margin-right: 3px;
+  width: 163px;
+  height: 36px;
+  background: url('../img/buttons.png');
+  border: none;
+  cursor: pointer;
+}
+
+.pb-more {
+  background-position: 0 0;
+}
+
+.pb-search {
+    height: 32px;
+    background-position: -166px 0;
+}
+
+.pb-sendmessage {
+    height: 32px;
+    background-position: -332px 0;
+}
+
+.pb-tutorial {
+    height: 32px;
+    background-position: -497px 0;
+}
+
+.pb-more-disabled {
+    background-position: 0 -37px;
+    cursor: default;
+}
+
+.pb-search-disabled {
+    height: 32px;
+    background-position: -166px -38px;
+    cursor: default;
+}
+
+.pb-sendmessage-disabled {
+    height: 32px;
+    background-position: -332px -38px;
+    cursor: default;
+}
+
+.pb-tutorial-disabled {
+    height: 32px;
+    background-position: -497px -38px;
+    cursor: default;
+}
 
 /* TABLES */
 table {
@@ -86,6 +137,19 @@ td, th {
 th {
   color: blue;
   font-weight: bold;
+}
+
+/* FORMS */
+input[type=text], textarea {
+    width: 90%;
+    border: none;
+    padding: 5px;
+    font: normal 14px monospace;
+}
+
+input[type=text]:focus, textarea:focus {
+    border: none;
+    outline: none;
 }
 
 /***************
@@ -144,82 +208,24 @@ ul.top-menu .caption {
     margin-left: 1px;
 }
 
-/* SLIDESHOW */
-section.slideshow {
-  height: 335px;
-  background-color: #343434;
-  border-top: 1px solid #353535;
-  border-bottom: 1px solid #353535;
+
+/* FOOTER */
+footer {
+  height: 172px;
+  background: #333;
+  border-top: 10px solid #4c4c4c;
 }
 
-div.slideshow {
-  height: 354px;
-  width: 940px;
-  position: absolute;
-  top: 20px;
-  left: 0;
-  background: url('../img/shadow-2.png') no-repeat center bottom;
+footer .copyright {
+    float: right;
+    margin: 20px 30px 0 0;
+    color: #999;
+    font-size: 11px;
 }
 
-div.slideshow::after {
-    content: 'Сделай свой первый шаг в конструировании вместе с нами!';
-    height: 50px;
-    width: 940px;
-    position: absolute;
-    bottom: -65px;
-    left: 0;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    color: black;
-}
-
-/* GAP */
-section.gap-1 {
-    height: 100px;
-}
-
-/* FEATURES */
-section.feature-row {
-  background: url(../img/shadow-1.png) no-repeat center top;
-}
-
-section.feature-row .content {
-    border-top: 1px solid #e5e5e5;
-}
-
-section.frow-1 {
-    height: 440px;
-}
-
-section.frow-2 {
-    height: 380px;
-}
-
-section.frow-1 .content {
-    height: 439px;
-}
-
-section.frow-2 .content {
-    height: 379px;
-}
-
-.feature-col {
+footer .design-info {
     float: left;
-    width: 33%;
-}
-
-.frow-1 .feature-col {
-  height: 440px;
-}
-
-.frow-2 .feature-col {
-  height: 380px;
-}
-
-.social-web {
-    height: 32px;
-    position: absolute;
-    right: 15px;
-    top: 5px;
+    margin: 20px 0 0 0;
+    width: 250px;
+    color: #999;
 }
