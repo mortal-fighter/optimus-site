@@ -15,6 +15,7 @@
 		"bluebird": "3.4.6",
 		"body-parser": "1.15.2",
 		"cookie-parser": "1.4.3",
-		"log4js": "1.0.1"
+		"log4js": "1.0.1",
+		"nodemailer": "2.7.0"
 	}
 }

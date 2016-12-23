@@ -20,8 +20,5 @@ html(lang="ru")
 							var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';
 						p!= textShort
 							span.news-link(news-id= val.id) Читать дальше
-		div#popup-window
-			div.popup-header
-				div.popup-close закрыть
-			div.popup-content
+		include includes/popup_window.pug
 		include includes/analytics.pug

@@ -28,5 +28,6 @@ module.exports = {
 				count: 10
 			}
 		}
-	}
+	},
+	mailer: { }
 };
