@@ -33,12 +33,12 @@ html(lang="ru")
 			div.content
 				div.feature-col
 					h3 
-						a(href="/news/category/1") Новости
-					div.caption Актуальные
+						a(href="/photos") Галерея
+					div.caption Наши фото
 					div.picture
 						img(src="/img/features/news.jpg")
-					div.feature-text ТЕСТ Общество Робототехники из Волгодонска стали победителями фестиваля "Робофинист"
-					button#btn-news.picture-button.pb-more
+					div.feature-text Здесь собраны самые лучшие фотоотчеты с наших мероприятий
+					button#btn-gallery.picture-button.pb-more
 				div.feature-col
 					h3 
 						a(href="/about") О Нас
@@ -87,8 +87,5 @@ html(lang="ru")
 								img(src="/img/features/joystick.jpg")
 							div.text Управляем роботом
 					button#btn-tutorial.picture-button.pb-tutorial 	
-		footer
-			div.content
-				div.copyright Copyright 2016. Studio Kalashnickov All Rights Reserved.
-				div.design-info Дизайн разработан специально для "Оптимус" академии робототехники Kalashnickov design studio 2016
+		include includes/footer.pug
 		include includes/analytics.pug

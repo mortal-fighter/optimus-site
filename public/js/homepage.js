@@ -2,7 +2,7 @@
 	'use strict';
 
 	function attachHandlers() {
-		$('#btn-news').on('click', function() { window.location.href='/news/category/1' });
+		$('#btn-gallery').on('click', function() { window.location.href='/photos' });
 		$('#btn-about').on('click', function() { window.location.href='/about' });
 		$('#btn-schedule').on('click', function() { window.location.href='/schedule' });
 	}
