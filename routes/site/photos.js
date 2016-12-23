@@ -13,28 +13,26 @@ router.get('/', function(req, res, next) {
 		method: 'GET',
 		path: '/method/photos.getAlbums?owner_id=' + config.vk.ownerID
 	}).then(function(result) {
+		
 		const albums = JSON.parse(result.body).response;
 		var photos = '';
 
-		var emptyCoverAlbumId = 0;
-		for (var i = 0; i < albums.length; i++) {
-			if (albums[i].thumb_id !== '0') {
-				// construct request string (if only the album cover exists)
-				photos += config.vk.ownerID + '_' + albums[i].thumb_id + ',';
+		for (var i = 0, len = albums.length; i < len; i++) {
+			if (albums[i].thumb_id === '0') {
+				albums.splice(i, 1);
+				len--;
+				i--
 			} else {
-				// if it's not, then memory the index...
-				emptyCoverAlbumId = i;
-			}
+				photos += config.vk.ownerID + '_' + albums[i].thumb_id + ',';
+			} 
 		}
-		// ... and remove the corresponding element from the array of albums
-		albums.splice(emptyCoverAlbumId, 1);
-
+		
 		photos = photos.substr(0, photos.length-1);
 		return myrequest.httpsRequestAsync({
 			host: 'api.vk.com',
 			port: 443,
 			method: 'GET',
-			path: '/method/photos.getById?photos=' + photos
+			path: '/method/photos.getById?photos=' + photos		
 		}).then(function(result) {
 			const covers = JSON.parse(result.body).response;
 			

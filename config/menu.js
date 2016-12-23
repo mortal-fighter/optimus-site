@@ -42,6 +42,12 @@ module.exports = {
 			titleCaption: 'Наши лидеры',
 			href: '/contacts',
 			topMenu: true
+		},
+		{
+			titleShort: 'Галерея',
+			titleFull: 'Галерея',
+			href: '/photos',
+			topMenu: false
 		}
 	]
 };

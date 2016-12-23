@@ -5,12 +5,13 @@ header
 		ul.top-menu
 			- var i = 0
 			each item in locals.menu.items
-				if locals.menu.indexCurrent === i
-					li.current
-						a(href=item.href)= item.titleShort
-						div.caption= item.titleCaption
-				else
-					li
-						a(href=item.href)= item.titleShort
-						div.caption= item.titleCaption
+				if item.topMenu
+					if locals.menu.indexCurrent === i
+						li.current
+							a(href=item.href)= item.titleShort
+							div.caption= item.titleCaption
+					else
+						li
+							a(href=item.href)= item.titleShort
+							div.caption= item.titleCaption
 				- i++
