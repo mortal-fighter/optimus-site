@@ -1,3 +1,12 @@
+.about ul {
+	list-style-type: disc;
+	padding-left: 40px;
+}
+
+.about ul li {
+	float: none;
+}
+
 .about {
 	text-align: justify;
 }
@@ -15,7 +24,7 @@
 }
 
 .about .photo {
-	width: 372px;
+	width: 305px;
 	float: left;
 	margin-right: 10px;
 }
