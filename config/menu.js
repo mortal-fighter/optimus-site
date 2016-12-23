@@ -19,25 +19,29 @@ module.exports = {
 			titleFull: 'Главная страница',
 			titleCaption: 'Познакомимся',
 			href: '/',
-			hrefSecondary: '/' 
+			hrefSecondary: '/',
+			topMenu: true 
 		}, 
 		{
 			titleShort: 'Новости',
 			titleFull: 'Новости',
 			titleCaption: 'Наши изменения',
-			href: '/news'
+			href: '/news',
+			topMenu: true
 		},
 		{
 			titleShort: 'Расписание',
 			titleFull: 'Расписание',
 			titleCaption: 'Приходи к нам',
-			href: '/schedule'
+			href: '/schedule',
+			topMenu: true
 		}, 
 		{
 			titleShort: 'Контакты',
 			titleFull: 'Контакты',
 			titleCaption: 'Наши лидеры',
-			href: '/contacts'
+			href: '/contacts',
+			topMenu: true
 		}
 	]
 };
