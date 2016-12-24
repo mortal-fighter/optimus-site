@@ -1,16 +1,14 @@
 (function(window) {
 	'use strict';
 
-	var currentScroll;
-
+	
 	function _closePopup() {
-		$(document).scrollTop(currentScroll);
+		$('body').removeClass('.stop-scrolling');
 		$('#popup-window').fadeOut(400);
 	}
 
 	function _showPopup() {
-		currentScroll = $(document).scrollTop();
-		$(document).scrollTop(0);
+		$('body').addClass('.stop-scrolling');
 		$('#popup-window').height($(document).height());
 		$('#popup-window').fadeIn(400);
 	}
@@ -25,7 +23,7 @@
 			var userEmail = $('#sm-email').val();
 			var userMessage = $('#sm-text').val();
 
-			if (userName.match(/$\s*^/)) {
+			/*if (userName.match(/$\s*^/)) {
 				alert('Поле \'Имя\' не может быть пустым.');
 				$('#sm-name').focus();
 				return;
@@ -41,9 +39,11 @@
 				alert('Поле \'Текст сообщения\' не может быть пустым.');
 				$('#sm-text').focus();
 				return;	
-			}
+			}*/
 
-			$.ajax({
+			_showPopup();
+
+			/*$.ajax({
 				method: 'POST',
 				url: '/api/sendmail/',
 				dataType: 'json',
@@ -58,7 +58,7 @@
 				error: function() {
 					alert('Ошибка сетевого соединения');
 				}
-			});
+			});*/
 		});
 
 

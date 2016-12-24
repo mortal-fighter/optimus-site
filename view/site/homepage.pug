@@ -10,6 +10,9 @@ html(lang="ru")
 
 		link(rel="stylesheet", type="text/css", href="/css/homepage.css")
 		script(src="/js/homepage.js")
+
+		<!-- recaptcha -->
+		script(src='https://www.google.com/recaptcha/api.js')
 	body
 		include includes/header.pug
 		section.slideshow
@@ -87,5 +90,11 @@ html(lang="ru")
 								img(src="/img/features/joystick.jpg")
 							div.text Управляем роботом
 					button#btn-tutorial.picture-button.pb-tutorial 	
+		div#popup-window
+			div.popup-header
+				div.popup-close закрыть
+			div.popup-content
+				form
+					div.g-recaptcha(data-sitekey="6Lf6rQ8UAAAAAHeN1O2CbPiGXY3_MXiD0JxYJGO3")
 		include includes/footer.pug
 		include includes/analytics.pug

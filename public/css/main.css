@@ -160,6 +160,12 @@ input[type=text]:focus, textarea:focus {
    clear: both;
 }
 
+/* SCROLLING*/
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
 /* POPUP */
 div#popup-window {
     display: none;
