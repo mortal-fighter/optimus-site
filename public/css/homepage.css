@@ -174,3 +174,7 @@ ul.tutorial li:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+#recaptcha-test {
+    margin-top: 15px;
+}

@@ -91,10 +91,13 @@ html(lang="ru")
 							div.text Управляем роботом
 					button#btn-tutorial.picture-button.pb-tutorial 	
 		div#popup-window
-			div.popup-header
-				div.popup-close закрыть
-			div.popup-content
-				form
-					div.g-recaptcha(data-sitekey="6Lf6rQ8UAAAAAHeN1O2CbPiGXY3_MXiD0JxYJGO3")
+			div.popup-layout
+				div.popup-container.popup-container-medium
+					div.popup-header
+						div.popup-close закрыть
+					div.popup-content 
+						form.clearfix
+							div.g-recaptcha(data-sitekey="6Lf6rQ8UAAAAAHeN1O2CbPiGXY3_MXiD0JxYJGO3")
+							button#recaptcha-test.picture-button.pb-captcha
 		include includes/footer.pug
 		include includes/analytics.pug

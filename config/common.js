@@ -29,5 +29,9 @@ module.exports = {
 			}
 		}
 	},
-	mailer: { }
+	mailer: { },
+	recaptcha: {
+		secret: '6Lf6rQ8UAAAAAIBpeWNFCRmiUddND1BPR6eCiA61',
+		siteKey: '6Lf6rQ8UAAAAAHeN1O2CbPiGXY3_MXiD0JxYJGO3'
+	}
 };
