@@ -10,15 +10,17 @@ html(lang="ru")
 		div.container
 			div.news.content
 				h2= title
-				if locals.news.length === 0 
+				if !locals.news || locals.news.length === 0 
 					p(style="text-align:left; font-size: 18px") Нет новостей
-				each val in locals.news
-					section
-						div.news-date= val.date_published
-						h3.news-link(news-id= val.id)= val.title
-						-
-							var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';
-						p!= textShort
-							span.news-link(news-id= val.id) Читать дальше
+				if locals.news
+					each val in locals.news
+						section
+							div.news-date= val.date_published
+							h3.news-link(news-id= val.id)= val.title
+							-
+								var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';
+							p!= textShort
+								span.news-link(news-id= val.id) Читать дальше
 		include includes/popup_window.pug
+		include includes/footer.pug
 		include includes/analytics.pug

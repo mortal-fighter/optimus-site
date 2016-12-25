@@ -54,7 +54,8 @@
 
 			_showPopup();
 
-			$('#recaptcha-test').on('click', function() {
+			$('#recaptcha-test').on('click', function(evt) {
+				evt.preventDefault();
 				const result = $('#g-recaptcha-response').val();
 				if (result === '') {
 					alert('Чтобы продолжить поставьте отметку в поле \'Я не робот\'');
