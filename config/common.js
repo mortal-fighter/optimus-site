@@ -1,7 +1,7 @@
 module.exports = {
 	app: {
-		mode: 'development',
-		port: 1234
+		mode: 'production',
+		port: 80
 	},
 	database: {
 		host: '127.0.0.1',
@@ -20,12 +20,12 @@ module.exports = {
 		password: 'JM}FGZ'
 	},
 	vk: {
-		//ownerID: -129910076,
-		ownerID: -134709374,
+		ownerIDtemp: -134709374, // костыль
+		ownerID: -129910076,
 		albums: {
 			slideshow: {
 				id: 238474797,
-				count: 10
+				count: 5
 			}
 		}
 	},

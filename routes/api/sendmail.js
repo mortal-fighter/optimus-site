@@ -36,7 +36,7 @@ router.post('/', function (req, res, next) {
 		if (result.success) {
 			const mailOptions = {
 				from: 'Сайт Академии',
-				to: 'kirillmybox@rambler.ru',
+				to: 'academy.optimus@yandex.ru',
 				subject: `Вопрос от посетителя ${req.body.userName}`,
 				text: `
 					Вопрос от посетителя ${req.body.userName} (${req.body.userEmail}).

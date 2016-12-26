@@ -3,8 +3,6 @@
 const router = require('express').Router();
 const Promise = require('bluebird');
 
-router.use('/news', require('./news'));
-
 router.use('/sendmail', require('./sendmail'));
 
 router.use(function(req, res) {

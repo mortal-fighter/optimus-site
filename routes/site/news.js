@@ -48,7 +48,7 @@ router.get('/:id(\\d+)', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection
 		return db.queryAsync(`
-			SELECT title, date_published, text_short, text_full 
+			SELECT title, text_short, text_full, DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published 
 			FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {	
 		res.render('_news_once.pug', {

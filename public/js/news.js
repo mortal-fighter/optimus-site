@@ -32,7 +32,7 @@
 	function showPopupNews(newsId) {
 		$.ajax({
 			method: 'GET',
-			url: '/api/news/' + newsId,
+			url: '/news/' + newsId,
 			dataType: 'html',
 			success: function(html) {
 				$('.popup-content').html(html);
