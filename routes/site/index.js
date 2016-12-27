@@ -20,15 +20,27 @@ router.get('/about', function(req, res, next) {
 
 router.get('/schedule', function(req, res, next) {
 	var db = null;
+	var schedule = null;
+	var prices = null;
+
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT html FROM schedule WHERE id = 1;`;
 		console.log(sql);
 		return db.queryAsync(sql);	
 	}).then(function(rows) {
+		schedule = rows[0];
+
+		var sql = `SELECT html FROM prices WHERE id = 1;`;
+		console.log(sql);
+		return db.queryAsync(sql);
+	}).then(function(rows) {
+		prices = rows[0];
+
 		res.render('site/schedule', {
 			menu: req.menuGenerated,
-			scheduleOnce: rows[0] 
+			scheduleOnce: schedule,
+			pricesOnce: prices
 		});
 	}).catch(function(err) {
 		console.log(err.message, err.stack);

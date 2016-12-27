@@ -4,12 +4,14 @@ html(lang="ru")
 	head
 		include includes/head_common.pug
 		link(rel="stylesheet", type="text/css", href="/css/schedule.css")
-		
+		link(rel="stylesheet", type="text/css", href="/css/prices.css")
 	body
 		include includes/header.pug
 		div.container
 			div.schedule.content
 				h2 Расписание занятий
 				div!= locals.scheduleOnce.html
+				h2 Стоимость занятий
+				div!= locals.pricesOnce.html
 		include includes/footer.pug
 		include includes/analytics.pug
