@@ -1,17 +1,15 @@
-.table>tbody>tr:first-child>td {
-    /*color: #fff729;*/
-    color: blue;
-    font-weight: bold;
+table {
+  	border-spacing: 0;
+   	border-collapse: collapse;
 }
 
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
-    border: 1px solid #555;
-    color: black;
-    font-size: 14px;
-    text-align: center;
-    width: 20%;
+td, th {
+    padding: 5px;
+    border: 1px solid #333;
+    background: #fff;
 }
 
-.time {
-	font-weight: bold;
+th {
+  color: blue;
+  font-weight: bold;
 }

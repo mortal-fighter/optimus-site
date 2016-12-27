@@ -80,7 +80,8 @@ router.get('/', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, 
-								info_types_id, DATE_FORMAT(date_created, '%d.%m.%Y'), DATE_FORMAT(date_published, '%d.%m.%Y')
+								info_types_id, DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created, 
+								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
 								FROM info_units WHERE date_deleted is null
 								ORDER BY date_created DESC`);
 	}).then(function(rows) {	
@@ -154,9 +155,9 @@ router.post('/', function(req, res, next) {
 		db = connection;
 		validateNews(req.body);	
 		
-		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published, date_created) 
+		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published, date_created, date_published) 
 					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 
-							${req.body.infoTypesId}, ${req.body.isPublished}, NOW())`;
+							${req.body.infoTypesId}, ${req.body.isPublished}, NOW(), NOW())`;
 		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function() {
