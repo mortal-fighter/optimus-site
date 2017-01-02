@@ -1,7 +1,8 @@
 module.exports = {
 	app: {
 		mode: 'production',
-		port: 80
+		port: 80,
+		emailAdmin: 'rostoveoptimus@yandex.ru'
 	},
 	database: {
 		host: '127.0.0.1',
@@ -29,7 +30,15 @@ module.exports = {
 			}
 		}
 	},
-	mailer: { },
+	mailer: { 
+		smtpConfig: {
+			service: "gmail",
+			auth: {
+				user: 'rostove.optimus@gmail.com',
+				pass: 'boPDXlcRIL'
+			}
+		}
+	},
 	recaptcha: {
 		secret: '6Lf6rQ8UAAAAAIBpeWNFCRmiUddND1BPR6eCiA61',
 		siteKey: '6Lf6rQ8UAAAAAHeN1O2CbPiGXY3_MXiD0JxYJGO3'

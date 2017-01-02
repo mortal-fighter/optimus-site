@@ -1,6 +1,6 @@
 'use strict';
 const router = require('express').Router();
-const mailer = require('../../components/mailer.js');
+const sendmailPromise = require('../../components/sendmailPromise.js');
 const Promise = require('bluebird');
 const fetch = require('isomorphic-fetch');
 const config = require('../../config/common.js');
@@ -33,43 +33,43 @@ router.post('/', function (req, res, next) {
 			return response.json();
 		});
 	}).then(function(result) {
-		if (result.success) {
-			const mailOptions = {
-				from: 'Сайт Академии',
-				to: 'academy.optimus@yandex.ru',
-				subject: `Вопрос от посетителя ${req.body.userName}`,
-				text: `
-					Вопрос от посетителя ${req.body.userName} (${req.body.userEmail}).
-					Текст вопроса: 
-
-					${req.body.userMessage}
-				`,
-				html: `
-					<p>Вопрос от посетителя <b>${req.body.userName}</b> (<b>${req.body.userEmail}</b>).</p>
-					<p>Текст вопроса:</p> 
-					<p>${req.body.userMessage}</p>
-				`
-			};
-			
-			mailer.sendMail(mailOptions);
-
-			res.json({
-				code: 200,
-				message: 'Ваше письмо успешно отправлено! Мы скоро Вам ответим!'
-			});
-		} else {
-			res.json({
-				code: 200,
-				message: 'Введен неправильный код reCaptcha'
-			});
+		if (!result.success) {
+			throw new Error('RECAPTCHA_WRONG_CODE');
 		}
 
+		const mailOptions = {
+			from: 'Сайт Академии ОПТИМУС',
+			to: config.app.emailAdmin,
+			subject: `Вопрос от посетителя ${req.body.userName}`,
+			text: `
+				Пользователь ${req.body.userName} (${req.body.userEmail}) прислал письмо.
+				Текст письма: 
+
+				${req.body.userMessage}
+			`,
+			html: `
+				<p>Пользователь <b>${req.body.userName}</b> (<a href="mailto:${req.body.userEmail}">${req.body.userEmail}</a>) прислал письмо.</p>
+				<p>Текст письма:</p> 
+				<p><b>${req.body.userMessage}</b></p>
+			`
+		};
+		return sendmailPromise(mailOptions);
+	}).then(function() {
+		res.json({
+			code: 200,
+			message: 'Ваше письмо успешно отправлено! Мы скоро Вам ответим!'
+		});	
 	}).catch(function(err) {
 		console.log(err.message, err.stack);
 		if (err.message === 'VALIDATION_HAS_FAILED') {
 			res.json({
 				code: 200,
 				message: 'Письмо не может быть отправленно: проверьте, пожалуйста, введенную информацию'
+			});
+		} else if (err.message === 'RECAPTCHA_WRONG_CODE') {
+			res.json({
+				code: 200,
+				message: 'Введен неправильный код reCaptcha'
 			});
 		} else {
 			res.json({
