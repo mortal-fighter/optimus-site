@@ -5,6 +5,7 @@ const app = express();
 const config = require('./config/common');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 // Prettyfing html output with indentation
 app.locals.pretty = true;
@@ -15,6 +16,8 @@ app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));
 app.use(bodyParser.text());
 
 app.use(cookieParser());
+
+app.use(compression());
 
 app.use(express.static('public'));
 app.set('views', './view/');
