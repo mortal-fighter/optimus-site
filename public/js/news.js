@@ -35,8 +35,22 @@
 			url: '/news/' + newsId,
 			dataType: 'html',
 			success: function(html) {
+				
 				$('.popup-content').html(html);
+				
 				_showPopup();
+				
+				$('.image-container').magnificPopup({
+					delegate: 'a',
+					type: 'image',
+					gallery: {
+						enabled: true,
+						tPrev: 'Предыдущее (Стрелка "Влево")',
+						tNext: 'Следующее (Стрелка "Вправо")'
+					},
+					preload: [1,3]
+				});
+
 			},
 			error: function() {
 				alert('Ошибка сетевого соединения');
