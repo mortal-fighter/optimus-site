@@ -3,10 +3,18 @@ doctype
 html(lang="ru")
 	head
 		include includes/head_common.pug
+		
+		<!-- lightbox (Magnific popup) -->	
+		link(type="text/css", rel="stylesheet", href="/lib/magnific_popup/magnific_popup.css")
+		script(src="/lib/magnific_popup/magnific_popup.js")
+
+		<!-- bluebird -->
+		script(src="/lib/bluebird/bluebird-3.4.7.js")
+
 		link(type="text/css", rel="stylesheet", href="/css/news.css")
 		script(src="/js/news.js")
 	body
-		include includes/header.pug
+		include includes/header_secondary.pug
 		div.container
 			div.news.content
 				h2= title

@@ -196,7 +196,7 @@ input[type=text]:focus, textarea:focus {
 }
 
 .popup-container {
-    margin: 100px auto 0 auto;
+    margin: 100px auto 50px auto;
 }
 
 .popup-header {
@@ -208,6 +208,7 @@ input[type=text]:focus, textarea:focus {
     background: lightgray;
     padding: 20px;
     text-align: center;
+    overflow: auto;
 }
 
 .popup-close {
@@ -243,6 +244,9 @@ input[type=text]:focus, textarea:focus {
     min-height: 300px;
 }
 
+.p-scroll {
+  overflow: scroll;
+}
 
 .popup-close:hover {
     cursor: pointer;

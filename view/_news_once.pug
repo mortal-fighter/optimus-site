@@ -3,3 +3,46 @@ div.news
 	h3.title= locals.newsOnce.title
 	p.text-short= locals.newsOnce.text_short
 	div.text-full!= locals.newsOnce.text_full
+	ul.image-container.clearfix
+		-
+			const maxw = 120;
+			const maxh = 90;
+
+		if locals.photos	
+			each photo in locals.photos
+				-
+					var neww = 0;
+					var newh = 0;
+					var k = 1;
+
+					// fit photos with proportions saved (note: shrink only)
+
+					if (photo.width > photo.height) {
+						k = photo.width / maxw;
+						neww = maxw;
+						newh = Math.trunc(photo.height / k);
+					} else {
+						k = photo.height / maxh;
+						neww = Math.trunc(photo.width / k);
+						newh = maxh;
+					}
+
+					
+					var marginLeft = '0';
+					var marginTop = '0';
+					var marginRight = '0';
+					var marginBottom = '0';
+
+					// center photos
+
+					if (photo.width > photo.height) {
+						marginTop = (maxh - newh) / 2 + 'px';
+						marginBottom = (maxh - newh) / 2 + 'px';
+					} else {
+						marginLeft = (maxw - neww) / 2 + 'px';
+						marginRight = (maxw - neww) / 2 + 'px';
+					}		
+				li
+					div.cover
+						a.photo-link(href= photo.src_big)
+							img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)

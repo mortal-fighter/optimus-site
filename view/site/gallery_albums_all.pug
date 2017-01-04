@@ -5,55 +5,56 @@ html(lang="ru")
 		include includes/head_common.pug
 		link(type="text/css", rel="stylesheet", href="/css/gallery_albums_all.css")
 	body
-		include includes/header.pug
-		div.gallery.content.clearfix
-			h2= title
-			if !locals.albums || locals.albums.length === 0 
-				p(style="text-align:left; font-size: 18px;") Нет фотоальбомов
-			ul.image-container
-				-
-					var i = 0;
-					const maxw = 240;
-					const maxh = 180;
-								
-				if locals.albums 
-					each album in locals.albums
-						li
-							div.cover.album
-								a(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))
-									-
-										
-										var neww = 0;
-										var newh = 0;					
-										var k = 1;
+		include includes/header_secondary.pug
+		div.container
+			div.gallery.content.clearfix
+				h2= title
+				if !locals.albums || locals.albums.length === 0 
+					p(style="text-align:left; font-size: 18px;") Нет фотоальбомов
+				ul.image-container
+					-
+						var i = 0;
+						const maxw = 240;
+						const maxh = 180;
+									
+					if locals.albums 
+						each album in locals.albums
+							li
+								div.cover.album
+									a(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))
+										-
+											
+											var neww = 0;
+											var newh = 0;					
+											var k = 1;
 
-										// fit photos with proportions saved (note: shrink only)
+											// fit photos with proportions saved (note: shrink only)
 
-										if (covers[i].width > covers[i].height) {
-											k = covers[i].width / maxw;
-											neww = maxw;
-											newh = Math.trunc(covers[i].height / k);
-										} else {
-											k = covers[i].height / maxh;
-											neww = Math.trunc(covers[i].width / k);
-											newh = maxh;
-										}
+											if (covers[i].width > covers[i].height) {
+												k = covers[i].width / maxw;
+												neww = maxw;
+												newh = Math.trunc(covers[i].height / k);
+											} else {
+												k = covers[i].height / maxh;
+												neww = Math.trunc(covers[i].width / k);
+												newh = maxh;
+											}
 
-										
-										var marginLeft = '0';
-										var marginTop = '0';
+											
+											var marginLeft = '0';
+											var marginTop = '0';
 
-										// center photos
+											// center photos
 
-										if (covers[i].width > covers[i].height) {
-											marginTop = (maxh - newh) / 2 + 'px';
-										} else {
-											marginLeft = (maxw - neww) / 2 + 'px';
-										}																				
+											if (covers[i].width > covers[i].height) {
+												marginTop = (maxh - newh) / 2 + 'px';
+											} else {
+												marginLeft = (maxw - neww) / 2 + 'px';
+											}																				
 
-									img(src= covers[i].src_big, alt= album.title, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
-							div.title
-								a.title(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))= album.title
-						- i++;
+										img(src= covers[i].src_big, alt= album.title, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
+								div.title
+									a.title(href="/photos/" + album.aid + "/" + encodeURIComponent(album.title))= album.title
+							- i++;
 		include includes/footer.pug
 		include includes/analytics.pug

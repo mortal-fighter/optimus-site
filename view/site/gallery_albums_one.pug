@@ -11,66 +11,67 @@ html(lang="ru")
 
 		script(src="/js/gallery_albums_one.js")
 	body
-		include includes/header.pug
-		div.gallery.content.clearfix
-			h2= title
-			div.breadcrumbs
-				- for (var i=0, len=locals.breadcrumbs.length; i<len; i++)
-					a(href= locals.breadcrumbs[i].href)= locals.breadcrumbs[i].title
-					if i < len-1
-						span= ' > '
-			if !locals.photos || locals.photos.length === 0 
-				p(style="text-align:left; font-size: 18px;") Нет фотографий
-			ul.image-container
-				
-				-
-					const maxw = 240;
-					const maxh = 180;
+		include includes/header_secondary.pug
+		div.container
+			div.gallery.content.clearfix
+				h2= title
+				div.breadcrumbs
+					- for (var i=0, len=locals.breadcrumbs.length; i<len; i++)
+						a(href= locals.breadcrumbs[i].href)= locals.breadcrumbs[i].title
+						if i < len-1
+							span= ' > '
+				if !locals.photos || locals.photos.length === 0 
+					p(style="text-align:left; font-size: 18px;") Нет фотографий
+				ul.image-container
+					
+					-
+						const maxw = 240;
+						const maxh = 180;
 
-				if photos	
-					each photo in locals.photos
-						-
-							var largePhotoLink = '';
-							if (photo.src_xxbig) {
-								largePhotoLink = photo.src_xxbig;
-							} else if (photo.src_xbig) {
-								largePhotoLink = photo.src_xbig;
-							} else {
-								largePhotoLink = photo.src_big;
-							}
+					if photos	
+						each photo in locals.photos
+							-
+								var largePhotoLink = '';
+								if (photo.src_xxbig) {
+									largePhotoLink = photo.src_xxbig;
+								} else if (photo.src_xbig) {
+									largePhotoLink = photo.src_xbig;
+								} else {
+									largePhotoLink = photo.src_big;
+								}
 
 
-							var neww = 0;
-							var newh = 0;					
-							var k = 1;
+								var neww = 0;
+								var newh = 0;					
+								var k = 1;
 
-							// fit photos with proportions saved (note: shrink only)
+								// fit photos with proportions saved (note: shrink only)
 
-							if (photo.width > photo.height) {
-								k = photo.width / maxw;
-								neww = maxw;
-								newh = Math.trunc(photo.height / k);
-							} else {
-								k = photo.height / maxh;
-								neww = Math.trunc(photo.width / k);
-								newh = maxh;
-							}
+								if (photo.width > photo.height) {
+									k = photo.width / maxw;
+									neww = maxw;
+									newh = Math.trunc(photo.height / k);
+								} else {
+									k = photo.height / maxh;
+									neww = Math.trunc(photo.width / k);
+									newh = maxh;
+								}
 
-							
-							var marginLeft = '0';
-							var marginTop = '0';
+								
+								var marginLeft = '0';
+								var marginTop = '0';
 
-							// center photos
+								// center photos
 
-							if (photo.width > photo.height) {
-								marginTop = (maxh - newh) / 2 + 'px';
-							} else {
-								marginLeft = (maxw - neww) / 2 + 'px';
-							}		
-						li
-							div.cover
-								a.photo-link(href= largePhotoLink)
-									img(src= photo.src_big, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
-						- i++;
+								if (photo.width > photo.height) {
+									marginTop = (maxh - newh) / 2 + 'px';
+								} else {
+									marginLeft = (maxw - neww) / 2 + 'px';
+								}		
+							li
+								div.cover
+									a.photo-link(href= largePhotoLink)
+										img(src= photo.src_big, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
+							- i++;
 		include includes/footer.pug
 		include includes/analytics.pug

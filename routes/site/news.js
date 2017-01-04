@@ -45,14 +45,25 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 
 router.get('/:id(\\d+)', function(req, res, next) {
 	var db = null;
+	var newsOnce = null;
+	var photos = null;
+
 	connectionPromise().then(function(connection) {
 		db = connection
 		return db.queryAsync(`
 			SELECT title, text_short, text_full, DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published 
 			FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {	
+		newsOnce = rows[0];
+		return db.queryAsync(`
+			SELECT id, src_small, src_big, width, height
+			FROM info_units_photos
+			WHERE info_unit_id = ${req.params.id};`);
+	}).then(function(rows) {
+		photos = rows;
 		res.render('_news_once.pug', {
-			newsOnce: rows[0]
+			newsOnce: newsOnce,
+			photos: photos
 		});
 	}).catch(function(err) {
 		console.log(err.message, err.stack);

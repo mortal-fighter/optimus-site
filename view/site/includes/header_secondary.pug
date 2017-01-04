@@ -1,0 +1,19 @@
+header
+	div.content
+		div.gear
+		div.shadow-transparent
+		a(href="/")
+			img.logo(src="/img/logo.png", alt="Оптимус логотип")
+		ul.top-menu
+			- var i = 0
+			each item in locals.menu.items
+				if item.topMenu
+					if locals.menu.indexCurrent === i
+						li.current
+							a(href=item.href)= item.titleShort
+							div.caption= item.titleCaption
+					else
+						li
+							a(href=item.href)= item.titleShort
+							div.caption= item.titleCaption
+				- i++

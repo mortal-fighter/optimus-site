@@ -48,32 +48,8 @@ router.get('/schedule', function(req, res, next) {
 	})
 });
 
-router.get('/prices', function(req, res, next) {
-	var db = null;
-	connectionPromise().then(function(connection) {
-		db = connection;
-		var sql = `SELECT html FROM prices WHERE id = 1;`;
-		console.log(sql);
-		return db.queryAsync(sql);	
-	}).then(function(rows) {
-		res.render('site/prices', {
-			menu: req.menuGenerated,
-			pricesOnce: rows[0] 
-		});
-	}).catch(function(err) {
-		console.log(err.message, err.stack);
-		res.status(500).send('Внутренняя ошибка сервера');
-	})
-});
-
 router.get('/contacts', function(req, res, next) {
 	res.render('site/contacts', {
-		menu: req.menuGenerated
-	});
-});
-
-router.get('/partners', function(req, res, next) {
-	res.render('site/partners', {
 		menu: req.menuGenerated
 	});
 });

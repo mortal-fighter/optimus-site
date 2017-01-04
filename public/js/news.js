@@ -1,8 +1,6 @@
 (function() {
 	'use strict';
 
-	var currentScroll;
-
 	function attachHandlers() {
 
 		$('.news-link').on('click', function() {
@@ -18,15 +16,77 @@
 	}
 
 	function _closePopup() {
-		$(document).scrollTop(currentScroll);
+		$('body').removeClass('stop-scrolling');
 		$('#popup-window').fadeOut(400);
 	}
 
 	function _showPopup() {
-		currentScroll = $(document).scrollTop();
-		$(document).scrollTop(0);
+		$('body').addClass('stop-scrolling');
 		$('#popup-window').height($(document).height());
 		$('#popup-window').fadeIn(400);
+	}
+
+	function _contentTrulyLoadedPromise() {
+		// This is needed because images loads not immediate, but with delay (so this affects their sizes)
+		return new Promise(function(resolve, reject) {
+			var iterCount = 0;
+			var interval = setInterval(function() {
+				var allLoaded = true;
+				$('.popup-content img').each(function(ind, item) {
+					if ($(item).width() < 50) {
+						allLoaded = false;
+					}
+				});
+
+				if (allLoaded) {
+					clearInterval(interval);
+					resolve();
+				} else if (iterCount > 100) {
+					clearInterval(interval);
+					reject(new Error('TOO_MUCH_ITERATIONS'));
+				}
+
+				iterCount++;
+			}, 50);
+		});
+	}
+
+	function _setPopupHeightPosition() {
+		// set appropriate height and position to popup
+		const delta = $('body').height() - $('.popup-container').height();
+		if (delta > 150) {
+			// case 1: short window, set standard top and bottom margins
+			$('.popup-container').css('marginTop', '100px').css('marginBottom', '50px');
+		} else if (delta < 150 && delta > 0) {
+			// case 2: transitional case, vertical margins is set to delta / 2
+			$('.popup-container').css('marginTop', (delta / 2) + 'px').css('marginBottom', (delta / 2) + 'px');
+		} else {
+			// case 3: larger window, set little top and bottom margins and reduce .popup-content's size
+			const margins = 100;
+			const heightHeader = 30;
+			const paddings = 40;
+			$('.popup-container').css('marginTop', '50px').css('marginBottom', '50px');
+			$('.popup-content').height($('body').height() - margins - heightHeader - paddings);
+		}
+	}
+
+	function _resetHeightPosition() {
+		$('.popup-container, .popup-content').removeAttr('style');
+	}
+
+	function initPopup(htmlContent) {
+		_resetHeightPosition();
+
+		$('.popup-content').html(htmlContent);
+		
+		_contentTrulyLoadedPromise().then(function() {
+			_showPopup();
+			_setPopupHeightPosition();
+		}).catch(function(err) {
+			if (err) {
+				console.error('ERROR (POPUP WINDOW): ' + err.message, err.stack);
+			}
+		});
 	}
 
 	function showPopupNews(newsId) {
@@ -36,9 +96,7 @@
 			dataType: 'html',
 			success: function(html) {
 				
-				$('.popup-content').html(html);
-				
-				_showPopup();
+				initPopup(html);
 				
 				$('.image-container').magnificPopup({
 					delegate: 'a',
