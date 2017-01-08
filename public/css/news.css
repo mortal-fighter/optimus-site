@@ -36,9 +36,12 @@ span.news-link:hover {
 .image-container {
     margin-top: 10px;
     margin-bottom: 10px;
+    padding: 0;
+    list-style-type: none;
 }
 
 .image-container li {
     margin-right: 5px;
     margin-bottom: 5px;
+    float: left;
 }

@@ -24,12 +24,28 @@
 					},
 					success: function(data) {
 						switch (data.code) {
+							
 							case 200: 
-								showMessage('success', data.message);
+								
+								$('#news-create').html('Добавить фотографии');
+								$('#news-cancel').html('Закончить (без добавления фотографий)'); 
+								
+								$('#news-create').off().on('click', function() {
+									window.location.href='/admin/news/' + data.id + '/photos';
+								});
+								
 								clearForm();
+								showMessage('success', data.message);
+
 								break;
+
 							case 404:
+									
+								$('#news-create').hide();
+								$('#news-cancel').html('Закончить');	
+
 								showMessage('error', data.message);
+								
 								break; 
 						}
 					},

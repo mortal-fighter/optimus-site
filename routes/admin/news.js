@@ -5,6 +5,29 @@ const Promise = require('bluebird');
 const menuConfig = require('../../config/menu.js');
 const connectionPromise = require('../../components/connectionPromise.js');
 const myUtil = require('../../components/myUtil.js');
+const sizeOfAsync = Promise.promisify(require('image-size'));
+
+const multer  = require('multer');
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/img/uploads')
+	},
+	filename: function (req, file, cb) {
+		const i = file.originalname.lastIndexOf('.');
+		const ext = file.originalname.substr(i);
+		cb(null, Date.now() + ext);
+	}
+})
+const uploader = multer({ 
+	storage: storage,
+	fileFilter: function (req, file, cb) {
+		if (file.mimetype !== 'image/jpeg') {
+			cb(null, false);
+			return;	
+		}
+		cb(null, true);
+	}
+});
 
 var menuGenerated;
 
@@ -113,6 +136,25 @@ router.get('/create', function(req, res, next) {
 	})
 });
 
+router.get('/:newsId(\\d+)/photos/', function(req, res, next) {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
+		return db.queryAsync(`
+			SELECT id, src_small, src_big, width, height
+			FROM info_units_photos
+			WHERE info_unit_id = ${req.params.newsId};`);
+	}).then(function(photos) {
+		res.render('admin/admin_photos', {
+			message: '',
+			messageType: '', 
+			menu: menuGenerated,
+			photos: photos,
+			infoUnitId: req.params.newsId
+		});	
+	});
+});
+
 router.get('/edit/:id(\\d+)', function(req, res, next) {
 	var db = null;
 	connectionPromise().then(function(connection) {
@@ -160,7 +202,8 @@ router.post('/', function(req, res, next) {
 							${req.body.infoTypesId}, ${req.body.isPublished}, NOW(), NOW())`;
 		console.log(sql);
 		return db.queryAsync(sql);
-	}).then(function() {
+	}).then(function(result) {
+		console.log(result);
 		var message;
 		if (isPublished) {
 			message = 'Новость создана и опубликована';
@@ -169,7 +212,8 @@ router.post('/', function(req, res, next) {
 		}
 		res.json({
 			code: 200,
-			message: message
+			message: message,
+			id: result.insertId
 		});
 	}).catch(function(err) {
 		// todo: logging
@@ -195,13 +239,14 @@ router.put('/:id(\\d+)', function(req, res, next) {
 						date_updated = NOW(),
 						info_types_id = ${req.body.infoTypesId}
 					WHERE id = ${req.params.id}`;
-		console.log(sql);
+		//console.log(sql);
 		
 		return db.queryAsync(sql);
 	}).then(function() {
 		res.json({
 			code: 200,
-			message: 'Новость успешно обновлена'
+			message: 'Новость успешно обновлена',
+			id: req.params.id
 		});
 	}).catch(function(err) {
 		// todo: logging
@@ -282,6 +327,70 @@ router.post('/restore', function(req, res, next) {
 			message: 'Новость не восстановлена'
 		});
 	})
+});
+
+router.post('/upload_photos', uploader.array('uploads'), function(req, res, next) {
+	
+	function convertResourceLocator(path) {
+		var uri = path.replace(/\\/g, '/');
+		var ind = uri.indexOf('/');
+		var res = uri.substr(ind);
+		return res;
+	}
+
+	//todo: handle errors when file uploading
+	var db = null;
+	var newPhotoHref = [];
+	
+	connectionPromise().then(function(connection) {
+		
+		db = connection;
+		
+		var promises = [];
+		for (var i = 0; i < req.files.length; i++) {
+			promises.push(sizeOfAsync(req.files[i].path));
+		}
+		
+		return Promise.all(promises);
+	
+	}).then(function(dimensionsArray) {
+		
+		var sql = `	INSERT INTO info_units_photos(src_small, src_big, info_unit_id, width, height, date_created)
+					VALUES 
+			`;
+
+		for (var i = 0; i < req.files.length; i++) {
+			
+			var hrefSmallImg = convertResourceLocator(req.files[i].path);
+			newPhotoHref.push(hrefSmallImg);
+
+			sql += `('${hrefSmallImg}', '${hrefSmallImg}', ${req.body.infoUnitId}, ${dimensionsArray[0].width}, ${dimensionsArray[0].height}, NOW())`;
+			if (i !== (req.files.length - 1)) {
+				sql += ', ';
+			}
+		}	
+
+		console.log(sql);
+
+		return db.queryAsync(sql);
+	
+	}).then(function(result) {
+		console.log(result);
+		res.json({
+			code: 200,
+			newPhotos: newPhotoHref,
+			message: 'Фотографии успешно добавлены'
+		});
+	}).catch(function(err) {
+	
+		console.log(err.message, err.stack);
+		res.json({
+			code: 404,
+			message: 'Ошибка при добавлении фотографий'
+	
+		});
+	
+	});
 });
 
 module.exports = router;

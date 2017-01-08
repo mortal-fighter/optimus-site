@@ -28,11 +28,27 @@
 					},
 					success: function(data) {
 						switch (data.code) {
+							
 							case 200: 
+														
+								$('#news-edit').html('Редактировать фотографии');
+								$('#news-cancel').html('Закончить (без редактирования фотографий)'); 
+								
+								$('#news-edit').off().on('click', function() {
+									window.location.href='/admin/news/' + data.id + '/photos';
+								});
+
 								showMessage('success', data.message);
+
 								break;
+
 							case 404:
+							
 								showMessage('error', data.message);
+								
+								$('#news-edit').hide();
+								$('#news-cancel').html('Закончить');
+
 								break; 
 						}
 					},
