@@ -28,7 +28,7 @@ html(lang="ru")
 									img(src="/img/no-photo.png")
 								td.news-content
 									h2= val.title
-										if val.is_published
+										if val.date_published
 											span.published &nbsp;(опубликована)
 										else 
 											span.not-published &nbsp;(не опубликована)	

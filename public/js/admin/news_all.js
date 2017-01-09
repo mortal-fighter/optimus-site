@@ -3,7 +3,6 @@
 
 	function newsItemRemove(id) {
 		$('[news-id=' + id + ']').hide();
-		$('[news-restore-id=' + id + ']').show();
 	} 
 
 	function newsItemRestore(id) {

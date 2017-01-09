@@ -47,7 +47,7 @@ html(lang="ru")
 					div.form-group
 						label(for="text-full", class="col-sm-3 control-label") Опубликовать новость ?			
 						div.col-sm-9
-							if locals.newsOnce.is_published
+							if locals.newsOnce.date_published
 								input(type="checkbox", id="is-published" checked)
 							else
 								input(type="checkbox", id="is-published")

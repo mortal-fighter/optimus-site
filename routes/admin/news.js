@@ -104,8 +104,8 @@ router.get('/', function(req, res, next) {
 	var db = null;
 	connectionPromise().then(function(connection) {
 		db = connection;
-		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, 
-								info_types_id, DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created, 
+		return db.queryAsync(`	SELECT id, title, text_short, text_full, info_types_id, 
+								DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created, 
 								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
 								FROM info_units WHERE date_deleted is null
 								ORDER BY date_created DESC`);
@@ -166,7 +166,8 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 		return db.queryAsync(sql);
 	}).then(function(infoTypes) {
 		req.user.infoTypes = infoTypes;
-		return db.queryAsync(`	SELECT id, title, text_short, text_full, is_published, info_types_id
+		return db.queryAsync(`	SELECT id, title, text_short, text_full, info_types_id,
+								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
 								FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
 
@@ -199,9 +200,12 @@ router.post('/', function(req, res, next) {
 		db = connection;
 		validateNews(req.body);	
 		
-		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, is_published, date_created, date_published) 
+		console.log(req.body);
+		
+		var datePublished = (req.body.isPublished === '\'1\'') ? 'NOW()' : 'NULL';
+		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, date_created, date_published) 
 					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 
-							${req.body.infoTypesId}, ${req.body.isPublished}, NOW(), NOW())`;
+							${req.body.infoTypesId}, NOW(), ${datePublished})`;
 		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(result) {
@@ -233,12 +237,16 @@ router.put('/:id(\\d+)', function(req, res, next) {
 		db = connection;
 		validateNews(req.body); // it'll throw an exception if validation fails
 
+		console.log(req.body);
+
+		var datePublished = (req.body.isPublished === '\'1\'') ? 'NOW()' : 'NULL';
+
 		var sql = `UPDATE info_units
 						SET title = ${req.body.title},
 						text_short = ${req.body.textShort},
 						text_full = ${req.body.textFull},
-						is_published = ${req.body.isPublished},
 						date_updated = NOW(),
+						date_published = ${datePublished},
 						info_types_id = ${req.body.infoTypesId}
 					WHERE id = ${req.params.id}`;
 		//console.log(sql);

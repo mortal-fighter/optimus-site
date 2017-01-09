@@ -22,12 +22,12 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 				throw new Error(`Parameters validation: There is no such category '${req.params.cagetory}'`);
 			}
 
-			const query = `	SELECT id, title, text_short, text_full, is_published, info_types_id,
+			const query = `	SELECT id, title, text_short, text_full, info_types_id,
 								DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created,
 								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published 
 							FROM info_units 
 							WHERE date_deleted IS NULL 
-								AND is_published = 1
+								AND date_published IS NOT NULL
 								AND info_types_id = ${req.params.category}
 							ORDER BY date_published DESC;`;
 			return db.queryAsync(query);
