@@ -23,7 +23,7 @@
 			var id = section.attr('news-id');
 			var rawTitle = section.find('h2').html();
 			var title = rawTitle.substring(0, rawTitle.lastIndexOf('<span '));
-			if (confirm('Вы действительно хотите удалить "' + title + '"?')) {
+			if (confirm('Вы действительно хотите удалить "' + title + '" и все прикрепленные фотографии (это действие нельзя будет отменить)?')) {
 				$.ajax({
 					method: 'DELETE',
 					url: '/admin/news/' + id,

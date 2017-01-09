@@ -1,0 +1,75 @@
+doctype
+html(lang="ru")
+	head
+		include includes/admin_head_common.pug	
+		script(src="/js/admin/news_photos.js")
+	body
+		div.container-fluid
+			include includes/admin_navbar.pug
+			include includes/admin_menu_col.pug
+			div.breadcrubms
+				//- var i = 0
+				//- var len = locals.breadcrumbs.length
+				//each val in locals.breadcrumbs
+					a(href=""+val.href)= val.title
+					if i < len - 1 
+						span /
+					- i++
+			div.right-col.content
+				
+				h2 фотографии к новости
+				
+				ul.image-container.clearfix
+					-
+						const maxw = 120;
+						const maxh = 90;
+					
+					if locals.photos
+						each photo in locals.photos
+							-
+								var neww = 0;
+								var newh = 0;
+								var k = 1;
+
+								// fit photos with proportions saved (note: shrink only)
+
+								if (photo.width > photo.height) {
+									k = photo.width / maxw;
+									neww = maxw;
+									newh = Math.trunc(photo.height / k);
+								} else {
+									k = photo.height / maxh;
+									neww = Math.trunc(photo.width / k);
+									newh = maxh;
+								}
+
+								
+								var marginLeft = '0';
+								var marginTop = '0';
+								var marginRight = '0';
+								var marginBottom = '0';
+
+								// center photos
+
+								if (photo.width > photo.height) {
+									marginTop = (maxh - newh) / 2 + 'px';
+									marginBottom = (maxh - newh) / 2 + 'px';
+								} else {
+									marginLeft = (maxw - neww) / 2 + 'px';
+									marginRight = (maxw - neww) / 2 + 'px';
+								}		
+							li
+								div.cover
+									a.photo-link(href= photo.src_big)
+										img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
+
+				form#frm-photos(info_unit_id= locals.infoUnitId)
+					div.message(class="msg-"+locals.messageType)= locals.message
+					div.form-group
+						label(for="photos") Загрузить новые фотографии (только .jpg)
+						input(type="file", id="photos", name="uploads[]", multiple="multiple")
+					button(type="button", class="btn btn-default", id="photo-next") Загрузить
+					button(type="button", class="btn btn-danger", id="photo-remove") Удалить все фотографии
+					button(type="button", class="btn btn-cancel", id="photo-cancel") Отмена
+					
+					

@@ -27,25 +27,19 @@
 							
 							case 200: 
 								
-								$('#news-create').html('Добавить фотографии');
-								$('#news-cancel').html('Закончить (без добавления фотографий)'); 
-								
-								$('#news-create').off().on('click', function() {
+								$('#news-create').off().hide();
+
+								$('#news-photos').on('click', function() {
 									window.location.href='/admin/news/' + data.id + '/photos';
-								});
-								
+								}).show();
+
 								clearForm();
 								showMessage('success', data.message);
 
 								break;
 
 							case 404:
-									
-								$('#news-create').hide();
-								$('#news-cancel').html('Закончить');	
-
 								showMessage('error', data.message);
-								
 								break; 
 						}
 					},
@@ -55,6 +49,7 @@
 				});
 			}
 		});
+
 		$('#news-cancel').on('click', function() {
 			//todo: is it always corrent return address
 			window.location.href='/admin/news';
@@ -98,8 +93,13 @@
 		$('#info-types-id option').prop('selected', false).eq(0).prop('selected', true);
 	}
 
+	function initControls() {
+		$('#news-photos').hide();
+	}
+
 	$(document).ready(function() {
 		initBBEditor();
+		initControls();
 		attachHandlers();
 		showMessageExists();
 	});	

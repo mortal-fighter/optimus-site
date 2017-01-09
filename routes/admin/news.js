@@ -6,6 +6,8 @@ const menuConfig = require('../../config/menu.js');
 const connectionPromise = require('../../components/connectionPromise.js');
 const myUtil = require('../../components/myUtil.js');
 const sizeOfAsync = Promise.promisify(require('image-size'));
+const fs = Promise.promisifyAll(require('fs'));
+const path = require('path');
 
 const multer  = require('multer');
 const storage = multer.diskStorage({
@@ -143,7 +145,7 @@ router.get('/:newsId(\\d+)/photos/', function(req, res, next) {
 		return db.queryAsync(`
 			SELECT id, src_small, src_big, width, height
 			FROM info_units_photos
-			WHERE info_unit_id = ${req.params.newsId};`);
+			WHERE info_unit_id = ${req.params.newsId} AND date_deleted is NULL;`);
 	}).then(function(photos) {
 		res.render('admin/admin_photos', {
 			message: '',
@@ -277,7 +279,12 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 			
 			return db.queryAsync(sql);	
 		});
-	}).then(function() {
+	}).then(function(result) {
+		console.log(result);
+		var sql = `UPDATE info_units_photos SET date_deleted = NOW() WHERE info_unit_id = ${req.params.id};`
+		return db.queryAsync(sql);
+	}).then(function(result) {
+		console.log(result);
 		res.json({
 			code: 200,
 			message: 'Новость была удалена'
@@ -288,43 +295,6 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 		res.json({
 			code: 404,
 			message: 'Новость не удалена'
-		});
-	})
-});
-
-router.post('/restore', function(req, res, next) {
-	var db = null;
-	connectionPromise().then(function(connection) {	
-		db = connection;
-		var sql = `SELECT COUNT(*) AS 'is_deleted' FROM info_units WHERE id = ${req.body.id} AND date_deleted IS NOT NULL;`;
-		console.log(sql);
-		
-		return db.queryAsync(sql).then(function(rows) {
-			
-			// if this news is not deleted, then throwing error
-			if (rows[0].is_deleted === 0) {
-				throw new Error('Cannot restore news which is not deleted yet');
-			}
-		
-			var sql = `	UPDATE info_units 
-						SET date_deleted = NULL
-						WHERE id = ${req.body.id}`;
-			console.log(sql);
-		
-			return db.queryAsync(sql);	
-		});
-	}).then(function() {
-		res.json({
-			code: 200,
-			message: 'Новость восстановлена'
-
-		});
-	}).catch(function(err) {
-		// todo: logging
-		console.log(err.message, err.stack);
-		res.json({
-			code: 404,
-			message: 'Новость не восстановлена'
 		});
 	})
 });
@@ -388,6 +358,34 @@ router.post('/upload_photos', uploader.array('uploads'), function(req, res, next
 			code: 404,
 			message: 'Ошибка при добавлении фотографий'
 	
+		});
+	
+	});
+});
+
+router.delete('/remove_all_photos', function(req, res, next) {
+	var db = null;
+	connectionPromise().then(function(connection) {
+		db = connection;
+
+		var sql = `UPDATE info_units_photos SET date_deleted = NOW() WHERE info_unit_id = ${req.body.infoUnitId};`;
+		console.log(sql);
+			
+		return db.queryAsync(sql);	
+	}).then(function(result) {
+		
+		console.log(result);
+		res.json({
+			code: 200,
+			message: 'Фотографии успешно удалены'
+		});
+
+	}).catch(function(err) {
+	
+		console.log(err.message, err.stack);
+		res.json({
+			code: 404,
+			message: 'Ошибка при удалении фотографий'
 		});
 	
 	});

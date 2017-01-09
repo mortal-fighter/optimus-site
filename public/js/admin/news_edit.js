@@ -30,25 +30,16 @@
 						switch (data.code) {
 							
 							case 200: 
-														
-								$('#news-edit').html('Редактировать фотографии');
-								$('#news-cancel').html('Закончить (без редактирования фотографий)'); 
-								
-								$('#news-edit').off().on('click', function() {
-									window.location.href='/admin/news/' + data.id + '/photos';
-								});
-
+									
 								showMessage('success', data.message);
-
 								break;
 
 							case 404:
 							
 								showMessage('error', data.message);
 								
-								$('#news-edit').hide();
-								$('#news-cancel').html('Закончить');
-
+								$('#news-edit').off().hide();
+								
 								break; 
 						}
 					},
@@ -58,6 +49,12 @@
 				});
 			}
 		});
+
+		$('#news-photos').on('click', function() {
+			var id = $('form.news-form').attr('news-id');
+			window.location.href='/admin/news/' + id + '/photos';
+		});
+
 		$('#news-cancel').on('click', function() {
 			//todo: is it always corrent return address ?
 			window.location.href='/admin/news';

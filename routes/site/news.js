@@ -58,7 +58,7 @@ router.get('/:id(\\d+)', function(req, res, next) {
 		return db.queryAsync(`
 			SELECT id, src_small, src_big, width, height
 			FROM info_units_photos
-			WHERE info_unit_id = ${req.params.id};`);
+			WHERE info_unit_id = ${req.params.id} AND date_deleted is NULL;`);
 	}).then(function(rows) {
 		photos = rows;
 		res.render('_news_once.pug', {
