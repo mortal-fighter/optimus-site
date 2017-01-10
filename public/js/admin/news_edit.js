@@ -5,8 +5,15 @@
 		var wbbOpt = {
 			lang: 'ru',
 			buttons: 'bold,italic,underline'
+		};
+		var editor = $('#text-full');
+		
+		if (editor.val() === '') {	
+			editor.wysibb(wbbOpt); // case 1: init clean editor
+		} else {
+			var html = editor.val(); // case 2: init editor with existing text
+			editor.val('').wysibb(wbbOpt).htmlcode(html); 
 		}
-		$('#text-full').wysibb(wbbOpt);
 	}
 
 	function attachHandlers() {

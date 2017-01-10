@@ -170,7 +170,8 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
 								FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
-
+		console.log(rows);
+		
 		if (rows.length < 1) {
 			throw new Error('No news were found.')
 		} else if (rows.length > 1) {
