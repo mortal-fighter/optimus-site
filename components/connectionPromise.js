@@ -1,5 +1,7 @@
 'use strict';
 
+// This for handle mysql disconnection when mysql gets no requests for a while
+
 const config = require('../config/common.js');
 const mysql = require('mysql');
 const Promise = require('bluebird');

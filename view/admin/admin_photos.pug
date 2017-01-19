@@ -60,14 +60,22 @@ html(lang="ru")
 								}		
 							li
 								div.cover
-									a.photo-link(href= photo.src_big)
-										img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
+									a.photo-link
+										img(src= photo.src, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
 
 				form#frm-photos(info_unit_id= locals.infoUnitId)
 					div.message(class="msg-"+locals.messageType)= locals.message
-					div.form-group
-						label(for="photos") Загрузить новые фотографии (только .jpg)
-						input(type="file", id="photos", name="uploads[]", multiple="multiple")
+					div(style="padding: 25px; background: lightgoldenrodyellow; margin: 5px 0 20px 0;")
+						table(border="0", width="100%")
+							tbody
+								tr
+									td(colspan="2")
+										label(for="photos") Загрузить новые фотографии (только .jpg)
+								tr
+									td(width="50%")
+										input(type="file", id="photos", name="uploads[]", multiple="multiple")
+									td(width="50%")
+										progress#progress
 					button(type="button", class="btn btn-default", id="photo-next") Загрузить
 					button(type="button", class="btn btn-danger", id="photo-remove") Удалить все фотографии
 					button(type="button", class="btn btn-cancel", id="photo-cancel") Отмена

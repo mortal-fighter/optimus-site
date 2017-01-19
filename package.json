@@ -21,6 +21,7 @@
 		"form-data": "2.1.2",
 		"compression": "1.6.2",
 		"multer": "1.2.0",
-		"image-size": "0.5.1"
+		"image-size": "0.5.1",
+		"jimp": "0.2.27"
 	}
 }
