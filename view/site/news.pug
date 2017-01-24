@@ -23,7 +23,7 @@ html(lang="ru")
 				if locals.news
 					each val in locals.news
 						section
-							div.news-date= val.date_published
+							div.news-date= val.date_created
 							h3.news-link(news-id= val.id)= val.title
 							-
 								var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';

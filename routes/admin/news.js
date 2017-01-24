@@ -107,9 +107,10 @@ router.get('/', function(req, res, next) {
 		db = connection;
 		return db.queryAsync(`	SELECT id, title, text_short, text_full, info_types_id, 
 								DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created, 
-								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
+								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published,
+								date_created sort
 								FROM info_units WHERE date_deleted is null
-								ORDER BY date_created DESC`);
+								ORDER BY sort DESC`);
 	}).then(function(rows) {	
 		res.render('admin/admin_news_all', {
 			news: rows,
