@@ -24,12 +24,13 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 
 			const query = `	SELECT id, title, text_short, text_full, info_types_id,
 								DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created,
-								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published 
+								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published,
+								date_created sort 
 							FROM info_units 
 							WHERE date_deleted IS NULL 
 								AND date_published IS NOT NULL
 								AND info_types_id = ${req.params.category}
-							ORDER BY date_published DESC;`;
+							ORDER BY sort DESC;`;
 			return db.queryAsync(query);
 		}).then((rows) => {	
 			res.render('site/news.pug', {
@@ -51,7 +52,9 @@ router.get('/:id(\\d+)', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection
 		return db.queryAsync(`
-			SELECT title, text_short, text_full, DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published 
+			SELECT title, text_short, text_full, 
+			DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published,
+			DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created 
 			FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {	
 		newsOnce = rows[0];
