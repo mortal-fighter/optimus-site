@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/category/:category(\\d+)', function(req, res, next) {
 	var db = null;
+	var news = null;
+
 	connectionPromise().then(function(connection) {
 		db = connection;
 		return db.queryAsync(`
@@ -33,11 +35,29 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 							ORDER BY sort DESC;`;
 			return db.queryAsync(query);
 		}).then((rows) => {	
+			news = rows;
+			
+			var idsList = '';
+			for (var i = 0, len = rows.length; i < len; i++) {
+				idsList += rows[i].id;
+				if (i !== len - 1) {
+					idsList += ',';
+				}
+			}
+
+			const query = `	SELECT src_small, info_unit_id, width, height
+							FROM info_units_photos
+							WHERE info_unit_id IN (${idsList})
+							AND date_deleted IS NULL;`;
+
+			return db.queryAsync(query);
+		}).then((rows) => {
 			res.render('site/news.pug', {
-				news: rows,
+				news: news,
+				photos: rows,
 				menu: req.menuGenerated
 			});
-		})
+		});
 	}).catch(function(err) {
 		console.log(err.message, err.stack);
 		next();

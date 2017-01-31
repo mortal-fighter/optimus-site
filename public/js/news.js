@@ -3,8 +3,8 @@
 
 	function attachHandlers() {
 
-		$('.news-link').on('click', function() {
-			showPopupNews($(this).attr('news-id'));
+		$('.news-link, #text-short').on('click', function() {
+			showPopupNews($(this).parent().attr('news-id'));
 		});
 		
 		$('.popup-header, .popup-content').on('click', function(evt) {

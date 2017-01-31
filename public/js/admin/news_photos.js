@@ -26,62 +26,32 @@
 					filesRejected.push(files[i]);
 				}
 			}
-
-
-			var progressBar = $('#progress');
-			progressBar.attr('max', filesFiltered.length).val(0).show();
-
-			var promises = [];
-			
-			for (let i = 0; i < filesFiltered.length; i++) {
-				
-				promises.push((function() {
-					
-					return new Promise(function(resolve, reject) {
-						var formData = new FormData();	
-						formData.append('upload_single', files[i], files[i].name);
-						formData.append('infoUnitId', $('#frm-photos').attr('info_unit_id'));	
-
-						$.ajax({
-							url: '/admin/news/upload_single_photo',
-							type: 'POST',
-							data: formData,
-							processData: false,
-							contentType: false,
-							success: function(data) {
-								switch (data.code) {
-									case 200: 
-										progressBar.val( progressBar.val() + 1 );
-										resolve(data.returnHref);
-										break;
-									case 404:
-										reject(new Error(data.message));
-										break; 
-								}
-							},
-							error: function() {
-								reject(new Error('Ошибка интернет-соединения'));
-							}
-						});
-					});
-						
-				})());
+			var formData = new FormData();
+			for (var i = 0; i < filesFiltered.length; i++) {
+				formData.append('uploads', filesFiltered[i], filesFiltered[i].name);
 			}
-			
+			formData.append('infoUnitId', $('#frm-photos').attr('info_unit_id'));
 
-			Promise.all(promises).then(function() {
-
-				progressBar.hide();
-				window.location.href='/admin/news/' + $('#frm-photos').attr('info_unit_id') + '/photos';
-
-			}).catch(function(err) {
-				
-				console.log(err.message, err.stack);
-				showMessage('error', err.message);
-				progressBar.hide();
-
+			$.ajax({
+				url: '/admin/news/upload_photos',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					switch (data.code) {
+						case 200: 
+							window.location.href='/admin/news/' + $('#frm-photos').attr('info_unit_id') + '/photos';
+							break;
+						case 404:
+							showMessage('error', data.message);
+							break; 
+					}
+				},
+				error: function() {
+					showMessage('error', 'Ошибка интернет-соединения');
+				}
 			});
-
 			
 		});
 

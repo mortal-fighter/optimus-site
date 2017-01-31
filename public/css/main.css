@@ -201,7 +201,8 @@ input[type=text]:focus, textarea:focus {
 
 .popup-header {
     height: 30px;
-    background: lightseagreen;
+    background: #11719e;
+    border-radius: 5px 5px 0 0;
 }
 
 .popup-content {
@@ -214,10 +215,15 @@ input[type=text]:focus, textarea:focus {
 .popup-close {
     height: 20px;
     color: #fff;
-    background: #137e78;
+    background: #0a5c82;
     font-size: 14px;
     padding: 5px 15px;
     float: right;
+    border-radius: 0 5px 0 0;
+}
+
+.popup-close:hover {
+    cursor: pointer;
 }
 
 .popup-container-small {
@@ -246,11 +252,6 @@ input[type=text]:focus, textarea:focus {
 
 .p-scroll {
   overflow: scroll;
-}
-
-.popup-close:hover {
-    cursor: pointer;
-    color: #fff729;
 }
 
 .popup-content h3 {

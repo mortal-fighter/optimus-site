@@ -20,15 +20,69 @@ html(lang="ru")
 				h2= title
 				if !locals.news || locals.news.length === 0 
 					p(style="text-align:left; font-size: 18px") Нет новостей
+				
+				-
+					const maxw = 120;
+					const maxh = 90;
+
 				if locals.news
-					each val in locals.news
-						section
-							div.news-date= val.date_created
-							h3.news-link(news-id= val.id)= val.title
+					each curNews in locals.news
+						section(news-id= curNews.id)
+							div.news-date= curNews.date_created
+							h3.news-link= curNews.title
 							-
-								var textShort = (val.text_short) ? val.text_short : val.text_full.substr(0, 250) + ' ...';
-							p!= textShort
-								span.news-link(news-id= val.id) Читать дальше
+								var textShort = (curNews.text_short) ? curNews.text_short : curNews.text_full.substr(0, 250) + ' ...';
+							p#text-short!= textShort
+							
+							-
+								var photos = [];
+								if (locals.photos) {
+									for (var i = 0; i < locals.photos.length; i++) {
+										if (locals.photos[i].info_unit_id === curNews.id) {
+											photos.push(locals.photos[i]);
+										}
+									}	
+								}
+
+							if photos
+								ul.image-container.clearfix
+									each photo in photos
+										-
+											var neww = 0;
+											var newh = 0;
+											var k = 1;
+
+											// fit photos with proportions saved (note: shrink only)
+
+											if (photo.width > photo.height) {
+												k = photo.width / maxw;
+												neww = maxw;
+												newh = Math.trunc(photo.height / k);
+											} else {
+												k = photo.height / maxh;
+												neww = Math.trunc(photo.width / k);
+												newh = maxh;
+											}
+
+											
+											var marginLeft = '0';
+											var marginTop = '0';
+											var marginRight = '0';
+											var marginBottom = '0';
+
+											// center photos
+
+											if (photo.width > photo.height) {
+												marginTop = (maxh - newh) / 2 + 'px';
+												marginBottom = (maxh - newh) / 2 + 'px';
+											} else {
+												marginLeft = (maxw - neww) / 2 + 'px';
+												marginRight = (maxw - neww) / 2 + 'px';
+											}		
+										li
+											div.cover
+												a.photo-link
+													img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
 		include includes/popup_window.pug
 		include includes/footer.pug
 		include includes/analytics.pug

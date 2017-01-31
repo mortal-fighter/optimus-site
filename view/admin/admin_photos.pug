@@ -61,7 +61,7 @@ html(lang="ru")
 							li
 								div.cover
 									a.photo-link
-										img(src= photo.src, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
+										img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
 
 				form#frm-photos(info_unit_id= locals.infoUnitId)
 					div.message(class="msg-"+locals.messageType)= locals.message

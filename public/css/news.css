@@ -8,25 +8,31 @@
 
 .news-date {
     display: inline-block;
-    background: gray;
+    background: #11719e;
     color: #fff;
-    padding: 1px;
+    padding: 3px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 5px;
 }
 
 h3.news-link, span.news-link {
+    margin-top: 5px;
     cursor: pointer;
 }
 
 span.news-link {
     font-size: 14px;
-    color: darkblue;
     text-decoration: none;
     padding-left:10px;
 }
 
 span.news-link:hover {
-    color: blue;
-    text-decoration: underline;
+    color: #11719e;
+}
+
+#text-short:hover {
+    cursor: pointer;
 }
 
 .news {
