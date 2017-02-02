@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const fetch = require('isomorphic-fetch');
 const config = require('../../config/common.js');
 const FormData = require('form-data');
+const logger = require('log4js').getLogger();
 
 router.post('/', function (req, res, next) {
 	Promise.resolve().then(function() {
@@ -60,7 +61,7 @@ router.post('/', function (req, res, next) {
 			message: 'Ваше письмо успешно отправлено! Мы скоро Вам ответим!'
 		});	
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		if (err.message === 'VALIDATION_HAS_FAILED') {
 			res.json({
 				code: 200,

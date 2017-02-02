@@ -5,6 +5,7 @@ const myUtil = require('../../components/myUtil.js');
 const Promise = require('bluebird');
 const connectionPromise = require('../../components/connectionPromise.js');
 const menuConfig = require('../../config/menu.js');
+const logger = require('log4js').getLogger();
 
 var menuGenerated;
 
@@ -54,10 +55,8 @@ router.get('/edit', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT id, html FROM schedule WHERE id=1;`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(rows) {
-		//todo: check rows to be fetched
 		res.render('admin/admin_schedule_edit', {
 			message: '',
 			messageType: '', 
@@ -65,11 +64,8 @@ router.get('/edit', function(req, res, next) {
 			scheduleOnce: rows[0] 
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
-		res.json({
-			code: 404,
-			message: 'Ошибка при загрузке'
-		})
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
 	});
 });
 
@@ -78,7 +74,6 @@ router.put('/', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `UPDATE schedule SET html = ${req.body.html} WHERE id = 1;`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function() {
 		res.json({
@@ -86,8 +81,7 @@ router.put('/', function(req, res, next) {
 			message: 'Расписание успешно обновлено'
 		});
 	}).catch(function(err) {
-		// todo: logging
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Расписание не обновлено'

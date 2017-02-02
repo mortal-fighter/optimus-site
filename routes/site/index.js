@@ -4,6 +4,7 @@ const router = require('express').Router();
 const menu = require('../../config/menu.js');
 const myutil = require('../../components/myUtil.js');
 const connectionPromise = require('../../components/connectionPromise.js');
+const logger = require('log4js').getLogger();
 
 router.use(function(req, res, next) {
 	req.menuGenerated = myutil.menuGenerate(menu.menuSite, req);
@@ -26,24 +27,20 @@ router.get('/schedule', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT html FROM schedule WHERE id = 1;`;
-		console.log(sql);
 		return db.queryAsync(sql);	
 	}).then(function(rows) {
 		schedule = rows[0];
-
 		var sql = `SELECT html FROM prices WHERE id = 1;`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(rows) {
 		prices = rows[0];
-
 		res.render('site/schedule', {
 			menu: req.menuGenerated,
 			scheduleOnce: schedule,
 			pricesOnce: prices
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.status(500).send('Внутренняя ошибка сервера');
 	})
 });
@@ -59,6 +56,7 @@ router.use('/news', require('./news'));
 router.use('/photos', require('./photos'));
 
 router.use(function(req, res) {
+	logger.warn(`path '${req.originalUrl}' was not found`);
 	res.render('admin/page_not_found');
 });
 

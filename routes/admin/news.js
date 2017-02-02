@@ -8,7 +8,7 @@ const myUtil = require('../../components/myUtil.js');
 const sizeOfAsync = Promise.promisify(require('image-size'));
 const fs = Promise.promisifyAll(require('fs'));
 const path = require('path');
-const jimp = require('jimp');
+const logger = require('log4js').getLogger();
 
 const multer  = require('multer');
 const storage = multer.diskStorage({
@@ -119,7 +119,8 @@ router.get('/', function(req, res, next) {
 			messageType: ''
 		});
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
 	});
 });
 
@@ -128,7 +129,6 @@ router.get('/create', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT id, name FROM info_types`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(infoTypes) {
 		res.render('admin/admin_news_create', {
@@ -137,7 +137,10 @@ router.get('/create', function(req, res, next) {
 			menu: menuGenerated,
 			infoTypes: infoTypes
 		});	
-	})
+	}).catch(function(err) {
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
+	});
 });
 
 router.get('/:newsId(\\d+)/photos/', function(req, res, next) {
@@ -157,6 +160,9 @@ router.get('/:newsId(\\d+)/photos/', function(req, res, next) {
 			photos: photos,
 			infoUnitId: req.params.newsId
 		});	
+	}).catch(function(err) {
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
 	});
 });
 
@@ -165,7 +171,6 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT id, name FROM info_types`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(infoTypes) {
 		req.user.infoTypes = infoTypes;
@@ -173,8 +178,6 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published
 								FROM info_units WHERE id = ${req.params.id}`);
 	}).then(function(rows) {
-		console.log(rows);
-		
 		if (rows.length < 1) {
 			throw new Error('No news were found.')
 		} else if (rows.length > 1) {
@@ -189,11 +192,8 @@ router.get('/edit/:id(\\d+)', function(req, res, next) {
 			infoTypes: req.user.infoTypes
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
-		res.json({
-			code: 404,
-			message: 'Ошибка при загрузке'
-		})
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
 	});
 });
 
@@ -204,16 +204,12 @@ router.post('/', function(req, res, next) {
 		db = connection;
 		validateNews(req.body);	
 		
-		console.log(req.body);
-		
 		var datePublished = (req.body.isPublished === '\'1\'') ? 'NOW()' : 'NULL';
 		var sql = `	INSERT INTO info_units (title, text_short, text_full, info_types_id, date_created, date_published) 
 					VALUES (${req.body.title}, ${req.body.textShort}, ${req.body.textFull}, 
 							${req.body.infoTypesId}, NOW(), ${datePublished})`;
-		console.log(sql);
 		return db.queryAsync(sql);
 	}).then(function(result) {
-		console.log(result);
 		var message;
 		if (isPublished) {
 			message = 'Новость создана и опубликована';
@@ -226,8 +222,7 @@ router.post('/', function(req, res, next) {
 			id: result.insertId
 		});
 	}).catch(function(err) {
-		// todo: logging
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Новость не создана'
@@ -241,8 +236,6 @@ router.put('/:id(\\d+)', function(req, res, next) {
 		db = connection;
 		validateNews(req.body); // it'll throw an exception if validation fails
 
-		console.log(req.body);
-
 		var datePublished = (req.body.isPublished === '\'1\'') ? 'NOW()' : 'NULL';
 
 		var sql = `UPDATE info_units
@@ -253,8 +246,6 @@ router.put('/:id(\\d+)', function(req, res, next) {
 						date_published = ${datePublished},
 						info_types_id = ${req.body.infoTypesId}
 					WHERE id = ${req.params.id}`;
-		//console.log(sql);
-		
 		return db.queryAsync(sql);
 	}).then(function() {
 		res.json({
@@ -263,8 +254,7 @@ router.put('/:id(\\d+)', function(req, res, next) {
 			id: req.params.id
 		});
 	}).catch(function(err) {
-		// todo: logging
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Новость не обновлена'
@@ -277,8 +267,6 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `SELECT COUNT(*) AS 'is_deleted' FROM info_units WHERE id = ${req.params.id} AND date_deleted IS NOT NULL;`;
-		console.log(sql);
-		
 		return db.queryAsync(sql).then(function(rows) {
 			
 			// if this news is already deleted, then throwing error
@@ -287,23 +275,18 @@ router.delete('/:id(\\d+)', function(req, res, next) {
 			}
 
 			sql = `UPDATE info_units SET date_deleted = NOW() WHERE id = ${req.params.id}`;
-			console.log(sql);
-			
 			return db.queryAsync(sql);	
 		});
 	}).then(function(result) {
-		console.log(result);
 		var sql = `UPDATE info_units_photos SET date_deleted = NOW() WHERE info_unit_id = ${req.params.id};`
 		return db.queryAsync(sql);
 	}).then(function(result) {
-		console.log(result);
 		res.json({
 			code: 200,
 			message: 'Новость была удалена'
 		});
 	}).catch(function(err) {
-		// todo: logging
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Новость не удалена'
@@ -352,24 +335,22 @@ router.post('/upload_photos', uploader.array('uploads'), function(req, res, next
 			}
 		}	
 
-		console.log(sql);
-
 		return db.queryAsync(sql);
 	
 	}).then(function(result) {
-		console.log(result);
+		
 		res.json({
 			code: 200,
 			newPhotos: newPhotoHref,
 			message: 'Фотографии успешно добавлены'
 		});
+
 	}).catch(function(err) {
 	
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Ошибка при добавлении фотографий'
-	
 		});
 	
 	});
@@ -381,12 +362,9 @@ router.delete('/remove_all_photos', function(req, res, next) {
 		db = connection;
 
 		var sql = `UPDATE info_units_photos SET date_deleted = NOW() WHERE info_unit_id = ${req.body.infoUnitId};`;
-		console.log(sql);
-			
 		return db.queryAsync(sql);	
 	}).then(function(result) {
 		
-		console.log(result);
 		res.json({
 			code: 200,
 			message: 'Фотографии успешно удалены'
@@ -394,7 +372,7 @@ router.delete('/remove_all_photos', function(req, res, next) {
 
 	}).catch(function(err) {
 	
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.json({
 			code: 404,
 			message: 'Ошибка при удалении фотографий'

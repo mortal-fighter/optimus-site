@@ -3,6 +3,7 @@
 const router = require('express').Router();
 const fetch = require('isomorphic-fetch');
 const config = require('../../config/common.js');
+const logger = require('log4js').getLogger();
 
 router.get('/', function(req, res, next) {
 	
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next) {
 			menu: req.menuGenerated
 		})
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		if (err.message === 'VK_IS_UNAVAILABLE') {
 			res.render('site/homepage.pug', {
 				menu: req.menuGenerated

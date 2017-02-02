@@ -5,6 +5,7 @@ const menu = require('../../config/menu.js');
 const myutil = require('../../components/myUtil.js');
 const fetch = require('isomorphic-fetch');
 const config = require('../../config/common.js');
+const logger = require('log4js').getLogger();
 
 router.get('/', function(req, res, next) {
 	fetch('https://api.vk.com/method/photos.getAlbums?owner_id=' + config.vk.ownerID, { method: 'get' }).then(function(response) {
@@ -46,13 +47,12 @@ router.get('/', function(req, res, next) {
 
 		});
 	}).catch(function(err) {
+		logger.error(err.message, err.stack);
 		if (err.message === 'VK_IS_UNAVAILABLE') {
-			console.log(err.message, err.stack);
 			res.render('site/gallery_albums_all.pug', {
 				menu: req.menuGenerated
 			});	
 		} else {
-			console.log(err.message, err.stack);
 			res.send('Сервис недоступен');
 		}
 	});
@@ -86,8 +86,8 @@ router.get('/:albumId(\\d+)/:albumTitle', function(req, res, next) {
 			albumTitle: decodeURIComponent(req.params.albumTitle)
 		});	
 	}).catch(function(err) {
+		logger.error(err.message, err.stack);
 		if (err.message === 'VK_IS_UNAVAILABLE') {
-			console.log(err.message, err.stack);
 			res.render('site/gallery_albums_one.pug', {
 				menu: req.menuGenerated,
 				breadcrumbs: [
@@ -101,7 +101,6 @@ router.get('/:albumId(\\d+)/:albumTitle', function(req, res, next) {
 				}]
 			});	
 		} else {
-			console.log(err.message, err.stack);
 			res.send('Сервис недоступен');
 		}
 	});

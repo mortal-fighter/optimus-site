@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const connectionPromise = require('../../components/connectionPromise.js');
 const menu = require('../../config/menu.js');
 const myutil = require('../../components/myUtil.js');
+const logger = require('log4js').getLogger();
 
 router.get('/', function(req, res, next) { 
 	res.redirect('/news/category/1');
@@ -59,7 +60,7 @@ router.get('/category/:category(\\d+)', function(req, res, next) {
 			});
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		next();
 	});
 });
@@ -89,7 +90,7 @@ router.get('/:id(\\d+)', function(req, res, next) {
 			photos: photos
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		res.send('Сервис недоступен');
 	});
 });

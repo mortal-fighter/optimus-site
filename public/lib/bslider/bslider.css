@@ -2,6 +2,7 @@
 	width: 100%;
 	height: 340px;
 	overflow: hidden;
+    background: #fff;
 }
 
 .bslider .bslide img {

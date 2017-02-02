@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const Promise = require('bluebird');
+const logger = require('log4js').getLogger();
 
 router.use(function(req, res, next) {
 	Promise.resolve().then(function() {
@@ -12,7 +13,7 @@ router.use(function(req, res, next) {
 		}
 		next();
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err);
 		next();
 	});
 });
@@ -26,6 +27,7 @@ router.use('/prices', require('./prices'));
 router.use('/', require('./login'));
 
 router.use(function(req, res) {
+	logger.warn(`path '${req.originalUrl}' was not found`);
 	res.render('site/page_not_found');
 });
 

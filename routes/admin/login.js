@@ -3,6 +3,7 @@
 const router = require('express').Router();
 const Promise = require('bluebird');
 const config = require('../../config/common.js');
+const logger = require('log4js').getLogger();
 
 function loginMiddleware(req, res, next) {
 	Promise.resolve().then(function() {
@@ -11,7 +12,7 @@ function loginMiddleware(req, res, next) {
 			message: ''
 		});
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
+		logger.error(err.message, err.stack);
 		next();
 	});
 };
@@ -38,8 +39,8 @@ router.post('/login', function(req, res, next) {
 			});
 		}
 	}).catch(function(err) {
-		console.log(err.message, err.stack);
-		next();
+		logger.error(err.message, err.stack);
+		res.render('admin/server_error.pug');
 	});
 });
 
