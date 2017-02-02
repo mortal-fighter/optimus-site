@@ -108,6 +108,7 @@ router.get('/', function(req, res, next) {
 router.get('/page/:page(\\d+)', function(req, res, next) {
 	var db = null;
 	var countRows = null;
+	var news = null;
 	connectionPromise().then(function(connection) {
 		db = connection;
 		var sql = `	SELECT COUNT(*) num_rows
@@ -123,8 +124,26 @@ router.get('/page/:page(\\d+)', function(req, res, next) {
 								ORDER BY sort DESC
 								LIMIT ${(req.params.page-1)*10}, 10;`);
 	}).then(function(rows) {	
+		news = rows;
+			
+		var idsList = '';
+		for (var i = 0, len = rows.length; i < len; i++) {
+			idsList += rows[i].id;
+			if (i !== len - 1) {
+				idsList += ',';
+			}
+		}
+
+		const query = `	SELECT src_small, info_unit_id, width, height
+						FROM info_units_photos
+						WHERE info_unit_id IN (${idsList})
+						AND date_deleted IS NULL;`;
+
+		return db.queryAsync(query);
+	}).then(function(photos) {
 		res.render('admin/admin_news_all', {
-			news: rows,
+			news: news,
+			photos: photos,
 			menu: menuGenerated,
 			message: '',
 			messageType: '',

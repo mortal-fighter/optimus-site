@@ -18,32 +18,88 @@ html(lang="ru")
 			div.right-col.content
 				div.message(class="msg-"+locals.messageType)= locals.message
 				div.control-row
-					div.icon.i-add
-					a#news-add(href="/admin/news/create") Добавить новость
+					div.news-add.icon.i-add
+					a.news-add(href="/admin/news/create") Добавить новость
 				each val in locals.news
 					section.news-item(news-id='' + val.id)
-						table.news-table
-							tr
-								td.news-img
-									img(src="/img/no-photo.png")
-								td.news-content
-									h2= val.title
-										if val.date_published
-											span.published &nbsp;(опубликована)
-										else 
-											span.not-published &nbsp;(не опубликована)	
-									div.news-date
-										div.news-date-created=  'Дата создания: ' + val.date_created
-										-  var datePublished = (val.date_published) ? 'Дата публикации: ' + val.date_published : '';
-										div.news-date-published= datePublished
-									div.news-short-desc= val.text_short
-									ul.news-actions
-										li
-											div.news-edit.icon.i-edit
-										li
-											div.news-delete.icon.i-delete
+						
+						//- общая информация
+						h2= val.title
+							if val.date_published
+								span.published &nbsp;(опубликована)
+							else 
+								span.not-published &nbsp;(не опубликована)	
+						div.news-date
+							div.news-date-created=  'Дата создания: ' + val.date_created
+							-  var datePublished = (val.date_published) ? 'Дата публикации: ' + val.date_published : '';
+							div.news-date-published= datePublished
+						div.news-short-desc= val.text_short
+						
+						//- фото 
+						-
+							var maxw = 100;
+							var maxh = 75;
+										
+							var photos = [];
+							if (locals.photos) {
+								for (var i = 0; i < locals.photos.length; i++) {
+									if (locals.photos[i].info_unit_id === val.id) {
+										photos.push(locals.photos[i]);
+									}
+								}	
+							}
+						if photos
+							ul.image-container.clearfix
+								each photo in photos
+									-
+										var neww = 0;
+										var newh = 0;
+										var k = 1;
+
+										// fit photos with proportions saved (note: shrink only)
+
+										if (photo.width > photo.height) {
+											k = photo.width / maxw;
+											neww = maxw;
+											newh = Math.trunc(photo.height / k);
+										} else {
+											k = photo.height / maxh;
+											neww = Math.trunc(photo.width / k);
+											newh = maxh;
+										}
+
+										
+										var marginLeft = '0';
+										var marginTop = '0';
+										var marginRight = '0';
+										var marginBottom = '0';
+
+										// center photos
+
+										if (photo.width > photo.height) {
+											marginTop = (maxh - newh) / 2 + 'px';
+											marginBottom = (maxh - newh) / 2 + 'px';
+										} else {
+											marginLeft = (maxw - neww) / 2 + 'px';
+											marginRight = (maxw - neww) / 2 + 'px';
+										}		
+									li
+										div.cover
+											a.photo-link
+												img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
+
+						//- действия
+						ul.news-actions.clearfix
+							li
+								div.news-edit.icon.i-edit
+							li
+								div.news-delete.icon.i-delete
+					
+					//- восстановление
 					div.news-restore(news-restore-id='' + val.id) Новость удалена.
-						a Восстановить
+							a Восстановить
+				
+				//- пагинация
 				if parseInt(locals.pagination.totalPages) > 0
 					ul.pagination
 						li.prev &larr; Предыдущая

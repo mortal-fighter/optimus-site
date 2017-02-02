@@ -11,6 +11,11 @@
 	}
 
 	function attachHandlers() {
+		$('.news-add').on('click', function(evt) {
+			evt.preventDefault();
+			window.location.href='/admin/news/create';
+		});
+
 		$('.news-edit').on('click', function() {
 			var section = $(this).parents('section.news-item');
 			var id = section.attr('news-id');
