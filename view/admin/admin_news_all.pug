@@ -44,5 +44,22 @@ html(lang="ru")
 											div.news-delete.icon.i-delete
 					div.news-restore(news-restore-id='' + val.id) Новость удалена.
 						a Восстановить
-
+				if parseInt(locals.pagination.totalPages) > 0
+					ul.pagination
+						li.prev &larr; Предыдущая
+						-
+							var pages = [];
+							for (var i = 1; i <= locals.pagination.totalPages; i++) {
+								if (i === parseInt(locals.pagination.currentPage)) {
+									pages.push({num: i, isCurrent: true});	
+								} else {
+									pages.push({num: i, isCurrent: false});
+								}
+							}
+						each page in pages
+							if page.isCurrent 
+								li.current.num= page.num
+							else
+								li.num= page.num
+						li.next Следующая &rarr;
 				

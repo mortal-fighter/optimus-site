@@ -102,21 +102,37 @@ router.all('*', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
+	res.redirect('/admin/news/page/1');
+});
+
+router.get('/page/:page(\\d+)', function(req, res, next) {
 	var db = null;
+	var countRows = null;
 	connectionPromise().then(function(connection) {
 		db = connection;
+		var sql = `	SELECT COUNT(*) num_rows
+					FROM info_units WHERE date_deleted is null;`;
+		return db.queryAsync(sql);
+	}).then(function(results) {
+		countRows = results[0].num_rows;
 		return db.queryAsync(`	SELECT id, title, text_short, text_full, info_types_id, 
 								DATE_FORMAT(CAST(date_created AS CHAR), '%d.%m.%Y') date_created, 
 								DATE_FORMAT(CAST(date_published AS CHAR), '%d.%m.%Y') date_published,
 								date_created sort
 								FROM info_units WHERE date_deleted is null
-								ORDER BY sort DESC`);
+								ORDER BY sort DESC
+								LIMIT ${(req.params.page-1)*10}, 10;`);
 	}).then(function(rows) {	
 		res.render('admin/admin_news_all', {
 			news: rows,
 			menu: menuGenerated,
 			message: '',
-			messageType: ''
+			messageType: '',
+			pagination: {
+				currentPage: req.params.page,
+				step: 10,
+				totalPages: Math.trunc(countRows / 10) + 1
+			}
 		});
 	}).catch(function(err) {
 		logger.error(err.message, err.stack);

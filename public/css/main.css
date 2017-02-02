@@ -371,3 +371,26 @@ footer .design-info {
     width: 250px;
     color: #999;
 }
+
+/* PAGINATION */
+ul.pagination {
+    margin: 0 auto;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+    color: #11719e;
+}
+
+ul.pagination li {
+    display: inline-block;
+    float: none;
+    cursor: pointer;
+}
+
+ul.pagination li.current {
+    color: #111;
+    cursor: default;
+}
+
+ul.pagination li.num {
+    font-size: 20px;
+}
