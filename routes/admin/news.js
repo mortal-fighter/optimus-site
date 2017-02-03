@@ -354,7 +354,6 @@ router.post('/upload_photos', uploader.array('uploads'), function(req, res, next
 		return Promise.all(promises);
 	
 	}).then(function(dimensionsArray) {
-		
 		var sql = `	INSERT INTO info_units_photos(src_small, src_big, info_unit_id, width, height, date_created)
 					VALUES 
 			`;
@@ -364,7 +363,7 @@ router.post('/upload_photos', uploader.array('uploads'), function(req, res, next
 			var hrefSmallImg = convertResourceLocator(req.files[i].path);
 			newPhotoHref.push(hrefSmallImg);
 
-			sql += `('${hrefSmallImg}', '${hrefSmallImg}', ${req.body.infoUnitId}, ${dimensionsArray[0].width}, ${dimensionsArray[0].height}, NOW())`;
+			sql += `('${hrefSmallImg}', '${hrefSmallImg}', ${req.body.infoUnitId}, ${dimensionsArray[i].width}, ${dimensionsArray[i].height}, NOW())`;
 			if (i !== (req.files.length - 1)) {
 				sql += ', ';
 			}
