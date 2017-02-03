@@ -47,7 +47,7 @@ router.get('/category/:category(\\d+)/page/:page(\\d+)', function(req, res, next
 				}
 			}
 
-			const query = `	SELECT src_small, info_unit_id, width, height
+			const query = `	SELECT src_small, src_big, info_unit_id, width, height
 							FROM info_units_photos
 							WHERE info_unit_id IN (${idsList})
 							AND date_deleted IS NULL;`;

@@ -81,7 +81,7 @@ html(lang="ru")
 											}		
 										li
 											div.cover
-												a.photo-link
+												a.photo-link(href=""+photo.src_big)
 													img(src= photo.src_small, alt= photo.text, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop + "; margin-right: " + marginRight + "; margin-bottom: " + marginBottom)
 					if parseInt(locals.pagination.totalPages) > 1
 						ul.pagination
