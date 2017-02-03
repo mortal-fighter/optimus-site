@@ -48,7 +48,7 @@ html(lang="ru")
 									}
 								}	
 							}
-						if photos
+						if photos.length > 0
 							ul.image-container.clearfix
 								each photo in photos
 									-
@@ -100,7 +100,7 @@ html(lang="ru")
 							a Восстановить
 				
 				//- пагинация
-				if parseInt(locals.pagination.totalPages) > 0
+				if parseInt(locals.pagination.totalPages) > 1
 					ul.pagination
 						li.prev &larr; Предыдущая
 						-
