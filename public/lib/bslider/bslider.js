@@ -126,19 +126,19 @@ var bslider = {
 
 		var slider = bslider.sliders[sliderIndex];
 		if (!slider) {
-			console.log(`WARN (bslider): no slider with index ${sliderIndex}`);
+			console.log('WARN (bslider): no slider with index ' + sliderIndex);
 			return;
 		}
 
 		var slides = slider.sliderContainer.querySelectorAll('.bslide');
 		if (!slides || !slides[slideIndex]) {
-			console.log(`WARN (bslider): no slides or wrong slide index (${slideIndex})`);
+			console.log('WARN (bslider): no slides or wrong slide index (' + slideIndex + ')');
 			return;
 		}
 
 		var duration = slides[slideIndex].getAttribute('data-duration') || slider.getAttribute('data-duration');
 		if (!duration) {
-			console.log(`WARN (bslider): could not find duration on slide or on slider.`);
+			console.log('WARN (bslider): could not find duration on slide or on slider.');
 			return;
 		}
 		
@@ -179,7 +179,7 @@ var bslider = {
 		// Validate
 		var slider = bslider.sliders[sliderIndex];
 		if (!slider) {
-			console.log(`WARN (bslider): no slider with index ${sliderIndex}`);
+			console.log('WARN (bslider): no slider with index ' + sliderIndex);
 			return;
 		}
 
