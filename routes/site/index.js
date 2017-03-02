@@ -55,6 +55,8 @@ router.use('/news', require('./news'));
 
 router.use('/photos', require('./photos'));
 
+router.use('/interesting', require('./interesting'));
+
 router.use(function(req, res) {
 	logger.warn(`path '${req.originalUrl}' was not found`);
 	res.render('admin/page_not_found');

@@ -45,5 +45,8 @@ module.exports = {
 	},
 	logger: {
 		level: 'DEBUG'
+	},
+	youtube: {
+		key: 'AIzaSyCGk2q1A_0a4dqLmjtjcrFQU01KMLctDds'
 	}
 };
