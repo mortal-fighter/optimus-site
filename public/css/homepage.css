@@ -184,3 +184,8 @@ ul.tutorial li:last-child {
 #recaptcha-test {
     margin-top: 15px;
 }
+
+.banner-partner img{
+  margin-right: 1%; 
+  width: 32%;
+}
