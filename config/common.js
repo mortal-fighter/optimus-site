@@ -21,11 +21,10 @@ module.exports = {
 		password: 'JM}FGZ'
 	},
 	vk: {
-		ownerIDtemp: -134709374, // костыль
 		ownerID: -129910076,
 		albums: {
 			slideshow: {
-				id: 238474797,
+				id: 242524289, 
 				count: 5
 			}
 		}

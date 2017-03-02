@@ -7,7 +7,7 @@ const logger = require('log4js').getLogger();
 
 router.get('/', function(req, res, next) {
 	
-	const uri = `https://api.vk.com/method/photos.get?owner_id=${config.vk.ownerIDtemp}&album_id=${config.vk.albums.slideshow.id}&count=${config.vk.albums.slideshow.count}`;
+	const uri = `https://api.vk.com/method/photos.get?owner_id=${config.vk.ownerID}&album_id=${config.vk.albums.slideshow.id}&count=${config.vk.albums.slideshow.count}`;
 	fetch(uri, { method: 'get' }).then(function(response) {
 		if (!response.ok) {
 			throw new Error('VK_IS_UNAVAILABLE');
