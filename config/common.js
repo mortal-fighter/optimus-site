@@ -46,6 +46,8 @@ module.exports = {
 		level: 'DEBUG'
 	},
 	youtube: {
-		key: 'AIzaSyCGk2q1A_0a4dqLmjtjcrFQU01KMLctDds'
+		key: 'AIzaSyCGk2q1A_0a4dqLmjtjcrFQU01KMLctDds',
+		count: 15,
+		searchString: 'робототехника'
 	}
 };

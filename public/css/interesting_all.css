@@ -1,0 +1,67 @@
+.video-container {
+	list-style-type: none;
+    margin: 0px 0 0 -19px;
+	padding: 0;
+}
+
+.video-container li {
+	float: left;
+	width: 300px;
+	margin-left: 19px;
+	margin-bottom: 20px;
+}
+
+.video-container li img {
+	
+}
+
+.video-container .cover {
+	width: 300px;
+	height: 180px;
+}
+
+.video-container .album {
+    position: relative;
+    box-shadow: none;
+}
+
+.video-container div.title {
+    width: 300px;
+    height: 16px;
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 12px;
+    color: #555;
+    overflow: visible;
+}
+
+.video-container a.title,
+.video-container a.title:link,
+.video-container a.title:hover,
+.video-container a.title:active,
+.video-container a.title:visited {
+	text-decoration: none;
+	color: blue;
+	font-size: 12px;
+}
+
+.video-container a.title:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+.breadcrumbs {
+	margin-bottom: 10px;
+}
+
+.breadcrumbs a,
+.breadcrumbs a:link,
+.breadcrumbs a:hover,
+.breadcrumbs a:active,
+.breadcrumbs a:visited {
+	color: blue;
+}
+
+.breadcrumbs a:hover {
+	color: blue;
+}

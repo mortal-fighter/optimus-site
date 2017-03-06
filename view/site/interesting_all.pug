@@ -1,0 +1,60 @@
+include includes/init.pug
+doctype
+html(lang="ru")
+	head
+		include includes/head_common.pug
+		link(type="text/css", rel="stylesheet", href="/css/interesting_all.css")
+	body
+		include includes/header_secondary.pug
+		div.container
+			div.gallery.content.clearfix
+				h2= title
+				if !locals.videos || locals.videos.length === 0 
+					p(style="text-align:left; font-size: 18px;") Нет видео
+				ul.video-container.clearfix
+					-
+						const maxw = 300;
+						const maxh = 180;
+									
+					if locals.videos 
+						each video in locals.videos
+							li
+								div.cover.video
+									a(href="https://www.youtube.com/watch?v=" + video.id.videoId)
+										-
+											
+											var neww = 0;
+											var newh = 0;					
+											var k = 1;
+
+											// fit photos with proportions saved (note: shrink only)
+
+											if (video.snippet.thumbnails.medium.width > video.snippet.thumbnails.medium.height) {
+												k = video.snippet.thumbnails.medium.width / maxw;
+												neww = maxw;
+												newh = Math.trunc(video.snippet.thumbnails.medium.height / k);
+											} else {
+												k = video.snippet.thumbnails.medium.height / maxh;
+												neww = Math.trunc(video.snippet.thumbnails.medium.width / k);
+												newh = maxh;
+											}
+
+											
+											var marginLeft = '0';
+											var marginTop = '0';
+
+											// center videos
+
+											if (video.snippet.thumbnails.medium.width > video.snippet.thumbnails.medium.height) {
+												marginTop = (maxh - newh) / 2 + 'px';
+											} else {
+												marginLeft = (maxw - neww) / 2 + 'px';
+											}																				
+
+										img(src= video.snippet.thumbnails.medium.url, alt= video.snippet.title, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
+								div.title
+									a.title(href="https://www.youtube.com/watch?v=" + video.id.videoId)= video.snippet.title
+				p.copyright
+					| Материалы предоставлены видеохостингом "YouTube"
+		include includes/footer.pug
+		include includes/analytics.pug

@@ -44,6 +44,13 @@ module.exports = {
 			topMenu: true
 		},
 		{
+			titleShort: 'Интересное',
+			titleFull: 'Интересное',
+			titleCaption: 'Посмотри',
+			href: '/interesting',
+			topMenu: true
+		},
+		{
 			titleShort: 'Галерея',
 			titleFull: 'Галерея',
 			href: '/photos',
