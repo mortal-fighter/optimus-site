@@ -8,7 +8,7 @@ const fetch = require('isomorphic-fetch');
 const config = require('../../config/common.js');
 
 router.get('/', function(req, res, next) {
-	const url = `https://www.googleapis.com/youtube/v3/search?key=${config.youtube.key}&part=snippet&maxResults=${config.youtube.count}&q=${encodeURIComponent(config.youtube.searchString)}`;
+	const url = `https://www.googleapis.com/youtube/v3/search?key=${config.youtube.key}&type=video&part=snippet&maxResults=${config.youtube.count}&q=${encodeURIComponent(config.youtube.searchString)}&safeSearch=strict`;
 	fetch(url, {method: 'get'}).then(function(response) {
 		if (!response.ok) {
 			throw new Error('YOUTUBE_IS_UNAVAILABLE');

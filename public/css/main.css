@@ -372,6 +372,23 @@ footer .design-info {
     color: #999;
 }
 
+/* SOCIAL NETWORK SHARING*/
+.sharing {
+    float: left;
+    clear: both;
+    margin-top: 20px;
+    line-height: 24px;
+    color: #999;
+}
+
+span.share42-item {
+    opacity: 0.8;
+}
+
+span.share42-item:hover {
+    opacity: 1;
+}
+
 /* PAGINATION */
 ul.pagination {
     margin: 0 auto;

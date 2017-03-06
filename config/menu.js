@@ -20,7 +20,7 @@ module.exports = {
 			titleCaption: 'Познакомимся',
 			href: '/',
 			hrefSecondary: '/',
-			topMenu: true 
+			topMenu: false 
 		}, 
 		{
 			titleShort: 'Новости',
@@ -45,8 +45,8 @@ module.exports = {
 		},
 		{
 			titleShort: 'Интересное',
-			titleFull: 'Интересное',
-			titleCaption: 'Посмотри',
+			titleFull: 'Интересные материалы о робототехнике',
+			titleCaption: 'Для любознательных',
 			href: '/interesting',
 			topMenu: true
 		},
