@@ -1,6 +1,6 @@
 .video-container {
 	list-style-type: none;
-    margin: 0px 0 0 -19px;
+    margin: 20px 0 0 -19px;
 	padding: 0;
 }
 
@@ -8,7 +8,7 @@
 	float: left;
 	width: 300px;
 	margin-left: 19px;
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 .video-container li img {
@@ -16,8 +16,11 @@
 }
 
 .video-container .cover {
-	width: 300px;
-	height: 180px;
+    position: relative;
+    width: 300px;
+    height: 180px;
+    background: #666767;
+    border-bottom: 1px solid #666767;
 }
 
 .video-container .album {
@@ -33,6 +36,7 @@
     font-size: 12px;
     color: #555;
     overflow: visible;
+    margin-top: 3px;
 }
 
 .video-container a.title,
@@ -41,12 +45,11 @@
 .video-container a.title:active,
 .video-container a.title:visited {
 	text-decoration: none;
-	color: blue;
 	font-size: 12px;
 }
 
 .video-container a.title:hover {
-	color: blue;
+	color: #11719e;
 	text-decoration: underline;
 }
 
@@ -64,4 +67,33 @@
 
 .breadcrumbs a:hover {
 	color: blue;
+}
+
+.cover-frame-left, .cover-frame-right {
+	background: url(../img/video-frame-vertical.png) repeat-y;
+	width: 28px;
+	height: 180px;
+	position: absolute;
+	top: 0;
+}
+
+.cover-frame-left {
+	left: 0;
+}
+
+.cover-frame-right {
+	right: 0;
+}
+
+.cover-play-icon {
+	background: 0px -39px url(../img/video.png) no-repeat;
+	width: 54px;
+	height: 54px;
+	position: absolute;
+	left: 133px;
+	top: 63px;
+}
+
+p.copyright {
+    color: #666;
 }

@@ -56,8 +56,10 @@ html(lang="ru")
 											} else {
 												marginLeft = (maxw - neww) / 2 + 'px';
 											}																				
-
+										i.cover-play-icon
+										i.cover-frame-left
 										img(src= video.snippet.thumbnails.medium.url, alt= video.snippet.title, width= neww, height= newh, style="margin-left: " + marginLeft + "; margin-top: " + marginTop)
+										i.cover-frame-right
 								div.title
 									a.title(href="https://www.youtube.com/watch?v=" + video.id.videoId)= video.snippet.title
 				p.copyright
